@@ -89,7 +89,7 @@
           <artifactId>exec-maven-plugin</artifactId>
           <version>3.6.2</version>
           <configuration>
-            <mainClass>io.tidalIsland.App</mainClass>
+            <mainClass>io.tidalIsland.main.Game</mainClass>
           </configuration>
         </plugin>
       </plugins>

@@ -1,9 +1,6 @@
-package io.tidalIsland;
+package io.tidalIsland.main;
 
-/**
- * Hello world!
- */
-public class App {
+public class Game {
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }
