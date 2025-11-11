@@ -5,6 +5,7 @@ import static io.tidalisland.config.Config.SCREEN_WIDTH;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
@@ -18,5 +19,17 @@ public class GamePanel extends JPanel {
     setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
     setBackground(Color.BLACK);
     setDoubleBuffered(true);
+  }
+
+  /**
+   * Updates the game.
+   */
+  public void update() {
+
+  }
+
+  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
   }
 }
