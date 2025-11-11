@@ -1,5 +1,7 @@
 package io.tidalisland.entities;
 
+import io.tidalisland.collision.Collider;
+import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteSet;
 import io.tidalisland.utils.Direction;
@@ -13,8 +15,9 @@ import java.awt.Graphics;
 public abstract class Entity {
   protected Position position;
   protected Direction direction = Direction.NONE;
-  protected int speed;
+  protected Collider collider;
   protected SpriteSet spriteSet;
+  protected int speed;
 
   /**
    * Creates a new entity.
@@ -35,7 +38,7 @@ public abstract class Entity {
   /**
    * Updates the entity's state.
    */
-  public abstract void update();
+  public abstract void update(CollisionManager collisionManager);
 
   /**
    * Draws the entity.
@@ -50,12 +53,16 @@ public abstract class Entity {
     return direction;
   }
 
-  public int getSpeed() {
-    return speed;
-  }
-
   public SpriteSet getSpriteSet() {
     return spriteSet;
+  }
+
+  public Collider getCollider() {
+    return collider;
+  }
+
+  public int getSpeed() {
+    return speed;
   }
 
   public Size getRenderSize() {

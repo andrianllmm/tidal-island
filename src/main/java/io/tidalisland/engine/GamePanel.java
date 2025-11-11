@@ -3,6 +3,7 @@ package io.tidalisland.engine;
 import static io.tidalisland.config.Config.SCREEN_HEIGHT;
 import static io.tidalisland.config.Config.SCREEN_WIDTH;
 
+import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.tiles.WorldMap;
@@ -17,10 +18,10 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel {
   private KeyHandler keyH;
-  private Camera camera;
   private WorldMap worldMap;
-
   private Player player;
+  private CollisionManager collisionManager;
+  private Camera camera;
 
   /**
    * Sets up the panel.
@@ -35,17 +36,16 @@ public class GamePanel extends JPanel {
     setFocusable(true);
 
     worldMap = new WorldMap();
-
-    camera = new Camera();
-
     player = new Player(keyH);
+    collisionManager = new CollisionManager(worldMap);
+    camera = new Camera();
   }
 
   /**
    * Updates the game.
    */
   public void update() {
-    player.update();
+    player.update(collisionManager);
     camera.update(player);
   }
 
