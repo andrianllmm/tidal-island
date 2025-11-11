@@ -31,6 +31,10 @@ public class WorldMap {
     loadMap("/maps/map00.txt");
   }
 
+  public Tile getTile(int col, int row) {
+    return map[col][row];
+  }
+
   /**
    * Loads a map from a file.
    */

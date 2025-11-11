@@ -14,6 +14,10 @@ public class Position {
     this.y = y;
   }
 
+  public Position copy() {
+    return new Position(x, y);
+  }
+
   /**
    * Moves the position by the given x and y distance.
    */
@@ -89,6 +93,11 @@ public class Position {
 
   public void setY(int y) {
     this.y = y;
+  }
+
+  public void setPosition(Position position) {
+    setX(position.getX());
+    setY(position.getY());
   }
 }
 
