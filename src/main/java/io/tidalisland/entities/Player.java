@@ -5,6 +5,7 @@ import static io.tidalisland.config.Config.SCREEN_WIDTH;
 import static io.tidalisland.config.Config.TILE_SIZE;
 
 import io.tidalisland.engine.KeyHandler;
+import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteAtlas;
 import io.tidalisland.graphics.SpriteFrame;
 import io.tidalisland.graphics.SpriteSetImporter;
@@ -66,13 +67,16 @@ public class Player extends Entity {
   }
 
   @Override
-  public void draw(Graphics g) {
+  public void draw(Graphics g, Camera camera) {
     if (spriteSet == null) {
       return;
     }
 
+    Position screenPos = position.subtract(camera.getPosition());
+
     SpriteFrame currentFrame = spriteSet.getCurrent().getFrame();
     currentFrame.setFlipX(direction == Direction.LEFT);
-    currentFrame.draw(g, position, dimension);
+
+    currentFrame.draw(g, screenPos, dimension);
   }
 }

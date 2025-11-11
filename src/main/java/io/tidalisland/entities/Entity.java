@@ -1,7 +1,7 @@
 package io.tidalisland.entities;
 
 import static io.tidalisland.config.Config.TILE_SIZE;
-
+import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteSet;
 import io.tidalisland.utils.Dimension;
 import io.tidalisland.utils.Direction;
@@ -50,7 +50,7 @@ public abstract class Entity {
   /**
    * Draws the entity.
    */
-  public abstract void draw(Graphics g);
+  public abstract void draw(Graphics g, Camera camera);
 
   public Position getPosition() {
     return position;
