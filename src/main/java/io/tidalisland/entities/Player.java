@@ -5,9 +5,11 @@ import static io.tidalisland.config.Config.SCREEN_WIDTH;
 import static io.tidalisland.config.Config.TILE_SIZE;
 
 import io.tidalisland.engine.KeyHandler;
+import io.tidalisland.graphics.SpriteAtlas;
+import io.tidalisland.graphics.SpriteFrame;
+import io.tidalisland.graphics.SpriteSetImporter;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
-import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -16,9 +18,14 @@ import java.awt.Graphics;
 public class Player extends Entity {
   private KeyHandler keyH;
 
+  /**
+   * Creates a new player entity.
+   */
   public Player(KeyHandler keyH, Position position) {
     super(position, 4);
     this.keyH = keyH;
+    spriteSet = SpriteSetImporter.fromJsonSheet(new SpriteAtlas("/sprites/entities/player.png"),
+        "/sprites/entities/player.json");
   }
 
   public Player(KeyHandler keyH) {
@@ -31,20 +38,41 @@ public class Player extends Entity {
     if (keyH.anyActive("up", "down", "left", "right")) {
       if (keyH.isActive("up")) {
         direction = Direction.UP;
+        spriteSet.setTag("walk_up");
       } else if (keyH.isActive("down")) {
         direction = Direction.DOWN;
+        spriteSet.setTag("walk_down");
       } else if (keyH.isActive("left")) {
         direction = Direction.LEFT;
+        spriteSet.setTag("walk_side");
       } else if (keyH.isActive("right")) {
         direction = Direction.RIGHT;
+        spriteSet.setTag("walk_side");
       }
       position.move(direction, speed);
+    } else {
+      if (direction == Direction.UP) {
+        spriteSet.setTag("idle_up");
+      } else if (direction == Direction.DOWN) {
+        spriteSet.setTag("idle_down");
+      } else if (direction == Direction.LEFT) {
+        spriteSet.setTag("idle_side");
+      } else if (direction == Direction.RIGHT) {
+        spriteSet.setTag("idle_side");
+      }
     }
+
+    spriteSet.update();
   }
 
   @Override
   public void draw(Graphics g) {
-    g.setColor(Color.RED);
-    g.fillRect(position.getX(), position.getY(), dimension.getWidth(), dimension.getHeight());
+    if (spriteSet == null) {
+      return;
+    }
+
+    SpriteFrame currentFrame = spriteSet.getCurrent().getFrame();
+    currentFrame.setFlipX(direction == Direction.LEFT);
+    currentFrame.draw(g, position, dimension);
   }
 }

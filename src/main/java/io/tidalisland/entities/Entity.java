@@ -2,6 +2,7 @@ package io.tidalisland.entities;
 
 import static io.tidalisland.config.Config.TILE_SIZE;
 
+import io.tidalisland.graphics.SpriteSet;
 import io.tidalisland.utils.Dimension;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
@@ -15,6 +16,7 @@ public abstract class Entity {
   protected Dimension dimension;
   protected Direction direction = Direction.NONE;
   protected int speed;
+  protected SpriteSet spriteSet;
 
   /**
    * Creates a new entity.
