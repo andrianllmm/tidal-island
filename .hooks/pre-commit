@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+
+mvn checkstyle:check
+mvn clean verify
