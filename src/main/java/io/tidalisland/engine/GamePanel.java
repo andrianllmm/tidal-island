@@ -14,6 +14,8 @@ import javax.swing.JPanel;
  * The game panel.
  */
 public class GamePanel extends JPanel {
+  private KeyHandler keyH;
+
   private Player player;
 
   /**
@@ -24,7 +26,11 @@ public class GamePanel extends JPanel {
     setBackground(Color.BLACK);
     setDoubleBuffered(true);
 
-    player = new Player();
+    keyH = new KeyHandler();
+    addKeyListener(keyH);
+    setFocusable(true);
+
+    player = new Player(keyH);
   }
 
   /**
