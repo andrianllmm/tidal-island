@@ -25,7 +25,6 @@ public class SpriteFrame {
     this.image = image;
     this.duration = duration;
     size = new Size(image.getWidth() * PIXEL_SCALE, image.getHeight() * PIXEL_SCALE);
-    System.out.println(size);
   }
 
   public SpriteFrame(BufferedImage image) {
@@ -40,7 +39,6 @@ public class SpriteFrame {
       this.image = ImageIO.read(SpriteFrame.class.getResourceAsStream(path));
       this.duration = duration;
       size = new Size(image.getWidth() * PIXEL_SCALE, image.getHeight() * PIXEL_SCALE);
-      System.out.println(size);
     } catch (Exception e) {
       throw new RuntimeException("Failed to load sprite: " + path + " " + e.getMessage(), e);
     }
