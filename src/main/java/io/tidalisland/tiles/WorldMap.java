@@ -1,10 +1,12 @@
 package io.tidalisland.tiles;
 
-import static io.tidalisland.config.Config.COL_TILES;
-import static io.tidalisland.config.Config.ROW_TILES;
+import static io.tidalisland.config.Config.MAP_HEIGHT;
+import static io.tidalisland.config.Config.MAP_WIDTH;
+import static io.tidalisland.config.Config.SCREEN_HEIGHT;
+import static io.tidalisland.config.Config.SCREEN_WIDTH;
 import static io.tidalisland.config.Config.TILE_SIZE;
 
-import io.tidalisland.graphics.SpriteFrame;
+import io.tidalisland.graphics.Camera;
 import io.tidalisland.utils.Dimension;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
@@ -24,7 +26,7 @@ public class WorldMap {
    * Initializes the world map.
    */
   public WorldMap() {
-    map = new Tile[COL_TILES][ROW_TILES];
+    map = new Tile[MAP_HEIGHT][MAP_WIDTH];
     tileSet = new TileSet();
 
     loadMap("/maps/map00.txt");
@@ -34,54 +36,65 @@ public class WorldMap {
    * Loads a map from a file.
    */
   public void loadMap(String path) {
-    try {
-      InputStream is = getClass().getResourceAsStream(path);
-      BufferedReader br = new BufferedReader(new InputStreamReader(is));
+    try (InputStream is = getClass().getResourceAsStream(path);
+        BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
 
-      int col = 0;
+      String line;
       int row = 0;
 
-      while (col < COL_TILES && row < ROW_TILES) {
-        String line = br.readLine();
-        while (col < COL_TILES) {
-          String[] ids = line.split(" ");
+      while ((line = br.readLine()) != null) {
+        if (row >= MAP_HEIGHT) {
+          throw new IllegalArgumentException("Map file has more rows than expected: " + MAP_HEIGHT);
+        }
+
+        String[] ids = line.trim().split("\\s+");
+        if (ids.length != MAP_WIDTH) {
+          throw new IllegalArgumentException("Map file row " + row
+              + " has incorrect number of columns: " + ids.length + ", expected: " + MAP_WIDTH);
+        }
+
+        for (int col = 0; col < MAP_WIDTH; col++) {
           int id = Integer.parseInt(ids[col]);
           map[col][row] = tileSet.getTile(id);
-          col++;
         }
-        if (col == COL_TILES) {
-          col = 0;
-          row++;
-        }
+
+        row++;
       }
+
+      if (row != MAP_HEIGHT) {
+        throw new IllegalArgumentException(
+            "Map file has incorrect number of rows: " + row + ", expected: " + MAP_HEIGHT);
+      }
+
     } catch (IOException e) {
       e.printStackTrace();
     }
-
   }
 
   /**
    * Draws the world map.
    */
-  public void draw(Graphics g) {
-    int col = 0;
-    int row = 0;
+  public void draw(Graphics g, Camera camera) {
+    for (int row = 0; row < MAP_HEIGHT; row++) {
+      for (int col = 0; col < MAP_WIDTH; col++) {
+        Tile tile = map[col][row];
+        if (tile == null) {
+          continue;
+        }
 
-    while (col < COL_TILES && row < ROW_TILES) {
-      Tile tile = map[col][row];
+        Position screenPos = new Position(col * TILE_SIZE, row * TILE_SIZE);
+        screenPos = screenPos.subtract(camera.getPosition());
 
-      SpriteFrame frame = tile.getSprite().getFrame();
-      frame.draw(g, new Position(col * TILE_SIZE, row * TILE_SIZE),
-          new Dimension(TILE_SIZE, TILE_SIZE));
+        // Only draw tiles that are visible on screen
+        if (screenPos.getX() + TILE_SIZE < 0 || screenPos.getX() > SCREEN_WIDTH
+            || screenPos.getY() + TILE_SIZE < 0 || screenPos.getY() > SCREEN_HEIGHT) {
+          continue;
+        }
 
-      col++;
-      if (col == COL_TILES) {
-        col = 0;
-        row++;
+        tile.getSprite().getFrame().draw(g, screenPos, new Dimension(TILE_SIZE, TILE_SIZE));
       }
     }
   }
-
 }
 
 
