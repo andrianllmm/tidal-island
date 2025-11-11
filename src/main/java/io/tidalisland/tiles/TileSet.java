@@ -26,9 +26,9 @@ public class TileSet {
    * Loads the tiles with their sprites and names.
    */
   private void loadTiles() {
-    Tile grass = new Tile("dirt", new Sprite("/sprites/tiles/grass.png"));
-    Tile sand = new Tile("sand", new Sprite("/sprites/tiles/sand.png"));
-    Tile water = new Tile("water", new Sprite("/sprites/tiles/water.png"));
+    Tile grass = new Tile("dirt", new Sprite("/sprites/tiles/grass.png"), false);
+    Tile sand = new Tile("sand", new Sprite("/sprites/tiles/sand.png"), false);
+    Tile water = new Tile("water", new Sprite("/sprites/tiles/water.png"), true);
 
     tiles.add(grass);
     tiles.add(sand);

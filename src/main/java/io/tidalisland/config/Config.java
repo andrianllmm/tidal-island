@@ -19,5 +19,8 @@ public class Config {
 
   // Game loop
   public static final int FPS = 60;
+
+  // Global debug flags
+  public static final boolean SHOW_COLLIDERS = false;
 }
 

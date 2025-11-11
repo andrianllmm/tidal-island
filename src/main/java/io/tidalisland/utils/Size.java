@@ -14,6 +14,15 @@ public class Size {
     this.height = height;
   }
 
+  public void scale(double scaleX, double scaleY) {
+    width = (int) (width * scaleX);
+    height = (int) (height * scaleY);
+  }
+
+  public Size copy() {
+    return new Size(width, height);
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (obj == this) {

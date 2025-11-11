@@ -2,8 +2,12 @@ package io.tidalisland.entities;
 
 import static io.tidalisland.config.Config.SCREEN_HEIGHT;
 import static io.tidalisland.config.Config.SCREEN_WIDTH;
+import static io.tidalisland.config.Config.SHOW_COLLIDERS;
 import static io.tidalisland.config.Config.TILE_SIZE;
 
+import io.tidalisland.collision.ColliderAnchor;
+import io.tidalisland.collision.ColliderFactory;
+import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.engine.KeyHandler;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteAtlas;
@@ -24,9 +28,18 @@ public class Player extends Entity {
    */
   public Player(KeyHandler keyH, Position position) {
     super(position, 4);
+
     this.keyH = keyH;
+
+    // Import sprites
     spriteSet = SpriteSetImporter.fromJsonSheet(new SpriteAtlas("/sprites/entities/player.png"),
         "/sprites/entities/player.json");
+
+    // Create collider
+    collider = ColliderFactory.create(spriteSet.getCurrentFrame().getSize(), 0.6, 0.6,
+        ColliderAnchor.CENTER, ColliderAnchor.BOTTOM);
+    System.out.println(collider.getWidth() + " " + collider.getHeight());
+    collider.updatePosition(position);
   }
 
   public Player(KeyHandler keyH) {
@@ -35,7 +48,10 @@ public class Player extends Entity {
   }
 
   @Override
-  public void update() {
+  public void update(CollisionManager collisionManager) {
+    Position nextPosition = position.copy();
+
+    // Determine movement direction
     if (keyH.anyActive("up", "down", "left", "right")) {
       if (keyH.isActive("up")) {
         direction = Direction.UP;
@@ -50,21 +66,26 @@ public class Player extends Entity {
         direction = Direction.RIGHT;
         spriteSet.setTag("walk_side");
       }
-      position.move(direction, speed);
+      nextPosition.move(direction, speed);
     } else {
-      if (direction == Direction.UP) {
-        spriteSet.setTag("idle_up");
-      } else if (direction == Direction.DOWN) {
-        spriteSet.setTag("idle_down");
-      } else if (direction == Direction.LEFT) {
-        spriteSet.setTag("idle_side");
-      } else if (direction == Direction.RIGHT) {
-        spriteSet.setTag("idle_side");
+      // Idle animation
+      switch (direction) {
+        case UP -> spriteSet.setTag("idle_up");
+        case DOWN -> spriteSet.setTag("idle_down");
+        case LEFT, RIGHT -> spriteSet.setTag("idle_side");
+        default -> {
+        }
       }
+    }
+
+    if (collisionManager.canMove(this, nextPosition)) {
+      position.setPosition(nextPosition);
+      collider.updatePosition(position);
     }
 
     spriteSet.update();
   }
+
 
   @Override
   public void draw(Graphics g, Camera camera) {
@@ -78,5 +99,9 @@ public class Player extends Entity {
     currentFrame.setFlipX(direction == Direction.LEFT);
 
     currentFrame.draw(g, screenPos);
+
+    if (SHOW_COLLIDERS) {
+      collider.draw(g, camera);
+    }
   }
 }
