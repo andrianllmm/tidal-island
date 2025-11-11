@@ -1,4 +1,4 @@
-package io.tidalIsland.main;
+package io.tidalisland.main;
 
 public class Game {
     public static void main(String[] args) {
