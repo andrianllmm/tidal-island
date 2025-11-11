@@ -1,5 +1,7 @@
 package io.tidalisland.graphics;
 
+import static io.tidalisland.config.Config.PIXEL_SCALE;
+
 import io.tidalisland.utils.Dimension;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
@@ -11,6 +13,7 @@ import javax.imageio.ImageIO;
  */
 public class SpriteFrame {
   private BufferedImage image;
+  private Dimension dimension;
   private int duration;
   private boolean flipX;
   private boolean flipY;
@@ -21,6 +24,8 @@ public class SpriteFrame {
   public SpriteFrame(BufferedImage image, int duration) {
     this.image = image;
     this.duration = duration;
+    dimension = new Dimension(image.getWidth() * PIXEL_SCALE, image.getHeight() * PIXEL_SCALE);
+    System.out.println(dimension);
   }
 
   public SpriteFrame(BufferedImage image) {
@@ -32,8 +37,10 @@ public class SpriteFrame {
    */
   public SpriteFrame(String path, int duration) {
     try {
-      image = ImageIO.read(SpriteFrame.class.getResourceAsStream(path));
+      this.image = ImageIO.read(SpriteFrame.class.getResourceAsStream(path));
       this.duration = duration;
+      dimension = new Dimension(image.getWidth() * PIXEL_SCALE, image.getHeight() * PIXEL_SCALE);
+      System.out.println(dimension);
     } catch (Exception e) {
       throw new RuntimeException("Failed to load sprite: " + path + " " + e.getMessage(), e);
     }
@@ -46,7 +53,7 @@ public class SpriteFrame {
   /**
    * Draws the frame.
    */
-  public void draw(Graphics g, Position position, Dimension dimension) {
+  public void draw(Graphics g, Position position) {
     int x = position.getX();
     int y = position.getY();
     int w = dimension.getWidth();
@@ -70,6 +77,10 @@ public class SpriteFrame {
     return image;
   }
 
+  public Dimension getDimension() {
+    return dimension;
+  }
+
   public int getDuration() {
     return duration;
   }
@@ -81,8 +92,6 @@ public class SpriteFrame {
   public boolean isFlipY() {
     return flipY;
   }
-
-
 
   public void setFlipX(boolean flipX) {
     this.flipX = flipX;

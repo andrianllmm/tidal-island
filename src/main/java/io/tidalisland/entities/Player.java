@@ -77,6 +77,6 @@ public class Player extends Entity {
     SpriteFrame currentFrame = spriteSet.getCurrent().getFrame();
     currentFrame.setFlipX(direction == Direction.LEFT);
 
-    currentFrame.draw(g, screenPos, dimension);
+    currentFrame.draw(g, screenPos);
   }
 }
