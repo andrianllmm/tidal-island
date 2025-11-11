@@ -21,8 +21,8 @@ public class Camera {
   public void update(Entity target) {
     int x = target.getPosition().getX();
     int y = target.getPosition().getY();
-    int w = target.getSpriteSet().getCurrent().getFrame().getSize().getWidth();
-    int h = target.getSpriteSet().getCurrent().getFrame().getSize().getHeight();
+    int w = target.getRenderSize().getWidth();
+    int h = target.getRenderSize().getHeight();
 
     int centerX = x + (w / 2) - (SCREEN_WIDTH / 2);
     int centerY = y + (h / 2) - (SCREEN_HEIGHT / 2);

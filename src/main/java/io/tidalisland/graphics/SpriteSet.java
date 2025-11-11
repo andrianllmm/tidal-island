@@ -55,4 +55,8 @@ public class SpriteSet {
   public Sprite getCurrent() {
     return current;
   }
+
+  public SpriteFrame getCurrentFrame() {
+    return current == null ? null : current.getFrame();
+  }
 }

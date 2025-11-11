@@ -4,6 +4,7 @@ import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteSet;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
+import io.tidalisland.utils.Size;
 import java.awt.Graphics;
 
 /**
@@ -55,6 +56,10 @@ public abstract class Entity {
 
   public SpriteSet getSpriteSet() {
     return spriteSet;
+  }
+
+  public Size getRenderSize() {
+    return spriteSet.getCurrentFrame().getSize();
   }
 
   public void setDirection(Direction direction) {
