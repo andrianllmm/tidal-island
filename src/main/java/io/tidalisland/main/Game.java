@@ -1,5 +1,6 @@
 package io.tidalisland.main;
 
+import io.tidalisland.engine.GameLoop;
 import io.tidalisland.engine.GamePanel;
 import javax.swing.JFrame;
 
@@ -21,5 +22,8 @@ public class Game {
 
     window.setLocationRelativeTo(null);
     window.setVisible(true);
+
+    GameLoop gameLoop = new GameLoop(gamePanel);
+    gameLoop.start();
   }
 }
