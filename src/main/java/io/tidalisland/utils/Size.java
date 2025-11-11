@@ -3,13 +3,13 @@ package io.tidalisland.utils;
 import java.util.Objects;
 
 /**
- * 2D dimension.
+ * 2D size.
  */
-public class Dimension {
+public class Size {
   private int width;
   private int height;
 
-  public Dimension(int width, int height) {
+  public Size(int width, int height) {
     this.width = width;
     this.height = height;
   }
@@ -19,10 +19,10 @@ public class Dimension {
     if (obj == this) {
       return true;
     }
-    if (!(obj instanceof Dimension)) {
+    if (!(obj instanceof Size)) {
       return false;
     }
-    final Dimension other = (Dimension) obj;
+    final Size other = (Size) obj;
     return this.width == other.getWidth() && this.height == other.getHeight();
   }
 

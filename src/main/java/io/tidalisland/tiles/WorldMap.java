@@ -7,7 +7,6 @@ import static io.tidalisland.config.Config.SCREEN_WIDTH;
 import static io.tidalisland.config.Config.TILE_SIZE;
 
 import io.tidalisland.graphics.Camera;
-import io.tidalisland.utils.Dimension;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
 import java.io.BufferedReader;
@@ -91,7 +90,7 @@ public class WorldMap {
           continue;
         }
 
-        tile.getSprite().getFrame().draw(g, screenPos, new Dimension(TILE_SIZE, TILE_SIZE));
+        tile.getSprite().getFrame().draw(g, screenPos);
       }
     }
   }

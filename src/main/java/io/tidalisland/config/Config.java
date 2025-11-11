@@ -5,9 +5,9 @@ package io.tidalisland.config;
  */
 public class Config {
   // Tile & screen
-  public static final int BASE_TILE_SIZE = 32;
-  public static final int TILE_SCALE = 2;
-  public static final int TILE_SIZE = BASE_TILE_SIZE * TILE_SCALE;
+  public static final int PIXEL_SCALE = 4;
+  public static final int BASE_TILE_SIZE = 16;
+  public static final int TILE_SIZE = BASE_TILE_SIZE * PIXEL_SCALE;
 
   public static final int COL_TILES = 16;
   public static final int ROW_TILES = 12;
