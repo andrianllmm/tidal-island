@@ -6,5 +6,6 @@
   "java.checkstyle.configuration": "/google_checks.xml",
   "java.format.enabled": true,
   "java.format.settings.profile": "GoogleStyle",
-  "java.format.settings.url": "https://google.github.io/styleguide/eclipse-java-google-style.xml"
+  "java.format.settings.url": "https://google.github.io/styleguide/eclipse-java-google-style.xml",
+  "java.configuration.updateBuildConfiguration": "interactive"
 }
