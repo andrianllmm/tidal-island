@@ -4,6 +4,7 @@ import static io.tidalisland.config.Config.SCREEN_HEIGHT;
 import static io.tidalisland.config.Config.SCREEN_WIDTH;
 
 import io.tidalisland.entities.Player;
+import io.tidalisland.tiles.WorldMap;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel {
   private KeyHandler keyH;
+  private WorldMap worldMap;
 
   private Player player;
 
@@ -29,6 +31,8 @@ public class GamePanel extends JPanel {
     keyH = new KeyHandler();
     addKeyListener(keyH);
     setFocusable(true);
+
+    worldMap = new WorldMap();
 
     player = new Player(keyH);
   }
@@ -46,6 +50,7 @@ public class GamePanel extends JPanel {
     Graphics2D g2 = (Graphics2D) g;
 
     try {
+      worldMap.draw(g2);
       player.draw(g2);
     } finally {
       g2.dispose();
