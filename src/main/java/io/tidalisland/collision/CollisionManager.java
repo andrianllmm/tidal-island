@@ -6,16 +6,19 @@ import io.tidalisland.entities.Entity;
 import io.tidalisland.tiles.Tile;
 import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.utils.Position;
+import io.tidalisland.worldobjects.WorldObject;
+import io.tidalisland.worldobjects.WorldObjectManager;
 
 /**
  * Manages collisions between entities and the world.
  */
 public class CollisionManager {
-
   private final WorldMap worldMap;
+  private final WorldObjectManager worldObjectManager;
 
-  public CollisionManager(WorldMap worldMap) {
+  public CollisionManager(WorldMap worldMap, WorldObjectManager worldObjectManager) {
     this.worldMap = worldMap;
+    this.worldObjectManager = worldObjectManager;
   }
 
   /**
@@ -28,6 +31,12 @@ public class CollisionManager {
 
     // Check collision with world tiles
     if (collidesWithTiles(future)) {
+      return false;
+    }
+
+    // Check collision with world objects
+    WorldObject worldObj = getCollidingObject(future);
+    if (worldObj != null && worldObj.isSolid()) {
       return false;
     }
 
@@ -68,4 +77,28 @@ public class CollisionManager {
 
     return false;
   }
+
+  /**
+   * Checks if a collider intersects any world objects in the world.
+   */
+  private WorldObject getCollidingObject(Collider collider) {
+    int startCol = collider.getX() / TILE_SIZE;
+    int startRow = collider.getY() / TILE_SIZE;
+    int endCol = (collider.getX() + collider.getWidth() - 1) / TILE_SIZE;
+    int endRow = (collider.getY() + collider.getHeight() - 1) / TILE_SIZE;
+
+    for (int row = startRow; row <= endRow; row++) {
+      for (int col = startCol; col <= endCol; col++) {
+        Position pos = new Position(col * TILE_SIZE, row * TILE_SIZE);
+        WorldObject obj = worldObjectManager.get(pos);
+
+        if (obj != null && collider.intersects(obj.getCollider())) {
+          return obj;
+        }
+      }
+    }
+
+    return null;
+  }
+
 }

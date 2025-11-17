@@ -32,4 +32,21 @@ public class ColliderFactory {
     collider.setOffset(offsetX, offsetY);
     return collider;
   }
+
+  public static Collider create(Size containerSize, double scale, ColliderAnchor anchor) {
+    return create(containerSize, scale, scale, anchor, anchor);
+  }
+
+  public static Collider create(Size containerSize, double scaleX, double scaleY) {
+    return create(containerSize, scaleX, scaleY, ColliderAnchor.CENTER, ColliderAnchor.CENTER);
+  }
+
+  public static Collider create(Size containerSize, ColliderAnchor anchorX,
+      ColliderAnchor anchorY) {
+    return create(containerSize, 1.0, 1.0, anchorX, anchorY);
+  }
+
+  public static Collider create(Size containerSize) {
+    return create(containerSize, 1.0, 1.0, ColliderAnchor.CENTER, ColliderAnchor.CENTER);
+  }
 }

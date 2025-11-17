@@ -15,6 +15,7 @@ import io.tidalisland.graphics.SpriteFrame;
 import io.tidalisland.graphics.SpriteSetImporter;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
+import io.tidalisland.worldobjects.InteractionManager;
 import java.awt.Graphics;
 
 /**
@@ -38,7 +39,6 @@ public class Player extends Entity {
     // Create collider
     collider = ColliderFactory.create(spriteSet.getCurrentFrame().getSize(), 0.6, 0.6,
         ColliderAnchor.CENTER, ColliderAnchor.BOTTOM);
-    System.out.println(collider.getWidth() + " " + collider.getHeight());
     collider.updatePosition(position);
   }
 
@@ -48,8 +48,12 @@ public class Player extends Entity {
   }
 
   @Override
-  public void update(CollisionManager collisionManager) {
+  public void update(CollisionManager collisionManager, InteractionManager interactionManager) {
     Position nextPosition = position.copy();
+
+    if (keyH.isJustPressed("interact")) {
+      interactionManager.interact(this);
+    }
 
     // Determine movement direction
     if (keyH.anyActive("up", "down", "left", "right")) {
@@ -85,7 +89,6 @@ public class Player extends Entity {
 
     spriteSet.update();
   }
-
 
   @Override
   public void draw(Graphics g, Camera camera) {

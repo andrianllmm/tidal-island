@@ -1,6 +1,7 @@
 package io.tidalisland.collision;
 
 import io.tidalisland.graphics.Camera;
+import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
 import io.tidalisland.utils.Size;
 import java.awt.Color;
@@ -48,6 +49,27 @@ public class Collider {
 
   public void updatePosition(Position position) {
     updatePosition(position.getX(), position.getY());
+  }
+
+  /**
+   * Moves the collider with a given distance.
+   */
+  public void move(int dx, int dy) {
+    rect.x += dx;
+    rect.y += dy;
+  }
+
+  /**
+   * Moves the collider in a given direction.
+   */
+  public void move(Direction direction, int distance) {
+    switch (direction) {
+      case UP -> rect.y -= distance;
+      case DOWN -> rect.y += distance;
+      case LEFT -> rect.x -= distance;
+      case RIGHT -> rect.x += distance;
+      default -> throw new IllegalArgumentException("Invalid direction: " + direction);
+    }
   }
 
   /**

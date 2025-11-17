@@ -53,6 +53,7 @@ public class GameLoop implements Runnable {
       if (delta >= 1) {
         gamePanel.update();
         gamePanel.repaint();
+        gamePanel.endFrame();
         delta--;
       }
 

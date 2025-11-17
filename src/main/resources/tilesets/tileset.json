@@ -1,0 +1,22 @@
+{
+  "tileset": [
+    {
+      "id": 0,
+      "name": "grass",
+      "sprite": "/sprites/tiles/grass.png",
+      "solid": false
+    },
+    {
+      "id": 1,
+      "name": "sand",
+      "sprite": "/sprites/tiles/sand.png",
+      "solid": false
+    },
+    {
+      "id": 2,
+      "name": "water",
+      "sprite": "/sprites/tiles/water.png",
+      "solid": true
+    }
+  ]
+}
