@@ -38,7 +38,6 @@ public class Player extends Entity {
     // Create collider
     collider = ColliderFactory.create(spriteSet.getCurrentFrame().getSize(), 0.6, 0.6,
         ColliderAnchor.CENTER, ColliderAnchor.BOTTOM);
-    System.out.println(collider.getWidth() + " " + collider.getHeight());
     collider.updatePosition(position);
   }
 
@@ -85,7 +84,6 @@ public class Player extends Entity {
 
     spriteSet.update();
   }
-
 
   @Override
   public void draw(Graphics g, Camera camera) {
