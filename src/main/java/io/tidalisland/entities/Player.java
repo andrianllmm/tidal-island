@@ -15,6 +15,7 @@ import io.tidalisland.graphics.SpriteFrame;
 import io.tidalisland.graphics.SpriteSetImporter;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
+import io.tidalisland.worldobjects.InteractionManager;
 import java.awt.Graphics;
 
 /**
@@ -47,8 +48,12 @@ public class Player extends Entity {
   }
 
   @Override
-  public void update(CollisionManager collisionManager) {
+  public void update(CollisionManager collisionManager, InteractionManager interactionManager) {
     Position nextPosition = position.copy();
+
+    if (keyH.isJustPressed("interact")) {
+      interactionManager.interact(this);
+    }
 
     // Determine movement direction
     if (keyH.anyActive("up", "down", "left", "right")) {

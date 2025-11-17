@@ -3,6 +3,7 @@ package io.tidalisland.worldobjects;
 import static io.tidalisland.config.Config.SHOW_COLLIDERS;
 
 import io.tidalisland.collision.ColliderFactory;
+import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteAtlas;
 import io.tidalisland.graphics.SpriteSetImporter;
@@ -12,7 +13,7 @@ import java.awt.Graphics;
 /**
  * Represents a tree.
  */
-public class Tree extends WorldObject {
+public class Tree extends WorldObject implements Interactable {
   /**
    * Creates a new tree.
    */
@@ -22,6 +23,11 @@ public class Tree extends WorldObject {
         "/sprites/worldobjects/tree.json");
     collider = ColliderFactory.create(spriteSet.getCurrentFrame().getSize());
     collider.updatePosition(position);
+  }
+
+  @Override
+  public void interact(Player player) {
+    System.out.println("Tree interacted");
   }
 
   @Override

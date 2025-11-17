@@ -1,6 +1,7 @@
 package io.tidalisland.worldobjects;
 
 import io.tidalisland.collision.Collider;
+import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteSet;
 import io.tidalisland.utils.Position;
@@ -24,6 +25,8 @@ public abstract class WorldObject {
     this.position = position;
     this.solid = solid;
   }
+
+  public void interact(Player player) {}
 
   public abstract void update();
 

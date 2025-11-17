@@ -13,6 +13,7 @@ import java.util.Map;
 public class KeyHandler implements KeyListener {
   private final Map<String, List<Integer>> keyBindings;
   private final Map<String, Boolean> actionStates;
+  private final Map<String, Boolean> justPressed = new HashMap<>();
 
   /**
    * Creates a new key handler.
@@ -20,7 +21,8 @@ public class KeyHandler implements KeyListener {
   public KeyHandler() {
     keyBindings = Map.of("up", List.of(KeyEvent.VK_UP, KeyEvent.VK_W), "down",
         List.of(KeyEvent.VK_DOWN, KeyEvent.VK_S), "left", List.of(KeyEvent.VK_LEFT, KeyEvent.VK_A),
-        "right", List.of(KeyEvent.VK_RIGHT, KeyEvent.VK_D));
+        "right", List.of(KeyEvent.VK_RIGHT, KeyEvent.VK_D), "interact", List.of(KeyEvent.VK_E));
+
 
     actionStates = new HashMap<>();
     for (String action : keyBindings.keySet()) {
@@ -40,6 +42,20 @@ public class KeyHandler implements KeyListener {
    */
   public boolean anyActive(String... actions) {
     return Arrays.stream(actions).anyMatch(actionStates::get);
+  }
+
+  /**
+   * Checks if a key was just pressed.
+   */
+  public boolean isJustPressed(String action) {
+    return justPressed.getOrDefault(action, false);
+  }
+
+  /**
+   * Called once per frame.
+   */
+  public void endFrame() {
+    justPressed.clear();
   }
 
   @Override
@@ -64,6 +80,9 @@ public class KeyHandler implements KeyListener {
   public void keyTyped(KeyEvent e) {}
 
   private void press(String action) {
+    if (!actionStates.getOrDefault(action, false)) {
+      justPressed.put(action, true);
+    }
     actionStates.put(action, true);
   }
 

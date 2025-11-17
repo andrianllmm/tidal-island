@@ -2,6 +2,7 @@ package io.tidalisland.worldobjects;
 
 import static io.tidalisland.config.Config.TILE_SIZE;
 
+import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
@@ -29,6 +30,16 @@ public class WorldObjectManager {
     add(new Tree(new Position(6 * TILE_SIZE, 7 * TILE_SIZE)));
     add(new Tree(new Position(11 * TILE_SIZE, 13 * TILE_SIZE)));
     add(new Tree(new Position(5 * TILE_SIZE, 14 * TILE_SIZE)));
+  }
+
+  /**
+   * Interacts with a world object at a given position.
+   */
+  public void interactAt(Position pos, Player player) {
+    WorldObject obj = worldObjects.get(pos);
+    if (obj instanceof Interactable i) {
+      i.interact(player);
+    }
   }
 
   /**

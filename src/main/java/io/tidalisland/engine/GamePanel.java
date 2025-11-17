@@ -7,6 +7,7 @@ import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.tiles.WorldMap;
+import io.tidalisland.worldobjects.InteractionManager;
 import io.tidalisland.worldobjects.WorldObjectManager;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,6 +24,7 @@ public class GamePanel extends JPanel {
   private Player player;
   private WorldObjectManager worldObjectManager;
   private CollisionManager collisionManager;
+  private InteractionManager interactionManager;
   private Camera camera;
 
   /**
@@ -41,6 +43,7 @@ public class GamePanel extends JPanel {
     player = new Player(keyH);
     worldObjectManager = new WorldObjectManager();
     collisionManager = new CollisionManager(worldMap, worldObjectManager);
+    interactionManager = new InteractionManager(worldObjectManager);
     camera = new Camera();
   }
 
@@ -49,7 +52,7 @@ public class GamePanel extends JPanel {
    */
   public void update() {
     worldObjectManager.update();
-    player.update(collisionManager);
+    player.update(collisionManager, interactionManager);
     camera.update(player);
   }
 
@@ -65,5 +68,9 @@ public class GamePanel extends JPanel {
     } finally {
       g2.dispose();
     }
+  }
+
+  public void endFrame() {
+    keyH.endFrame();
   }
 }
