@@ -1,7 +1,5 @@
 package io.tidalisland.worldobjects;
 
-import static io.tidalisland.config.Config.TILE_SIZE;
-
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.utils.Position;
@@ -16,20 +14,15 @@ import java.util.Map;
 public class WorldObjectManager {
   Map<Position, WorldObject> worldObjects;
 
+  /**
+   * Creates a new world object manager.
+   */
   public WorldObjectManager() {
     worldObjects = new HashMap<>();
-    init();
-  }
 
-  /**
-   * Initializes the world objects.
-   */
-  private void init() {
-    add(new Tree(new Position(10 * TILE_SIZE, 10 * TILE_SIZE)));
-    add(new Tree(new Position(9 * TILE_SIZE, 8 * TILE_SIZE)));
-    add(new Tree(new Position(6 * TILE_SIZE, 7 * TILE_SIZE)));
-    add(new Tree(new Position(11 * TILE_SIZE, 13 * TILE_SIZE)));
-    add(new Tree(new Position(5 * TILE_SIZE, 14 * TILE_SIZE)));
+    for (WorldObject obj : WorldObjectLoader.load("/maps/map.json")) {
+      add(obj);
+    }
   }
 
   /**

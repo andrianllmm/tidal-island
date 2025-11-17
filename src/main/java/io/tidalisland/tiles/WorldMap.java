@@ -9,69 +9,23 @@ import static io.tidalisland.config.Config.TILE_SIZE;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
  * The world map.
  */
 public class WorldMap {
   Tile[][] map;
-  TileSet tileSet;
 
   /**
    * Initializes the world map.
    */
   public WorldMap() {
     map = new Tile[MAP_HEIGHT][MAP_WIDTH];
-    tileSet = new TileSet();
-
-    loadMap("/maps/map00.txt");
+    map = WorldMapLoader.load("/maps/map.json");
   }
 
   public Tile getTile(int col, int row) {
     return map[col][row];
-  }
-
-  /**
-   * Loads a map from a file.
-   */
-  public void loadMap(String path) {
-    try (InputStream is = getClass().getResourceAsStream(path);
-        BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
-
-      String line;
-      int row = 0;
-
-      while ((line = br.readLine()) != null) {
-        if (row >= MAP_HEIGHT) {
-          throw new IllegalArgumentException("Map file has more rows than expected: " + MAP_HEIGHT);
-        }
-
-        String[] ids = line.trim().split("\\s+");
-        if (ids.length != MAP_WIDTH) {
-          throw new IllegalArgumentException("Map file row " + row
-              + " has incorrect number of columns: " + ids.length + ", expected: " + MAP_WIDTH);
-        }
-
-        for (int col = 0; col < MAP_WIDTH; col++) {
-          int id = Integer.parseInt(ids[col]);
-          map[col][row] = tileSet.getTile(id);
-        }
-
-        row++;
-      }
-
-      if (row != MAP_HEIGHT) {
-        throw new IllegalArgumentException(
-            "Map file has incorrect number of rows: " + row + ", expected: " + MAP_HEIGHT);
-      }
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 
   /**
