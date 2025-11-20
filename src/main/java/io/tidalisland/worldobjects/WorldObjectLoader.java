@@ -36,17 +36,17 @@ public class WorldObjectLoader {
       for (int i = 0; i < objects.length(); i++) {
         JSONObject obj = objects.getJSONObject(i);
 
-        String type = obj.getString("type");
+        String id = obj.getString("id");
         JSONArray pos = obj.getJSONArray("position");
 
         int x = pos.getInt(0) * TILE_SIZE;
         int y = pos.getInt(1) * TILE_SIZE;
 
-        WorldObject created = WorldObjectFactory.create(type, new Position(x, y));
+        WorldObject created = WorldObjectFactory.create(id, new Position(x, y));
         if (created != null) {
           result.add(created);
         } else {
-          System.err.println("Unknown world object type: " + type);
+          System.err.println("Unknown world object id: " + id);
         }
       }
 

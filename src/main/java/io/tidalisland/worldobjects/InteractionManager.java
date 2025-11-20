@@ -34,7 +34,7 @@ public class InteractionManager {
       }
 
       for (Drop drop : result.drops) {
-        player.getInventory().add(drop.getType(), drop.getQuantity());
+        player.getInventory().add(drop.getItemId(), drop.getQuantity());
       }
     }
   }

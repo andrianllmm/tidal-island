@@ -7,7 +7,7 @@ import java.util.Map;
  * Represents the player's inventory.
  */
 public class Inventory {
-  private final Map<String, Integer> items = new HashMap<>(); // item type -> quantity
+  private final Map<String, Integer> items = new HashMap<>(); // item id -> quantity
 
   /**
    * Adds an item to the inventory.

@@ -27,11 +27,11 @@
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
   ],
   "objects": [
-    { "type": "tree", "position": [10, 10] },
-    { "type": "tree", "position": [9, 8] },
-    { "type": "tree", "position": [6, 7] },
-    { "type": "tree", "position": [11, 13] },
-    { "type": "tree", "position": [5, 14] }
+    { "id": "tree", "position": [10, 10] },
+    { "id": "tree", "position": [9, 8] },
+    { "id": "tree", "position": [6, 7] },
+    { "id": "tree", "position": [11, 13] },
+    { "id": "tree", "position": [5, 14] }
   ],
   "tileset": "/tilesets/tileset.json"
 }

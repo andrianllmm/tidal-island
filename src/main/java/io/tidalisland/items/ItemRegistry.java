@@ -14,15 +14,15 @@ public final class ItemRegistry {
   }
 
   public static void register(Item item) {
-    ITEMS.put(item.getType(), item);
+    ITEMS.put(item.getId(), item);
   }
 
-  public static Item get(String type) {
-    return ITEMS.get(type);
+  public static Item get(String itemId) {
+    return ITEMS.get(itemId);
   }
 
-  public static boolean has(String type) {
-    return ITEMS.containsKey(type);
+  public static boolean has(String itemId) {
+    return ITEMS.containsKey(itemId);
   }
 
   public static String view() {

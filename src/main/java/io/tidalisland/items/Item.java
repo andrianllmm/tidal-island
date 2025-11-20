@@ -4,15 +4,15 @@ package io.tidalisland.items;
  * Represents an item.
  */
 public abstract class Item {
-  protected String type;
+  protected String id;
   protected String description;
 
-  public Item(String type) {
-    this.type = type;
+  public Item(String id) {
+    this.id = id;
   }
 
-  public String getType() {
-    return type;
+  public String getId() {
+    return id;
   }
 
   public String getDescription() {
