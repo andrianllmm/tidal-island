@@ -9,11 +9,14 @@ import io.tidalisland.graphics.SpriteAtlas;
 import io.tidalisland.graphics.SpriteSetImporter;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
+import java.util.List;
 
 /**
  * Represents a tree.
  */
 public class Tree extends WorldObject implements Interactable {
+  private int health = 5;
+
   /**
    * Creates a new tree.
    */
@@ -26,8 +29,13 @@ public class Tree extends WorldObject implements Interactable {
   }
 
   @Override
-  public void interact(Player player) {
-    System.out.println("Tree interacted");
+  public InteractResult interact(Player player) {
+    health--;
+    if (health <= 0) {
+      List<Drop> drops = List.of(new Drop("wood", 1));
+      return new InteractResult(drops, true);
+    }
+    return new InteractResult(List.of(), false);
   }
 
   @Override

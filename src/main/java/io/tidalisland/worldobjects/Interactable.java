@@ -9,5 +9,5 @@ public interface Interactable {
   /**
    * Called when the object is interacted with.
    */
-  void interact(Player player);
+  InteractResult interact(Player player);
 }
