@@ -17,7 +17,13 @@ public final class ItemRegistry {
     ITEMS.put(item.getId(), item);
   }
 
+  /**
+   * Gets an item by id.
+   */
   public static Item get(String itemId) {
+    if (!has(itemId)) {
+      System.err.println("Item not found: " + itemId);
+    }
     return ITEMS.get(itemId);
   }
 
