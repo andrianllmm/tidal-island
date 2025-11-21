@@ -9,8 +9,8 @@ public class WorldObjectFactory {
   /**
    * Creates a world object.
    */
-  public static WorldObject create(String type, Position pos) {
-    return switch (type) {
+  public static WorldObject create(String id, Position pos) {
+    return switch (id) {
       case "tree" -> new Tree(pos);
       default -> null;
     };

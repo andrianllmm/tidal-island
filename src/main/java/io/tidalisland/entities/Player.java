@@ -13,6 +13,7 @@ import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteAtlas;
 import io.tidalisland.graphics.SpriteFrame;
 import io.tidalisland.graphics.SpriteSetImporter;
+import io.tidalisland.inventory.Inventory;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
 import io.tidalisland.worldobjects.InteractionManager;
@@ -22,6 +23,7 @@ import java.awt.Graphics;
  * The player entity.
  */
 public class Player extends Entity {
+  private Inventory inventory;
   private KeyHandler keyH;
 
   /**
@@ -30,6 +32,7 @@ public class Player extends Entity {
   public Player(KeyHandler keyH, Position position) {
     super(position, 4);
 
+    this.inventory = new Inventory();
     this.keyH = keyH;
 
     // Import sprites
@@ -106,5 +109,9 @@ public class Player extends Entity {
     if (SHOW_COLLIDERS) {
       collider.draw(g, camera);
     }
+  }
+
+  public Inventory getInventory() {
+    return inventory;
   }
 }

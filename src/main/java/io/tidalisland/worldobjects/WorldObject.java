@@ -1,7 +1,6 @@
 package io.tidalisland.worldobjects;
 
 import io.tidalisland.collision.Collider;
-import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteSet;
 import io.tidalisland.utils.Position;
@@ -11,7 +10,7 @@ import java.awt.Graphics;
  * Represents an object in the world.
  */
 public abstract class WorldObject {
-  protected String type;
+  protected String id;
   protected Position position;
   protected SpriteSet spriteSet;
   protected Collider collider;
@@ -20,20 +19,18 @@ public abstract class WorldObject {
   /**
    * Creates a new world object.
    */
-  public WorldObject(String type, Position position, boolean solid) {
-    this.type = type;
+  public WorldObject(String id, Position position, boolean solid) {
+    this.id = id;
     this.position = position;
     this.solid = solid;
   }
-
-  public void interact(Player player) {}
 
   public abstract void update();
 
   public abstract void draw(Graphics g, Camera camera);
 
-  public String getType() {
-    return type;
+  public String getId() {
+    return id;
   }
 
   public Position getPosition() {

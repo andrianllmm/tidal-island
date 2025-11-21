@@ -23,7 +23,19 @@ public class InteractionManager {
   public void interact(Player player) {
     WorldObject obj = getObjectInFront(player);
     if (obj instanceof Interactable interactable) {
-      interactable.interact(player);
+      InteractResult result = interactable.interact(player);
+
+      if (result == null) {
+        return;
+      }
+
+      if (result.destroyed) {
+        worldObjectManager.remove(obj);
+      }
+
+      for (Drop drop : result.drops) {
+        player.getInventory().add(drop.getItemId(), drop.getQuantity());
+      }
     }
   }
 
