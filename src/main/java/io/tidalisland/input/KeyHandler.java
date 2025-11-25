@@ -1,4 +1,4 @@
-package io.tidalisland.engine;
+package io.tidalisland.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

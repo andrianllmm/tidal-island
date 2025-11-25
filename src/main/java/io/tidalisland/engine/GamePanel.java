@@ -6,6 +6,8 @@ import static io.tidalisland.config.Config.SCREEN_WIDTH;
 import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
+import io.tidalisland.input.KeyHandler;
+import io.tidalisland.input.MouseHandler;
 import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.ui.UiManager;
 import io.tidalisland.worldobjects.InteractionManager;
@@ -21,8 +23,10 @@ import javax.swing.SwingUtilities;
  * The game panel.
  */
 public class GamePanel extends JPanel {
-  private KeyHandler keyH;
-  private MouseHandler mouseH;
+  // Input handlers
+  private KeyHandler keys;
+  private MouseHandler mouse;
+
   private WorldMap worldMap;
   private Player player;
   private WorldObjectManager worldObjectManager;
@@ -39,23 +43,24 @@ public class GamePanel extends JPanel {
     setBackground(Color.BLACK);
     setDoubleBuffered(true);
 
-    keyH = new KeyHandler();
-    mouseH = new MouseHandler();
-    addMouseListener(mouseH);
-    addMouseMotionListener(mouseH);
-    addMouseWheelListener(mouseH);
+    // Initialize input handlers
+    keys = new KeyHandler();
+    mouse = new MouseHandler();
+    addMouseListener(mouse);
+    addMouseMotionListener(mouse);
+    addMouseWheelListener(mouse);
 
-    addKeyListener(keyH);
+    addKeyListener(keys);
     setFocusable(true);
     SwingUtilities.invokeLater(() -> requestFocusInWindow());
 
     worldMap = new WorldMap();
-    player = new Player(keyH);
+    player = new Player(keys);
     worldObjectManager = new WorldObjectManager();
     collisionManager = new CollisionManager(worldMap, worldObjectManager);
     interactionManager = new InteractionManager(worldObjectManager);
     camera = new Camera();
-    ui = new UiManager(player.getInventory());
+    ui = new UiManager(keys, mouse, player.getInventory());
   }
 
   /**
@@ -65,7 +70,7 @@ public class GamePanel extends JPanel {
     worldObjectManager.update();
     player.update(collisionManager, interactionManager);
     camera.update(player);
-    ui.update(keyH);
+    ui.update();
   }
 
   @Override
@@ -84,7 +89,7 @@ public class GamePanel extends JPanel {
   }
 
   public void endFrame() {
-    keyH.endFrame();
-    mouseH.endFrame();
+    keys.endFrame();
+    mouse.endFrame();
   }
 }

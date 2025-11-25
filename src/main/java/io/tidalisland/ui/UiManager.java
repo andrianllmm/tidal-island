@@ -1,6 +1,7 @@
 package io.tidalisland.ui;
 
-import io.tidalisland.engine.KeyHandler;
+import io.tidalisland.input.KeyHandler;
+import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
 import java.awt.Graphics2D;
 
@@ -8,9 +9,13 @@ import java.awt.Graphics2D;
  * Manages all UI elements.
  */
 public class UiManager {
+  private KeyHandler keys;
+  private MouseHandler mouse;
   private UiInventoryPanel inventoryPanel;
 
-  public UiManager(Inventory inventory) {
+  public UiManager(KeyHandler keys, MouseHandler mouse, Inventory inventory) {
+    this.keys = keys;
+    this.mouse = mouse;
     inventoryPanel = new UiInventoryPanel(inventory, 20, 20);
   }
 
@@ -21,9 +26,9 @@ public class UiManager {
   /**
    * Updates UI state.
    */
-  public void update(KeyHandler keyH) {
+  public void update() {
     inventoryPanel.update();
-    if (keyH.isJustPressed("toggle_inventory")) {
+    if (keys.isJustPressed("toggle_inventory")) {
       inventoryPanel.setVisible(!inventoryPanel.isVisible());
     }
   }
