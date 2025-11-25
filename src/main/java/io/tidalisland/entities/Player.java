@@ -59,17 +59,17 @@ public class Player extends Entity {
     }
 
     // Determine movement direction
-    if (keyH.anyActive("up", "down", "left", "right")) {
-      if (keyH.isActive("up")) {
+    if (keyH.anyDown("up", "down", "left", "right")) {
+      if (keyH.isDown("up")) {
         direction = Direction.UP;
         spriteSet.setTag("walk_up");
-      } else if (keyH.isActive("down")) {
+      } else if (keyH.isDown("down")) {
         direction = Direction.DOWN;
         spriteSet.setTag("walk_down");
-      } else if (keyH.isActive("left")) {
+      } else if (keyH.isDown("left")) {
         direction = Direction.LEFT;
         spriteSet.setTag("walk_side");
-      } else if (keyH.isActive("right")) {
+      } else if (keyH.isDown("right")) {
         direction = Direction.RIGHT;
         spriteSet.setTag("walk_side");
       }

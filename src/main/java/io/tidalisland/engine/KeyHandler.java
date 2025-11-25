@@ -8,15 +8,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Handles key events.
+ * Manages keyboard input for the game.
  */
 public class KeyHandler implements KeyListener {
+  // Map of action names -> list of key codes.
   private final Map<String, List<Integer>> keyBindings;
-  private final Map<String, Boolean> actionStates;
+
+  // Stores whether each action is currently held down (action name -> true/false).
+  private final Map<String, Boolean> heldDown;
+
+  // Records actions that were just pressed this frame.
   private final Map<String, Boolean> justPressed = new HashMap<>();
 
   /**
-   * Creates a new key handler.
+   * Initializes default key bindings and state.
    */
   public KeyHandler() {
     keyBindings = Map.of("up", List.of(KeyEvent.VK_UP, KeyEvent.VK_W), "down",
@@ -24,35 +29,35 @@ public class KeyHandler implements KeyListener {
         "right", List.of(KeyEvent.VK_RIGHT, KeyEvent.VK_D), "interact", List.of(KeyEvent.VK_E),
         "toggle_inventory", List.of(KeyEvent.VK_I));
 
-    actionStates = new HashMap<>();
+    heldDown = new HashMap<>();
     for (String action : keyBindings.keySet()) {
-      actionStates.put(action, false);
+      heldDown.put(action, false);
     }
   }
 
   /**
-   * Checks if a key is active.
+   * Returns true if the action is currently held down.
    */
-  public boolean isActive(String action) {
-    return actionStates.getOrDefault(action, false);
+  public boolean isDown(String action) {
+    return heldDown.getOrDefault(action, false);
   }
 
   /**
-   * Checks if any of the given keys are active.
+   * Returns true if any of the given actions are currently held down.
    */
-  public boolean anyActive(String... actions) {
-    return Arrays.stream(actions).anyMatch(actionStates::get);
+  public boolean anyDown(String... actions) {
+    return Arrays.stream(actions).anyMatch(heldDown::get);
   }
 
   /**
-   * Checks if a key was just pressed.
+   * Returns true only on the frame the action was pressed.
    */
   public boolean isJustPressed(String action) {
     return justPressed.getOrDefault(action, false);
   }
 
   /**
-   * Called once per frame.
+   * Must be called at the end of each frame.
    */
   public void endFrame() {
     justPressed.clear();
@@ -62,7 +67,7 @@ public class KeyHandler implements KeyListener {
   public void keyPressed(KeyEvent e) {
     keyBindings.forEach((action, keys) -> {
       if (keys.contains(e.getKeyCode())) {
-        press(action);
+        markPressed(action);
       }
     });
   }
@@ -71,22 +76,24 @@ public class KeyHandler implements KeyListener {
   public void keyReleased(KeyEvent e) {
     keyBindings.forEach((action, keys) -> {
       if (keys.contains(e.getKeyCode())) {
-        release(action);
+        markReleased(action);
       }
     });
   }
 
   @Override
-  public void keyTyped(KeyEvent e) {}
+  public void keyTyped(KeyEvent e) {} // unused
 
-  private void press(String action) {
-    if (!actionStates.getOrDefault(action, false)) {
+  /** Marks an action as pressed. */
+  private void markPressed(String action) {
+    if (!heldDown.getOrDefault(action, false)) {
       justPressed.put(action, true);
     }
-    actionStates.put(action, true);
+    heldDown.put(action, true);
   }
 
-  private void release(String action) {
-    actionStates.put(action, false);
+  /** Marks an action as released. */
+  private void markReleased(String action) {
+    heldDown.put(action, false);
   }
 }
