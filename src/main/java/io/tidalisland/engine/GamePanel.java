@@ -15,12 +15,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * The game panel.
  */
 public class GamePanel extends JPanel {
   private KeyHandler keyH;
+  private MouseHandler mouseH;
   private WorldMap worldMap;
   private Player player;
   private WorldObjectManager worldObjectManager;
@@ -38,8 +40,14 @@ public class GamePanel extends JPanel {
     setDoubleBuffered(true);
 
     keyH = new KeyHandler();
+    mouseH = new MouseHandler();
+    addMouseListener(mouseH);
+    addMouseMotionListener(mouseH);
+    addMouseWheelListener(mouseH);
+
     addKeyListener(keyH);
     setFocusable(true);
+    SwingUtilities.invokeLater(() -> requestFocusInWindow());
 
     worldMap = new WorldMap();
     player = new Player(keyH);
@@ -77,5 +85,6 @@ public class GamePanel extends JPanel {
 
   public void endFrame() {
     keyH.endFrame();
+    mouseH.endFrame();
   }
 }
