@@ -21,8 +21,8 @@ public class KeyHandler implements KeyListener {
   public KeyHandler() {
     keyBindings = Map.of("up", List.of(KeyEvent.VK_UP, KeyEvent.VK_W), "down",
         List.of(KeyEvent.VK_DOWN, KeyEvent.VK_S), "left", List.of(KeyEvent.VK_LEFT, KeyEvent.VK_A),
-        "right", List.of(KeyEvent.VK_RIGHT, KeyEvent.VK_D), "interact", List.of(KeyEvent.VK_E));
-
+        "right", List.of(KeyEvent.VK_RIGHT, KeyEvent.VK_D), "interact", List.of(KeyEvent.VK_E),
+        "toggle_inventory", List.of(KeyEvent.VK_I));
 
     actionStates = new HashMap<>();
     for (String action : keyBindings.keySet()) {
