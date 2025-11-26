@@ -1,125 +1,95 @@
 package io.tidalisland.ui.components;
 
-import java.awt.BasicStroke;
+import io.tidalisland.input.KeyHandler;
+import io.tidalisland.input.MouseHandler;
+import io.tidalisland.ui.layout.LayoutManager;
+import io.tidalisland.ui.layout.VerticalStackLayout;
+import io.tidalisland.ui.styles.UiStyles;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Container for other UI components.
+ * A container that groups UI components.
  */
 public class UiPanel extends UiComponent {
-
-  private final List<UiComponent> children = new ArrayList<>();
-
-  private Color bgColor;
-  private Color borderColor = null;
-  private int borderWidth = 0;
-  private boolean rounded = false;
-  private int cornerRadius = 8;
+  private LayoutManager layoutManager;
 
   /**
-   * Creates a panel with background color and default settings.
+   * Creates a panel.
    */
-  public UiPanel(int x, int y, int width, int height, Color bgColor) {
-    super(x, y, width, height);
-    this.bgColor = bgColor;
+  public UiPanel(int width, int height, int x, int y) {
+    super(width, height, x, y);
+    style = UiStyles.PANEL;
+    layoutManager = new VerticalStackLayout(4);
   }
 
-  public UiPanel(int x, int y, int width, int height) {
-    this(x, y, width, height, new Color(50, 50, 50, 200));
-  }
-
-  public UiPanel(int x, int y) {
-    this(x, y, 0, 0);
-  }
-
-  /**
-   * Adds a child component to this panel.
-   */
-  public void add(UiComponent component, boolean fill) {
-    if (fill) {
-      component.width = width;
-      component.height = height;
-    }
-    children.add(component);
-  }
-
-  public void add(UiComponent component) {
-    add(component, false);
-  }
-
-  /**
-   * Sets border color and width.
-   */
-  public void setBorder(Color color, int width) {
-    this.borderColor = color;
-    this.borderWidth = width;
-  }
-
-  /**
-   * Enables rounded corners with optional radius.
-   */
-  public void setRounded(boolean rounded, int radius) {
-    this.rounded = rounded;
-    this.cornerRadius = radius;
+  public UiPanel(int width, int height) {
+    this(width, height, 0, 0);
   }
 
   @Override
-  public void update() {
-    if (!visible) {
-      return;
-    }
-    for (UiComponent c : children) {
-      if (c.isVisible()) {
-        c.update();
-      }
-    }
+  protected void onUpdate(KeyHandler keys, MouseHandler mouse) {
+    layout();
   }
 
   @Override
-  public void render(Graphics2D g) {
-    if (!visible) {
-      return;
-    }
+  protected void onRender(Graphics2D g) {
+    int ax = getAbsX();
+    int ay = getAbsY();
 
     // Draw background
-    if (bgColor != null) {
-      g.setColor(bgColor);
-      if (rounded) {
-        g.fillRoundRect(x, y, width, height, cornerRadius, cornerRadius);
-      } else {
-        g.fillRect(x, y, width, height);
-      }
+    Color bg = style.getBg();
+    if (!enabled) {
+      bg = style.getPressedBg().darker();
+    } else if (pressed) {
+      bg = style.getPressedBg();
+    } else if (hovered) {
+      bg = style.getHoverBg();
+    }
+    g.setColor(bg);
+
+    int radius = style.getCornerRadius();
+    if (radius > 0) {
+      g.fillRoundRect(ax, ay, width, height, radius, radius);
+    } else {
+      g.fillRect(ax, ay, width, height);
     }
 
     // Draw border
-    if (borderColor != null && borderWidth > 0) {
-      g.setColor(borderColor);
-
-      // Save old stroke
-      var oldStroke = ((Graphics2D) g).getStroke();
-      ((Graphics2D) g).setStroke(new BasicStroke(borderWidth));
-
-      if (rounded) {
-        g.drawRoundRect(x, y, width, height, cornerRadius, cornerRadius);
+    int borderWidth = style.getBorderWidth();
+    g.setColor(style.getBorderColor());
+    for (int i = 0; i < borderWidth; i++) {
+      if (radius > 0) {
+        g.drawRoundRect(ax + i, ay + i, width - 2 * i, height - 2 * i, radius, radius);
       } else {
-        g.drawRect(x, y, width, height);
-      }
-
-      // Restore stroke
-      ((Graphics2D) g).setStroke(oldStroke);
-    }
-
-    // Render children
-    Graphics2D g2 = (Graphics2D) g.create();
-    g2.translate(x, y);
-    for (UiComponent c : children) {
-      if (c.isVisible()) {
-        c.render(g2);
+        g.drawRect(ax + i, ay + i, width - 2 * i, height - 2 * i);
       }
     }
-    g2.dispose();
+  }
+
+  /**
+   * Layouts children using the layout manager.
+   */
+  public void layout() {
+    if (layoutManager != null) {
+      layoutManager.layout(this);
+    }
+  }
+
+  public LayoutManager getLayout() {
+    return layoutManager;
+  }
+
+  public void setLayout(LayoutManager layoutManager) {
+    this.layoutManager = layoutManager;
+    layout();
+  }
+
+  @Override
+  public void setVisible(boolean v) {
+    super.setVisible(v);
+    if (v) {
+      layout();
+    }
   }
 }

@@ -1,7 +1,5 @@
 package io.tidalisland.config;
 
-import java.awt.Font;
-
 /**
  * Configuration for the game.
  */
@@ -24,8 +22,5 @@ public class Config {
 
   // Global debug flags
   public static final boolean SHOW_COLLIDERS = false;
-
-  // UI
-  public static final Font UI_FONT = new Font("Press Start 2P", Font.BOLD, 18);
 }
 

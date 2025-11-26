@@ -9,11 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A mouse input manager designed for a real-time game loop. This class converts Swing events into
- * simple per-frame state: current mouse position, which mouse buttons are held, which were pressed
- * this frame, which were released this frame, scroll wheel movement for this frame
+ * Manages mouse input for the game.
  */
 public class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
+  // Mouse button IDs
+  public static final int BTN_LEFT = 1;
+  public static final int BTN_RIGHT = 2;
+  public static final int BTN_MIDDLE = 3;
 
   // Current mouse coordinates relative to the component.
   private int mouseX = 0;
@@ -27,6 +29,14 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 
   // Records buttons that transitioned from down -> up frame only.
   private final Map<Integer, Boolean> justReleased = new HashMap<>();
+
+  // Where each button was pressed
+  private final Map<Integer, Integer> pressX = new HashMap<>();
+  private final Map<Integer, Integer> pressY = new HashMap<>();
+
+  // Where each button was released (valid only on isJustReleased frame)
+  private final Map<Integer, Integer> releaseX = new HashMap<>();
+  private final Map<Integer, Integer> releaseY = new HashMap<>();
 
   // How much the wheel moved this frame; positive = scrolled up, negative = down
   private int wheelDelta = 0;
@@ -92,9 +102,10 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
   public void mousePressed(MouseEvent e) {
     int button = e.getButton();
 
-    // only flag justPressed if it wasn't already down
     if (!heldDown.get(button)) {
       justPressed.put(button, true);
+      pressX.put(button, e.getX());
+      pressY.put(button, e.getY());
     }
 
     heldDown.put(button, true);
@@ -109,6 +120,9 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 
     heldDown.put(button, false);
     justReleased.put(button, true);
+
+    releaseX.put(button, e.getX());
+    releaseY.put(button, e.getY());
   }
 
   /**
@@ -146,4 +160,27 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 
   @Override
   public void mouseExited(MouseEvent e) {}
+
+  public int getPressX(int button) {
+    return pressX.getOrDefault(button, mouseX);
+  }
+
+  public int getPressY(int button) {
+    return pressY.getOrDefault(button, mouseY);
+  }
+
+  public int getReleaseX(int button) {
+    return releaseX.getOrDefault(button, mouseX);
+  }
+
+  public int getReleaseY(int button) {
+    return releaseY.getOrDefault(button, mouseY);
+  }
+
+  /**
+   * True if the button was pressed and released within the same frame interval.
+   */
+  public boolean isClick(int button) {
+    return isJustReleased(button) && pressX.containsKey(button);
+  }
 }

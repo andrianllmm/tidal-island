@@ -1,56 +1,111 @@
 package io.tidalisland.ui.components;
 
-import static io.tidalisland.config.Config.UI_FONT;
-
+import io.tidalisland.input.KeyHandler;
+import io.tidalisland.input.MouseHandler;
+import io.tidalisland.ui.styles.UiStyles;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Displays a text label in the UI.
+ * A component that displays text.
  */
 public class UiLabel extends UiComponent {
   private String text;
-  private Color color;
-  private Font font;
+  private boolean wrapText = true; // wrap text to fit width
+
+  private List<String> lines = new ArrayList<>();
 
   /**
-   * Initializes a new label.
+   * Creates a label.
    */
-  public UiLabel(String text, int x, int y) {
-    super(x, y, 0, 0);
+  public UiLabel(String text, int width, int height, int x, int y) {
+    super(width, height, x, y);
     this.text = text;
-    this.color = Color.WHITE;
-    this.font = UI_FONT;
+    style = UiStyles.TRANSPARENT;
   }
 
-  public UiLabel(String text) {
-    this(text, 0, 0);
+  public UiLabel(String text, int width, int height) {
+    this(text, width, height, 0, 0);
+  }
+
+  @Override
+  protected void onUpdate(KeyHandler keys, MouseHandler mouse) {
+    // Does nothing
+  }
+
+  @Override
+  protected void onRender(Graphics2D g) {
+    int ax = getAbsX();
+    int ay = getAbsY();
+
+    g.setColor(new Color(0, 0, 0, 0));
+    g.fillRect(ax, ay, width, height);
+
+    // Text
+    g.setFont(style.getFont());
+    FontMetrics fm = g.getFontMetrics();
+    lines.clear();
+
+    if (wrapText) {
+      wrapTextToLines(fm);
+    } else {
+      lines.add(text);
+    }
+
+    int totalHeight = lines.size() * fm.getHeight();
+    int startY = ay + (height - totalHeight) / 2 + fm.getAscent();
+
+    // Draw each line centered
+    g.setColor(style.getTextColor());
+    for (int i = 0; i < lines.size(); i++) {
+      String line = lines.get(i);
+      int lineWidth = fm.stringWidth(line);
+      int tx = ax + (width - lineWidth) / 2;
+      int ty = startY + i * fm.getHeight();
+      g.drawString(line, tx, ty);
+    }
+  }
+
+  /**
+   * Wraps text to lines.
+   */
+  private void wrapTextToLines(FontMetrics fm) {
+    String[] words = text.split(" ");
+
+    StringBuilder line = new StringBuilder(); // current line
+    for (String word : words) {
+      String testLine = line.length() == 0 ? word : line + " " + word;
+      if (fm.stringWidth(testLine) > width - 2 * style.getPaddingX()) {
+        if (line.length() > 0) {
+          lines.add(line.toString());
+        }
+        line = new StringBuilder(word);
+      } else {
+        line = new StringBuilder(testLine);
+      }
+    }
+
+    if (line.length() > 0) {
+      lines.add(line.toString());
+    }
+  }
+
+  public String getText() {
+    return text;
   }
 
   public void setText(String text) {
     this.text = text;
   }
 
-  public void setColor(Color color) {
-    this.color = color;
+  public boolean isWrapText() {
+    return wrapText;
   }
 
-  public void setFont(Font font) {
-    this.font = font;
-  }
-
-  @Override
-  public void update() {}
-
-  @Override
-  public void render(Graphics2D g) {
-    g.setFont(font);
-    g.setColor(color);
-    FontMetrics fm = g.getFontMetrics();
-    width = fm.stringWidth(text);
-    height = fm.getHeight();
-    g.drawString(text, x, y + fm.getAscent());
+  public void setWrapText(boolean wrapText) {
+    this.wrapText = wrapText;
   }
 }
