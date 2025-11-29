@@ -29,7 +29,7 @@ public class Player extends Entity {
    * Creates a new player entity.
    */
   public Player(KeyHandler keys, Position position) {
-    super(position, 4);
+    super(position, Direction.RIGHT, 4);
 
     this.inventory = new Inventory();
     this.keys = keys;

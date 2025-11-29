@@ -68,7 +68,8 @@ public class Collider {
       case DOWN -> rect.y += distance;
       case LEFT -> rect.x -= distance;
       case RIGHT -> rect.x += distance;
-      default -> throw new IllegalArgumentException("Invalid direction: " + direction);
+      default -> {
+      }
     }
   }
 
