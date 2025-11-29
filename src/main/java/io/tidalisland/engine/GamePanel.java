@@ -4,6 +4,7 @@ import static io.tidalisland.config.Config.SCREEN_HEIGHT;
 import static io.tidalisland.config.Config.SCREEN_WIDTH;
 
 import io.tidalisland.collision.CollisionManager;
+import io.tidalisland.debug.DebugRenderer;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.input.KeyHandler;
@@ -35,6 +36,8 @@ public class GamePanel extends JPanel {
   private Camera camera;
   private UiManager ui;
 
+  private DebugRenderer debugRenderer;
+
   /**
    * Sets up the panel.
    */
@@ -61,6 +64,9 @@ public class GamePanel extends JPanel {
     interactionManager = new InteractionManager(worldObjectManager);
     camera = new Camera();
     ui = new UiManager(keys, mouse, player.getInventory());
+
+    debugRenderer =
+        new DebugRenderer(mouse, ui, worldObjectManager, collisionManager, camera, player);
   }
 
   /**
@@ -83,6 +89,8 @@ public class GamePanel extends JPanel {
       worldObjectManager.draw(g2, camera);
       player.draw(g2, camera);
       ui.render(g2);
+
+      debugRenderer.render(g2);
     } finally {
       g2.dispose();
     }

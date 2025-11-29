@@ -15,6 +15,7 @@ import io.tidalisland.worldobjects.WorldObjectManager;
 public class CollisionManager {
   private final WorldMap worldMap;
   private final WorldObjectManager worldObjectManager;
+  private int collisionCount;
 
   public CollisionManager(WorldMap worldMap, WorldObjectManager worldObjectManager) {
     this.worldMap = worldMap;
@@ -31,12 +32,14 @@ public class CollisionManager {
 
     // Check collision with world tiles
     if (collidesWithTiles(future)) {
+      collisionCount++;
       return false;
     }
 
     // Check collision with world objects
     WorldObject worldObj = getCollidingObject(future);
     if (worldObj != null && worldObj.isSolid()) {
+      collisionCount++;
       return false;
     }
 
@@ -48,6 +51,14 @@ public class CollisionManager {
    */
   public boolean canMove(Entity entity, Position nextPosition) {
     return canMove(entity, nextPosition.getX(), nextPosition.getY());
+  }
+
+  public void resetCollisionCount() {
+    collisionCount = 0;
+  }
+
+  public int getCollisionCount() {
+    return collisionCount;
   }
 
   /**
@@ -100,5 +111,4 @@ public class CollisionManager {
 
     return null;
   }
-
 }
