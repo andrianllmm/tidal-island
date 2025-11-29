@@ -6,7 +6,10 @@ import static io.tidalisland.config.Config.SCREEN_WIDTH;
 import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
+import io.tidalisland.input.KeyHandler;
+import io.tidalisland.input.MouseHandler;
 import io.tidalisland.tiles.WorldMap;
+import io.tidalisland.ui.UiManager;
 import io.tidalisland.worldobjects.InteractionManager;
 import io.tidalisland.worldobjects.WorldObjectManager;
 import java.awt.Color;
@@ -14,18 +17,23 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * The game panel.
  */
 public class GamePanel extends JPanel {
-  private KeyHandler keyH;
+  // Input handlers
+  private KeyHandler keys;
+  private MouseHandler mouse;
+
   private WorldMap worldMap;
   private Player player;
   private WorldObjectManager worldObjectManager;
   private CollisionManager collisionManager;
   private InteractionManager interactionManager;
   private Camera camera;
+  private UiManager ui;
 
   /**
    * Sets up the panel.
@@ -35,16 +43,24 @@ public class GamePanel extends JPanel {
     setBackground(Color.BLACK);
     setDoubleBuffered(true);
 
-    keyH = new KeyHandler();
-    addKeyListener(keyH);
+    // Initialize input handlers
+    keys = new KeyHandler();
+    mouse = new MouseHandler();
+    addMouseListener(mouse);
+    addMouseMotionListener(mouse);
+    addMouseWheelListener(mouse);
+
+    addKeyListener(keys);
     setFocusable(true);
+    SwingUtilities.invokeLater(() -> requestFocusInWindow());
 
     worldMap = new WorldMap();
-    player = new Player(keyH);
+    player = new Player(keys);
     worldObjectManager = new WorldObjectManager();
     collisionManager = new CollisionManager(worldMap, worldObjectManager);
     interactionManager = new InteractionManager(worldObjectManager);
     camera = new Camera();
+    ui = new UiManager(keys, mouse, player.getInventory());
   }
 
   /**
@@ -54,6 +70,7 @@ public class GamePanel extends JPanel {
     worldObjectManager.update();
     player.update(collisionManager, interactionManager);
     camera.update(player);
+    ui.update();
   }
 
   @Override
@@ -65,12 +82,14 @@ public class GamePanel extends JPanel {
       worldMap.draw(g2, camera);
       worldObjectManager.draw(g2, camera);
       player.draw(g2, camera);
+      ui.render(g2);
     } finally {
       g2.dispose();
     }
   }
 
   public void endFrame() {
-    keyH.endFrame();
+    keys.endFrame();
+    mouse.endFrame();
   }
 }
