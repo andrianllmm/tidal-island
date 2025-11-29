@@ -117,6 +117,13 @@ public class WorldObjectManager {
   }
 
   /**
+   * Number of world objects.
+   */
+  public int size() {
+    return worldObjects.size();
+  }
+
+  /**
    * Updates the world objects.
    */
   public void update() {

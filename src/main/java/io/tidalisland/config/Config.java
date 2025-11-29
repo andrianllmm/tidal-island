@@ -21,6 +21,5 @@ public class Config {
   public static final int FPS = 60;
 
   // Global debug flags
-  public static final boolean SHOW_COLLIDERS = false;
+  public static final boolean DEBUG = true;
 }
-

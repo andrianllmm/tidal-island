@@ -1,7 +1,5 @@
 package io.tidalisland.worldobjects;
 
-import static io.tidalisland.config.Config.SHOW_COLLIDERS;
-
 import io.tidalisland.collision.ColliderFactory;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
@@ -50,9 +48,5 @@ public class Tree extends WorldObject implements Interactable {
     Position screenPos = position.subtract(camera.getPosition());
 
     spriteSet.getCurrentFrame().draw(g, screenPos);
-
-    if (SHOW_COLLIDERS) {
-      collider.draw(g, camera);
-    }
   }
 }

@@ -38,9 +38,6 @@ public abstract class UiComponent {
   protected UiComponent parent;
   protected final List<UiComponent> children = new ArrayList<>();
 
-  // Global debug toggle
-  private static boolean debugMode = false;
-
   /**
    * Initializes a new component.
    */
@@ -89,10 +86,6 @@ public abstract class UiComponent {
 
     onRender(g);
 
-    if (UiComponent.isDebug()) {
-      drawDebugOutline(g);
-    }
-
     // Render children
     for (UiComponent child : children) {
       child.render(g);
@@ -130,31 +123,6 @@ public abstract class UiComponent {
     int ax = getAbsX();
     int ay = getAbsY();
     return (mouseX >= ax && mouseX <= ax + width) && (mouseY >= ay && mouseY <= ay + height);
-  }
-
-  /**
-   * Draws a simple debug outline around the component.
-   */
-  protected void drawDebugOutline(Graphics2D g) {
-    int absX = getAbsX();
-    int absY = getAbsY();
-
-    // Draw main component bounds
-    g.setColor(new Color(255, 0, 0, 120));
-    g.drawRect(absX, absY, width, height);
-
-    // Draw padding bounds
-    if (style.getPaddingX() > 0 || style.getPaddingY() > 0) {
-      g.setColor(new Color(255, 120, 0, 120));
-      g.drawRect(absX + style.getPaddingX(), absY + style.getPaddingY(),
-          width - 2 * style.getPaddingX(), height - 2 * style.getPaddingY());
-    }
-
-    // Draw debug info with smaller font
-    g.setColor(new Color(255, 0, 255, 160));
-    g.setFont(new Font("Dialog", Font.PLAIN, 8));
-    String info = String.format("[%d,%d %dx%d]", absX, absY, width, height);
-    g.drawString(info, absX, absY - 2);
   }
 
   /** Apply multiple style edits at once using a lambda. */
@@ -267,13 +235,5 @@ public abstract class UiComponent {
 
   public List<UiComponent> getChildren() {
     return children;
-  }
-
-  public static void toggleDebug() {
-    debugMode = !debugMode;
-  }
-
-  public static boolean isDebug() {
-    return debugMode;
   }
 }

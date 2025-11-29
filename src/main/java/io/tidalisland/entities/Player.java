@@ -2,7 +2,6 @@ package io.tidalisland.entities;
 
 import static io.tidalisland.config.Config.SCREEN_HEIGHT;
 import static io.tidalisland.config.Config.SCREEN_WIDTH;
-import static io.tidalisland.config.Config.SHOW_COLLIDERS;
 import static io.tidalisland.config.Config.TILE_SIZE;
 
 import io.tidalisland.collision.ColliderAnchor;
@@ -105,10 +104,6 @@ public class Player extends Entity {
     currentFrame.setFlipX(direction == Direction.LEFT);
 
     currentFrame.draw(g, screenPos);
-
-    if (SHOW_COLLIDERS) {
-      collider.draw(g, camera);
-    }
   }
 
   public Inventory getInventory() {
