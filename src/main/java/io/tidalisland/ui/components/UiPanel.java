@@ -4,7 +4,7 @@ import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.ui.layout.LayoutManager;
 import io.tidalisland.ui.layout.VerticalStackLayout;
-import io.tidalisland.ui.styles.UiStyles;
+import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -19,7 +19,7 @@ public class UiPanel extends UiComponent {
    */
   public UiPanel(int width, int height, int x, int y) {
     super(width, height, x, y);
-    style = UiStyles.PANEL;
+    style = UiStyleDirector.makePanel();
     layoutManager = new VerticalStackLayout(4);
   }
 

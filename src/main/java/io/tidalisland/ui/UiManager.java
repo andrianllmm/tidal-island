@@ -6,7 +6,8 @@ import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
 import io.tidalisland.ui.components.UiComponent;
 import io.tidalisland.ui.components.UiPanel;
-import io.tidalisland.ui.styles.UiStyles;
+import io.tidalisland.ui.styles.UiStyle;
+import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Graphics2D;
 
 /**
@@ -26,7 +27,8 @@ public class UiManager {
 
     // Create root panel
     this.root = new UiPanel(Config.screenWidth(), Config.screenHeight(), 0, 0);
-    this.root.setStyle(UiStyles.TRANSPARENT.padding(24));
+    UiStyle style = UiStyleDirector.fromTransparent().padding(24).build();
+    this.root.setStyle(style);
 
     // Components
     UiInventoryPanel inv = new UiInventoryPanel(inventory);

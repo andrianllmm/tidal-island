@@ -3,8 +3,7 @@ package io.tidalisland.ui.components;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.ui.styles.UiStyle;
-import java.awt.Color;
-import java.awt.Font;
+import io.tidalisland.ui.styles.UiStyleBuilder;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,7 @@ public abstract class UiComponent {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.style = UiStyle.create();
+    this.style = new UiStyleBuilder().build();
   }
 
   public UiComponent(int width, int height) {
@@ -126,9 +125,11 @@ public abstract class UiComponent {
   }
 
   /** Apply multiple style edits at once using a lambda. */
-  public void style(UnaryOperator<UiStyle> modifier) {
-    style = modifier.apply(style);
+  public void style(UnaryOperator<UiStyleBuilder> modifier) {
+    UiStyleBuilder builder = UiStyleBuilder.from(style); // create a builder from current style
+    style = modifier.apply(builder).build(); // apply modifications and rebuild
   }
+
 
   /**
    * Called when this component is clicked.
