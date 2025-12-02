@@ -33,7 +33,7 @@ public class WorldObjectLoader {
         int x = obj.position.get(0) * Config.tileSize();
         int y = obj.position.get(1) * Config.tileSize();
 
-        WorldObject created = WorldObjectFactory.create(obj.id, new Position(x, y));
+        WorldObject created = WorldObjectRegistry.create(obj.id, new Position(x, y));
         if (created != null) {
           result.add(created);
         } else {

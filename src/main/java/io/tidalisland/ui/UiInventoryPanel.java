@@ -63,7 +63,7 @@ public class UiInventoryPanel extends UiPanel {
       itemsPanel.add(slot);
 
       String id = entry.getKey();
-      Item item = ItemRegistry.get(id);
+      Item item = ItemRegistry.create(id);
       UiImage icon = new UiImage(item.getSprite().getFrame().getImage(), 36, 36);
       slot.add(icon);
 
