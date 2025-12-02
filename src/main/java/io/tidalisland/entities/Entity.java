@@ -4,7 +4,7 @@ import io.tidalisland.collision.Collider;
 import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.config.Config;
 import io.tidalisland.graphics.Camera;
-import io.tidalisland.graphics.SpriteSet;
+import io.tidalisland.graphics.sprites.SpriteSet;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
 import io.tidalisland.utils.Size;

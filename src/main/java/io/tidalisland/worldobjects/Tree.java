@@ -3,8 +3,7 @@ package io.tidalisland.worldobjects;
 import io.tidalisland.collision.ColliderFactory;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
-import io.tidalisland.graphics.SpriteAtlas;
-import io.tidalisland.graphics.SpriteSetImporter;
+import io.tidalisland.graphics.sprites.SpriteSetBuilder;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
 import java.util.List;
@@ -20,8 +19,8 @@ public class Tree extends WorldObject implements Interactable {
    */
   public Tree(Position position) {
     super("tree", position, true);
-    spriteSet = SpriteSetImporter.fromJsonSheet(new SpriteAtlas("/sprites/worldobjects/tree.png"),
-        "/sprites/worldobjects/tree.json");
+    spriteSet =
+        SpriteSetBuilder.build("/sprites/worldobjects/tree.png", "/sprites/worldobjects/tree.json");
     collider = ColliderFactory.create(spriteSet.getCurrentFrame().getSize());
     collider.updatePosition(position);
   }

@@ -20,7 +20,7 @@ public class WorldObjectManager {
   public WorldObjectManager() {
     worldObjects = new HashMap<>();
 
-    for (WorldObject obj : WorldObjectLoader.load("/maps/map.json")) {
+    for (WorldObject obj : WorldObjectLoader.load("/worldobjects/worldobjects.json")) {
       add(obj);
     }
   }

@@ -5,9 +5,8 @@ import io.tidalisland.collision.ColliderFactory;
 import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.config.Config;
 import io.tidalisland.graphics.Camera;
-import io.tidalisland.graphics.SpriteAtlas;
-import io.tidalisland.graphics.SpriteFrame;
-import io.tidalisland.graphics.SpriteSetImporter;
+import io.tidalisland.graphics.sprites.SpriteFrame;
+import io.tidalisland.graphics.sprites.SpriteSetBuilder;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.inventory.Inventory;
 import io.tidalisland.utils.Direction;
@@ -32,8 +31,8 @@ public class Player extends Entity {
     this.keys = keys;
 
     // Import sprites
-    spriteSet = SpriteSetImporter.fromJsonSheet(new SpriteAtlas("/sprites/entities/player.png"),
-        "/sprites/entities/player.json");
+    spriteSet =
+        SpriteSetBuilder.build("/sprites/entities/player.png", "/sprites/entities/player.json");
 
     // Create collider
     collider = ColliderFactory.create(spriteSet.getCurrentFrame().getSize(), 0.6, 0.6,

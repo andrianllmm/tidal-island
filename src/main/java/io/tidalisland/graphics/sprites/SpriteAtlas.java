@@ -1,4 +1,4 @@
-package io.tidalisland.graphics;
+package io.tidalisland.graphics.sprites;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -8,33 +8,6 @@ import javax.imageio.ImageIO;
  * A sprite atlas.
  */
 public class SpriteAtlas {
-  /**
-   * A frame of an atlas.
-   */
-  public static class AtlasFrame {
-    public final int x;
-    public final int y;
-    public final int width;
-    public final int height;
-
-    /**
-     * Creates a new atlas frame.
-     */
-    public AtlasFrame(int x, int y, int width, int height) {
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.height = height;
-    }
-  }
-
-  /**
-   * Direction of the atlas.
-   */
-  public enum Direction {
-    HORIZONTAL, VERTICAL
-  }
-
   private BufferedImage atlas;
 
   /**
@@ -94,5 +67,32 @@ public class SpriteAtlas {
   public BufferedImage[] getFrames(int startX, int startY, int frameWidth, int frameHeight,
       Direction direction) {
     return getFrames(startX, startY, frameWidth, frameHeight, direction, -1);
+  }
+
+  /**
+   * A frame of an atlas.
+   */
+  public static class AtlasFrame {
+    public final int x;
+    public final int y;
+    public final int width;
+    public final int height;
+
+    /**
+     * Creates a new atlas frame.
+     */
+    public AtlasFrame(int x, int y, int width, int height) {
+      this.x = x;
+      this.y = y;
+      this.width = width;
+      this.height = height;
+    }
+  }
+
+  /**
+   * Direction of the atlas.
+   */
+  public enum Direction {
+    HORIZONTAL, VERTICAL
   }
 }

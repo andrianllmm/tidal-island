@@ -2,7 +2,7 @@ package io.tidalisland.worldobjects;
 
 import io.tidalisland.collision.Collider;
 import io.tidalisland.graphics.Camera;
-import io.tidalisland.graphics.SpriteSet;
+import io.tidalisland.graphics.sprites.SpriteSet;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
 

@@ -1,6 +1,6 @@
 package io.tidalisland.items;
 
-import io.tidalisland.graphics.Sprite;
+import io.tidalisland.graphics.sprites.Sprite;
 
 /**
  * Represents a wood item.

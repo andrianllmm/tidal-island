@@ -1,6 +1,6 @@
 package io.tidalisland.tiles;
 
-import io.tidalisland.graphics.Sprite;
+import io.tidalisland.graphics.sprites.Sprite;
 
 /**
  * A tile.
