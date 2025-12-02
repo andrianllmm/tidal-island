@@ -1,6 +1,6 @@
 package io.tidalisland.worldobjects;
 
-import io.tidalisland.collision.ColliderFactory;
+import io.tidalisland.collision.ColliderBuilder;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteSetBuilder;
@@ -21,7 +21,7 @@ public class Tree extends WorldObject implements Interactable {
     super("tree", position, true);
     spriteSet =
         SpriteSetBuilder.build("/sprites/worldobjects/tree.png", "/sprites/worldobjects/tree.json");
-    collider = ColliderFactory.create(spriteSet.getCurrentFrame().getSize());
+    collider = new ColliderBuilder().container(spriteSet.getCurrentFrame().getSize()).build();
     collider.updatePosition(position);
   }
 

@@ -1,7 +1,7 @@
 package io.tidalisland.entities;
 
 import io.tidalisland.collision.ColliderAnchor;
-import io.tidalisland.collision.ColliderFactory;
+import io.tidalisland.collision.ColliderBuilder;
 import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.config.Config;
 import io.tidalisland.graphics.Camera;
@@ -35,8 +35,8 @@ public class Player extends Entity {
         SpriteSetBuilder.build("/sprites/entities/player.png", "/sprites/entities/player.json");
 
     // Create collider
-    collider = ColliderFactory.create(spriteSet.getCurrentFrame().getSize(), 0.6, 0.6,
-        ColliderAnchor.CENTER, ColliderAnchor.BOTTOM);
+    collider = new ColliderBuilder().container(spriteSet.getCurrentFrame().getSize()).scale(0.6)
+        .anchor(ColliderAnchor.CENTER, ColliderAnchor.BOTTOM).build();
     collider.updatePosition(position);
   }
 

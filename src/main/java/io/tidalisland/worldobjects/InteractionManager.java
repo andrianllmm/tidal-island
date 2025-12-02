@@ -1,7 +1,7 @@
 package io.tidalisland.worldobjects;
 
-import io.tidalisland.config.Config;
 import io.tidalisland.collision.Collider;
+import io.tidalisland.config.Config;
 import io.tidalisland.entities.Entity;
 import io.tidalisland.entities.Player;
 import io.tidalisland.utils.Position;
