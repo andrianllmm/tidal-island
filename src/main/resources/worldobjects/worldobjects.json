@@ -1,0 +1,9 @@
+{
+  "objects": [
+    { "id": "tree", "position": [10, 10] },
+    { "id": "tree", "position": [9, 8] },
+    { "id": "tree", "position": [6, 7] },
+    { "id": "tree", "position": [11, 13] },
+    { "id": "tree", "position": [5, 14] }
+  ]
+}

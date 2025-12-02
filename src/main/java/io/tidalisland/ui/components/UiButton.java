@@ -2,7 +2,7 @@ package io.tidalisland.ui.components;
 
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
-import io.tidalisland.ui.styles.UiStyles;
+import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Graphics2D;
 
 /**
@@ -16,7 +16,7 @@ public class UiButton extends UiPanel {
    */
   public UiButton(String text, int width, int height, int x, int y) {
     super(width, height, x, y);
-    style = UiStyles.PRIMARY;
+    style = UiStyleDirector.makePrimary();
 
     label = new UiLabel(text, width, height, 0, 0);
     add(label);

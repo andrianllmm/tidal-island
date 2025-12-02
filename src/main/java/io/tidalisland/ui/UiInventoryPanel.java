@@ -12,7 +12,7 @@ import io.tidalisland.ui.layout.GridLayout;
 import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.layout.VerticalStackLayout;
-import io.tidalisland.ui.styles.UiStyles;
+import io.tidalisland.ui.styles.UiStyleDirector;
 
 /**
  * Inventory window UI.
@@ -38,7 +38,7 @@ public class UiInventoryPanel extends UiPanel {
     // Items panel (grid)
     itemsPanel = new UiPanel(200, 256);
     itemsPanel.setLayout(new GridLayout(5, 64, 64, 4, 4));
-    itemsPanel.setStyle(UiStyles.TRANSPARENT);
+    itemsPanel.setStyle(UiStyleDirector.makeTransparent());
     add(itemsPanel);
 
     visible = false;
@@ -59,11 +59,11 @@ public class UiInventoryPanel extends UiPanel {
     for (var entry : inventory.view().entrySet()) {
       UiPanel slot = new UiPanel(64, 64);
       slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-      slot.setStyle(UiStyles.TRANSPARENT);;
+      slot.setStyle(UiStyleDirector.makeTransparent());
       itemsPanel.add(slot);
 
       String id = entry.getKey();
-      Item item = ItemRegistry.get(id);
+      Item item = ItemRegistry.create(id);
       UiImage icon = new UiImage(item.getSprite().getFrame().getImage(), 36, 36);
       slot.add(icon);
 

@@ -1,11 +1,6 @@
 package io.tidalisland.graphics;
 
-import static io.tidalisland.config.Config.MAP_HEIGHT;
-import static io.tidalisland.config.Config.MAP_WIDTH;
-import static io.tidalisland.config.Config.SCREEN_HEIGHT;
-import static io.tidalisland.config.Config.SCREEN_WIDTH;
-import static io.tidalisland.config.Config.TILE_SIZE;
-
+import io.tidalisland.config.Config;
 import io.tidalisland.entities.Entity;
 import io.tidalisland.utils.Position;
 
@@ -24,12 +19,14 @@ public class Camera {
     int w = target.getRenderSize().getWidth();
     int h = target.getRenderSize().getHeight();
 
-    int centerX = x + (w / 2) - (SCREEN_WIDTH / 2);
-    int centerY = y + (h / 2) - (SCREEN_HEIGHT / 2);
+    int centerX = x + (w / 2) - (Config.screenWidth() / 2);
+    int centerY = y + (h / 2) - (Config.screenHeight() / 2);
 
     // Clamp to map boundaries
-    int clampedX = Math.max(0, Math.min(centerX, MAP_WIDTH * TILE_SIZE - SCREEN_WIDTH));
-    int clampedY = Math.max(0, Math.min(centerY, MAP_HEIGHT * TILE_SIZE - SCREEN_HEIGHT));
+    int clampedX = Math.max(0,
+        Math.min(centerX, Config.mapWidth() * Config.tileSize() - Config.screenWidth()));
+    int clampedY = Math.max(0,
+        Math.min(centerY, Config.mapHeight() * Config.tileSize() - Config.screenHeight()));
 
     position.setX(clampedX);
     position.setY(clampedY);

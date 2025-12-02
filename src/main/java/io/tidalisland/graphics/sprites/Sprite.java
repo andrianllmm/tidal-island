@@ -1,4 +1,4 @@
-package io.tidalisland.graphics;
+package io.tidalisland.graphics.sprites;
 
 import java.util.List;
 

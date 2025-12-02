@@ -1,11 +1,9 @@
 package io.tidalisland.tiles;
 
-import static io.tidalisland.config.Config.MAP_HEIGHT;
-import static io.tidalisland.config.Config.MAP_WIDTH;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.tidalisland.config.Config;
 import java.io.InputStream;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import java.util.List;
 
 /**
  * Loader for world maps.
@@ -20,28 +18,26 @@ public class WorldMapLoader {
         throw new IllegalArgumentException("Map file not found: " + path);
       }
 
-      String jsonText = new String(is.readAllBytes());
-      JSONObject json = new JSONObject(jsonText);
-      JSONArray tiles = json.getJSONArray("tiles");
-      String tilesetPath = json.getString("tileset");
+      ObjectMapper mapper = new ObjectMapper();
+      WorldMapData data = mapper.readValue(is, WorldMapData.class);
 
-      if (tiles.length() != MAP_HEIGHT) {
-        throw new IllegalArgumentException("Incorrect number of rows: " + tiles.length());
+      if (data.layout.size() != Config.mapHeight()) {
+        throw new IllegalArgumentException("Incorrect number of rows: " + data.layout.size());
       }
 
-      Tile[][] map = new Tile[MAP_HEIGHT][MAP_WIDTH];
-      TileSet tileSet = new TileSet(tilesetPath);
+      Tile[][] map = new Tile[Config.mapHeight()][Config.mapWidth()];
+      TileSet tileSet = TileSetLoader.load(data.tileset);
 
-      for (int row = 0; row < MAP_HEIGHT; row++) {
-        JSONArray tilesRow = tiles.getJSONArray(row);
+      for (int row = 0; row < Config.mapHeight(); row++) {
+        List<Integer> tilesRow = data.layout.get(row);
 
-        if (tilesRow.length() != MAP_WIDTH) {
+        if (tilesRow.size() != Config.mapWidth()) {
           throw new IllegalArgumentException("Incorrect columns in row " + row);
         }
 
-        for (int col = 0; col < MAP_WIDTH; col++) {
-          int id = tilesRow.getInt(col);
-          map[col][row] = tileSet.getTile(id);
+        for (int col = 0; col < Config.mapWidth(); col++) {
+          int id = tilesRow.get(col);
+          map[col][row] = tileSet.get(id);
         }
       }
 
@@ -51,5 +47,10 @@ public class WorldMapLoader {
       e.printStackTrace();
       return null;
     }
+  }
+
+  private static class WorldMapData {
+    public List<List<Integer>> layout;
+    public String tileset;
   }
 }

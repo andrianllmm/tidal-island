@@ -1,16 +1,12 @@
 package io.tidalisland.entities;
 
-import static io.tidalisland.config.Config.SCREEN_HEIGHT;
-import static io.tidalisland.config.Config.SCREEN_WIDTH;
-import static io.tidalisland.config.Config.TILE_SIZE;
-
 import io.tidalisland.collision.ColliderAnchor;
-import io.tidalisland.collision.ColliderFactory;
+import io.tidalisland.collision.ColliderBuilder;
 import io.tidalisland.collision.CollisionManager;
+import io.tidalisland.config.Config;
 import io.tidalisland.graphics.Camera;
-import io.tidalisland.graphics.SpriteAtlas;
-import io.tidalisland.graphics.SpriteFrame;
-import io.tidalisland.graphics.SpriteSetImporter;
+import io.tidalisland.graphics.sprites.SpriteFrame;
+import io.tidalisland.graphics.sprites.SpriteSetBuilder;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.inventory.Inventory;
 import io.tidalisland.utils.Direction;
@@ -35,18 +31,18 @@ public class Player extends Entity {
     this.keys = keys;
 
     // Import sprites
-    spriteSet = SpriteSetImporter.fromJsonSheet(new SpriteAtlas("/sprites/entities/player.png"),
-        "/sprites/entities/player.json");
+    spriteSet =
+        SpriteSetBuilder.build("/sprites/entities/player.png", "/sprites/entities/player.json");
 
     // Create collider
-    collider = ColliderFactory.create(spriteSet.getCurrentFrame().getSize(), 0.6, 0.6,
-        ColliderAnchor.CENTER, ColliderAnchor.BOTTOM);
+    collider = new ColliderBuilder().container(spriteSet.getCurrentFrame().getSize()).scale(0.6)
+        .anchor(ColliderAnchor.CENTER, ColliderAnchor.BOTTOM).build();
     collider.updatePosition(position);
   }
 
   public Player(KeyHandler keys) {
-    this(keys,
-        new Position(SCREEN_WIDTH / 2 - (TILE_SIZE / 2), SCREEN_HEIGHT / 2 - (TILE_SIZE / 2)));
+    this(keys, new Position(Config.screenWidth() / 2 - (Config.tileSize() / 2),
+        Config.screenHeight() / 2 - (Config.tileSize() / 2)));
   }
 
   @Override

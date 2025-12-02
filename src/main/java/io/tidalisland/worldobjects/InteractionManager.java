@@ -1,8 +1,7 @@
 package io.tidalisland.worldobjects;
 
-import static io.tidalisland.config.Config.TILE_SIZE;
-
 import io.tidalisland.collision.Collider;
+import io.tidalisland.config.Config;
 import io.tidalisland.entities.Entity;
 import io.tidalisland.entities.Player;
 import io.tidalisland.utils.Position;
@@ -44,14 +43,14 @@ public class InteractionManager {
     interactionZone.move(entity.getDirection(), entity.getInteractionRange());
 
     // only check tiles in interactionZone
-    int startCol = interactionZone.getX() / TILE_SIZE;
-    int startRow = interactionZone.getY() / TILE_SIZE;
-    int endCol = (interactionZone.getX() + interactionZone.getWidth() - 1) / TILE_SIZE;
-    int endRow = (interactionZone.getY() + interactionZone.getHeight() - 1) / TILE_SIZE;
+    int startCol = interactionZone.getX() / Config.tileSize();
+    int startRow = interactionZone.getY() / Config.tileSize();
+    int endCol = (interactionZone.getX() + interactionZone.getWidth() - 1) / Config.tileSize();
+    int endRow = (interactionZone.getY() + interactionZone.getHeight() - 1) / Config.tileSize();
 
     for (int row = startRow; row <= endRow; row++) {
       for (int col = startCol; col <= endCol; col++) {
-        Position tilePos = new Position(col * TILE_SIZE, row * TILE_SIZE);
+        Position tilePos = new Position(col * Config.tileSize(), row * Config.tileSize());
         WorldObject obj = worldObjectManager.get(tilePos);
 
         if (obj instanceof Interactable && interactionZone.intersects(obj.getCollider())) {

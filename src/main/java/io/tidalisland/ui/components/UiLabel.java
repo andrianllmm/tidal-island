@@ -2,7 +2,7 @@ package io.tidalisland.ui.components;
 
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
-import io.tidalisland.ui.styles.UiStyles;
+import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -24,7 +24,7 @@ public class UiLabel extends UiComponent {
   public UiLabel(String text, int width, int height, int x, int y) {
     super(width, height, x, y);
     this.text = text;
-    style = UiStyles.TRANSPARENT;
+    style = UiStyleDirector.makeTransparent();
   }
 
   public UiLabel(String text, int width, int height) {

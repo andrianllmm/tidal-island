@@ -1,7 +1,6 @@
-package io.tidalisland.graphics;
+package io.tidalisland.graphics.sprites;
 
-import static io.tidalisland.config.Config.PIXEL_SCALE;
-
+import io.tidalisland.config.Config;
 import io.tidalisland.utils.Position;
 import io.tidalisland.utils.Size;
 import java.awt.Graphics;
@@ -24,7 +23,8 @@ public class SpriteFrame {
   public SpriteFrame(BufferedImage image, int duration) {
     this.image = image;
     this.duration = duration;
-    size = new Size(image.getWidth() * PIXEL_SCALE, image.getHeight() * PIXEL_SCALE);
+    size =
+        new Size(image.getWidth() * Config.pixelScale(), image.getHeight() * Config.pixelScale());
   }
 
   public SpriteFrame(BufferedImage image) {
@@ -38,7 +38,8 @@ public class SpriteFrame {
     try {
       this.image = ImageIO.read(SpriteFrame.class.getResourceAsStream(path));
       this.duration = duration;
-      size = new Size(image.getWidth() * PIXEL_SCALE, image.getHeight() * PIXEL_SCALE);
+      size =
+          new Size(image.getWidth() * Config.pixelScale(), image.getHeight() * Config.pixelScale());
     } catch (Exception e) {
       throw new RuntimeException("Failed to load sprite: " + path + " " + e.getMessage(), e);
     }
