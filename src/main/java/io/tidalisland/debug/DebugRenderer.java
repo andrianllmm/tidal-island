@@ -1,9 +1,7 @@
 package io.tidalisland.debug;
 
-import static io.tidalisland.config.Config.DEBUG;
-import static io.tidalisland.config.Config.FPS;
-
 import io.tidalisland.collision.CollisionManager;
+import io.tidalisland.config.Config;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.input.MouseHandler;
@@ -19,7 +17,7 @@ import java.awt.Graphics2D;
  * Renders debug information for development.
  */
 public class DebugRenderer {
-  private boolean enabled = DEBUG;
+  private boolean enabled = Config.debug();
 
   private MouseHandler mouse;
   private UiManager ui;
@@ -57,7 +55,7 @@ public class DebugRenderer {
     int y = padding;
 
     // FPS
-    g.drawString("FPS: " + FPS, x, y);
+    g.drawString("FPS: " + Config.fps(), x, y);
     y += spacing;
 
     // Mouse info

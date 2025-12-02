@@ -1,7 +1,6 @@
 package io.tidalisland.worldobjects;
 
-import static io.tidalisland.config.Config.TILE_SIZE;
-
+import io.tidalisland.config.Config;
 import io.tidalisland.utils.Position;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -39,8 +38,8 @@ public class WorldObjectLoader {
         String id = obj.getString("id");
         JSONArray pos = obj.getJSONArray("position");
 
-        int x = pos.getInt(0) * TILE_SIZE;
-        int y = pos.getInt(1) * TILE_SIZE;
+        int x = pos.getInt(0) * Config.tileSize();
+        int y = pos.getInt(1) * Config.tileSize();
 
         WorldObject created = WorldObjectFactory.create(id, new Position(x, y));
         if (created != null) {

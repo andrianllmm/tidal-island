@@ -1,8 +1,6 @@
 package io.tidalisland.tiles;
 
-import static io.tidalisland.config.Config.MAP_HEIGHT;
-import static io.tidalisland.config.Config.MAP_WIDTH;
-
+import io.tidalisland.config.Config;
 import java.io.InputStream;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,21 +23,21 @@ public class WorldMapLoader {
       JSONArray tiles = json.getJSONArray("tiles");
       String tilesetPath = json.getString("tileset");
 
-      if (tiles.length() != MAP_HEIGHT) {
+      if (tiles.length() != Config.mapHeight()) {
         throw new IllegalArgumentException("Incorrect number of rows: " + tiles.length());
       }
 
-      Tile[][] map = new Tile[MAP_HEIGHT][MAP_WIDTH];
+      Tile[][] map = new Tile[Config.mapHeight()][Config.mapWidth()];
       TileSet tileSet = new TileSet(tilesetPath);
 
-      for (int row = 0; row < MAP_HEIGHT; row++) {
+      for (int row = 0; row < Config.mapHeight(); row++) {
         JSONArray tilesRow = tiles.getJSONArray(row);
 
-        if (tilesRow.length() != MAP_WIDTH) {
+        if (tilesRow.length() != Config.mapWidth()) {
           throw new IllegalArgumentException("Incorrect columns in row " + row);
         }
 
-        for (int col = 0; col < MAP_WIDTH; col++) {
+        for (int col = 0; col < Config.mapWidth(); col++) {
           int id = tilesRow.getInt(col);
           map[col][row] = tileSet.getTile(id);
         }

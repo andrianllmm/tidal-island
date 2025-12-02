@@ -1,13 +1,9 @@
 {
-  "tile": {
-    "pixelScale": 4,
-    "baseTileSize": 16,
-    "colTiles": 16,
-    "rowTiles": 12
-  },
-  "worldMap": {
-    "width": 25,
-    "height": 25
-  },
+  "pixelScale": 4,
+  "baseTileSize": 16,
+  "colTiles": 16,
+  "rowTiles": 12,
+  "mapWidth": 25,
+  "mapHeight": 25,
   "fps": 60
 }

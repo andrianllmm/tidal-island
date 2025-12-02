@@ -1,8 +1,6 @@
 package io.tidalisland.ui;
 
-import static io.tidalisland.config.Config.SCREEN_HEIGHT;
-import static io.tidalisland.config.Config.SCREEN_WIDTH;
-
+import io.tidalisland.config.Config;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
@@ -27,7 +25,7 @@ public class UiManager {
     this.mouse = mouse;
 
     // Create root panel
-    this.root = new UiPanel(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
+    this.root = new UiPanel(Config.screenWidth(), Config.screenHeight(), 0, 0);
     this.root.setStyle(UiStyles.TRANSPARENT.padding(24));
 
     // Components

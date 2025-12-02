@@ -1,81 +1,81 @@
 package io.tidalisland.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.InputStream;
-import java.util.Map;
+/** Global configuration for the game. */
+public final class Config {
 
-/**
- * Configuration for the game.
- */
-public class Config {
-  // Tile & screen
-  public static final int PIXEL_SCALE;
-  public static final int BASE_TILE_SIZE;
-  public static final int TILE_SIZE;
+  private static Config instance;
 
-  public static final int COL_TILES;
-  public static final int ROW_TILES;
-  public static final int SCREEN_WIDTH;
-  public static final int SCREEN_HEIGHT;
+  private final ConfigData data;
+  private final boolean debug;
 
-  public static final int MAP_WIDTH;
-  public static final int MAP_HEIGHT;
+  private Config() {
+    this.data = ConfigLoader.load("/config.json");
 
-  // Game loop
-  public static final int FPS;
+    // Environment variables
+    this.debug = Boolean.parseBoolean(System.getenv().getOrDefault("DEBUG", "false"));
+  }
 
-  // Global debug flags
-  public static final boolean DEBUG;
-
-  static {
-    try {
-      // Load JSON from classpath
-      ObjectMapper mapper = new ObjectMapper();
-      InputStream is = Config.class.getResourceAsStream("/config.json");
-      if (is == null) {
-        throw new RuntimeException("config.json not found in resources");
+  /** Singleton access. */
+  public static Config get() {
+    if (instance == null) {
+      synchronized (Config.class) {
+        if (instance == null) {
+          instance = new Config();
+        }
       }
-      ConfigData data = mapper.readValue(is, ConfigData.class);
-
-      PIXEL_SCALE = data.tile.pixelScale;
-      BASE_TILE_SIZE = data.tile.baseTileSize;
-      TILE_SIZE = BASE_TILE_SIZE * PIXEL_SCALE;
-      COL_TILES = data.tile.colTiles;
-      ROW_TILES = data.tile.rowTiles;
-      SCREEN_WIDTH = COL_TILES * TILE_SIZE;
-      SCREEN_HEIGHT = ROW_TILES * TILE_SIZE;
-      MAP_WIDTH = data.worldMap.width;
-      MAP_HEIGHT = data.worldMap.height;
-      FPS = data.fps;
-
-      // Environment variables
-      Map<String, String> env = System.getenv();
-      DEBUG = env.containsKey("DEBUG") ? Boolean.parseBoolean(env.get("DEBUG")) : false;
-
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new RuntimeException("Failed to load configuration", e);
     }
+    return instance;
   }
 
-  /** Configuration data. */
-  public static class ConfigData {
-    public TileConfig tile;
-    public WorldMapConfig worldMap;
-    public int fps = 60;
+  public ConfigData getData() {
+    return data;
   }
 
-  /** Tile configuration. */
-  public static class TileConfig {
-    public int pixelScale;
-    public int baseTileSize;
-    public int colTiles;
-    public int rowTiles;
+  public boolean getDebug() {
+    return debug;
   }
 
-  /** World map configuration. */
-  public static class WorldMapConfig {
-    public int width;
-    public int height;
+  public static boolean debug() {
+    return get().debug;
+  }
+
+  public static int tileSize() {
+    return get().data.getTileSize();
+  }
+
+  public static int screenWidth() {
+    return get().data.getScreenWidth();
+  }
+
+  public static int screenHeight() {
+    return get().data.getScreenHeight();
+  }
+
+  public static int colTiles() {
+    return get().data.colTiles;
+  }
+
+  public static int rowTiles() {
+    return get().data.rowTiles;
+  }
+
+  public static int pixelScale() {
+    return get().data.pixelScale;
+  }
+
+  public static int baseTileSize() {
+    return get().data.baseTileSize;
+  }
+
+  public static int mapWidth() {
+    return get().data.mapWidth;
+  }
+
+  public static int mapHeight() {
+    return get().data.mapHeight;
+  }
+
+  public static int fps() {
+    return get().data.fps;
   }
 }

@@ -1,7 +1,6 @@
 package io.tidalisland.collision;
 
-import static io.tidalisland.config.Config.TILE_SIZE;
-
+import io.tidalisland.config.Config;
 import io.tidalisland.entities.Entity;
 import io.tidalisland.tiles.Tile;
 import io.tidalisland.tiles.WorldMap;
@@ -65,10 +64,10 @@ public class CollisionManager {
    * Checks if a collider intersects any solid tiles in the world.
    */
   private boolean collidesWithTiles(Collider collider) {
-    int startCol = collider.getX() / TILE_SIZE;
-    int startRow = collider.getY() / TILE_SIZE;
-    int endCol = (collider.getX() + collider.getWidth() - 1) / TILE_SIZE;
-    int endRow = (collider.getY() + collider.getHeight() - 1) / TILE_SIZE;
+    int startCol = collider.getX() / Config.tileSize();
+    int startRow = collider.getY() / Config.tileSize();
+    int endCol = (collider.getX() + collider.getWidth() - 1) / Config.tileSize();
+    int endRow = (collider.getY() + collider.getHeight() - 1) / Config.tileSize();
 
     for (int row = startRow; row <= endRow; row++) {
       for (int col = startCol; col <= endCol; col++) {
@@ -76,8 +75,8 @@ public class CollisionManager {
 
         if (tile != null && tile.isSolid()) {
           // Create tile collider
-          Collider tileCollider =
-              new Collider(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+          Collider tileCollider = new Collider(col * Config.tileSize(), row * Config.tileSize(),
+              Config.tileSize(), Config.tileSize());
 
           if (collider.intersects(tileCollider)) {
             return true;
@@ -93,14 +92,14 @@ public class CollisionManager {
    * Checks if a collider intersects any world objects in the world.
    */
   private WorldObject getCollidingObject(Collider collider) {
-    int startCol = collider.getX() / TILE_SIZE;
-    int startRow = collider.getY() / TILE_SIZE;
-    int endCol = (collider.getX() + collider.getWidth() - 1) / TILE_SIZE;
-    int endRow = (collider.getY() + collider.getHeight() - 1) / TILE_SIZE;
+    int startCol = collider.getX() / Config.tileSize();
+    int startRow = collider.getY() / Config.tileSize();
+    int endCol = (collider.getX() + collider.getWidth() - 1) / Config.tileSize();
+    int endRow = (collider.getY() + collider.getHeight() - 1) / Config.tileSize();
 
     for (int row = startRow; row <= endRow; row++) {
       for (int col = startCol; col <= endCol; col++) {
-        Position pos = new Position(col * TILE_SIZE, row * TILE_SIZE);
+        Position pos = new Position(col * Config.tileSize(), row * Config.tileSize());
         WorldObject obj = worldObjectManager.get(pos);
 
         if (obj != null && collider.intersects(obj.getCollider())) {

@@ -1,9 +1,8 @@
 package io.tidalisland.entities;
 
-import static io.tidalisland.config.Config.TILE_SIZE;
-
 import io.tidalisland.collision.Collider;
 import io.tidalisland.collision.CollisionManager;
+import io.tidalisland.config.Config;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteSet;
 import io.tidalisland.utils.Direction;
@@ -21,7 +20,7 @@ public abstract class Entity {
   protected Collider collider;
   protected SpriteSet spriteSet;
   protected int speed;
-  protected int interactionRange = TILE_SIZE / 4;
+  protected int interactionRange = Config.tileSize() / 4;
 
   /**
    * Creates a new entity.

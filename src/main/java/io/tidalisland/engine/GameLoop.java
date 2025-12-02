@@ -1,6 +1,6 @@
 package io.tidalisland.engine;
 
-import static io.tidalisland.config.Config.FPS;
+import io.tidalisland.config.Config;
 
 /**
  * The game loop.
@@ -40,7 +40,7 @@ public class GameLoop implements Runnable {
 
   @Override
   public void run() {
-    double interval = 1_000_000_000 / FPS; // nanoseconds per frame
+    double interval = 1_000_000_000 / Config.fps(); // nanoseconds per frame
     double delta = 0;
     long lastTime = System.nanoTime();
     long currentTime;

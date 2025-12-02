@@ -1,12 +1,9 @@
 package io.tidalisland.entities;
 
-import static io.tidalisland.config.Config.SCREEN_HEIGHT;
-import static io.tidalisland.config.Config.SCREEN_WIDTH;
-import static io.tidalisland.config.Config.TILE_SIZE;
-
 import io.tidalisland.collision.ColliderAnchor;
 import io.tidalisland.collision.ColliderFactory;
 import io.tidalisland.collision.CollisionManager;
+import io.tidalisland.config.Config;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.SpriteAtlas;
 import io.tidalisland.graphics.SpriteFrame;
@@ -45,8 +42,8 @@ public class Player extends Entity {
   }
 
   public Player(KeyHandler keys) {
-    this(keys,
-        new Position(SCREEN_WIDTH / 2 - (TILE_SIZE / 2), SCREEN_HEIGHT / 2 - (TILE_SIZE / 2)));
+    this(keys, new Position(Config.screenWidth() / 2 - (Config.tileSize() / 2),
+        Config.screenHeight() / 2 - (Config.tileSize() / 2)));
   }
 
   @Override

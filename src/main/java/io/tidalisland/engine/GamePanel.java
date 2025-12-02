@@ -1,9 +1,7 @@
 package io.tidalisland.engine;
 
-import static io.tidalisland.config.Config.SCREEN_HEIGHT;
-import static io.tidalisland.config.Config.SCREEN_WIDTH;
-
 import io.tidalisland.collision.CollisionManager;
+import io.tidalisland.config.Config;
 import io.tidalisland.debug.DebugRenderer;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
@@ -42,7 +40,7 @@ public class GamePanel extends JPanel {
    * Sets up the panel.
    */
   public GamePanel() {
-    setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+    setPreferredSize(new Dimension(Config.screenWidth(), Config.screenHeight()));
     setBackground(Color.BLACK);
     setDoubleBuffered(true);
 
