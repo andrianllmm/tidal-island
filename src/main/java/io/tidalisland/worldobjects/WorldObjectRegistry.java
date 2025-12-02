@@ -15,6 +15,7 @@ public final class WorldObjectRegistry {
 
   static {
     register("tree", Tree::new);
+    register("rock", Rock::new);
   }
 
   /**
