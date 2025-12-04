@@ -29,7 +29,7 @@ public class Rock extends WorldObject implements Interactable {
   public InteractResult interact(Player player) {
     health--;
     if (health <= 0) {
-      List<Drop> drops = List.of(new Drop("stone", 2));
+      List<DropDefinition> drops = List.of(new DropDefinition("stone", 1, 3));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);
@@ -48,5 +48,4 @@ public class Rock extends WorldObject implements Interactable {
 
     spriteSet.getCurrentFrame().draw(g, screenPos);
   }
-
 }

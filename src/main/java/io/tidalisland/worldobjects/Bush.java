@@ -30,7 +30,7 @@ public class Bush extends WorldObject implements Interactable {
   public InteractResult interact(Player player) {
     health--;
     if (health <= 0) {
-      List<Drop> drops = List.of(new Drop("leaf", 3));
+      List<DropDefinition> drops = List.of(new DropDefinition("leaf", 3, 5));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);

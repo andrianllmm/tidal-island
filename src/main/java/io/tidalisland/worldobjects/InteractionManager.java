@@ -32,7 +32,8 @@ public class InteractionManager {
         worldObjectManager.remove(obj);
       }
 
-      for (Drop drop : result.drops) {
+      for (DropDefinition def : result.dropDefs) {
+        Drop drop = def.generate();
         player.getInventory().add(drop.getItemType(), drop.getQuantity());
       }
     }
