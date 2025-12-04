@@ -15,6 +15,7 @@ public final class ItemRegistry {
   static {
     register("wood", Wood::new);
     register("stone", Stone::new);
+    register("leaf", Leaf::new);
   }
 
   /** Registers an item. */

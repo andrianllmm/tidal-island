@@ -16,6 +16,11 @@
 
     { "id": "rock", "position": [5, 8] },
     { "id": "rock", "position": [14, 9] },
-    { "id": "rock", "position": [7, 13] }
+    { "id": "rock", "position": [7, 13] },
+
+    { "id": "bush", "position": [8, 8] },
+    { "id": "bush", "position": [10, 10] },
+    { "id": "bush", "position": [11, 9] },
+    { "id": "bush", "position": [9, 12] }
   ]
 }
