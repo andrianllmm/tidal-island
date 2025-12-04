@@ -26,18 +26,18 @@ public class UiInventoryPanel extends UiPanel {
    * Creates a new inventory panel.
    */
   public UiInventoryPanel(Inventory inventory) {
-    super(200, 280);
+    super(208, 280);
     this.inventory = inventory;
 
     setLayout(new VerticalStackLayout(8));
 
     // Title label
-    titleLabel = new UiLabel("Inventory", 200, 24);
+    titleLabel = new UiLabel("Inventory", 208, 24);
     add(titleLabel);
 
     // Items panel (grid)
-    itemsPanel = new UiPanel(200, 256);
-    itemsPanel.setLayout(new GridLayout(5, 64, 64, 4, 4));
+    itemsPanel = new UiPanel(208, 256);
+    itemsPanel.setLayout(new GridLayout(3, 64, 64, 4, 4));
     itemsPanel.setStyle(UiStyleDirector.makeTransparent());
     add(itemsPanel);
 
