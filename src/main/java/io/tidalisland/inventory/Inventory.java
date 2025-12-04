@@ -14,11 +14,11 @@ public class Inventory {
   /**
    * Adds an item to the inventory.
    */
-  public boolean add(String itemId, int amount) {
+  public boolean add(String itemType, int amount) {
     if (amount <= 0) {
       return false;
     }
-    items.merge(itemId, amount, Integer::sum);
+    items.merge(itemType, amount, Integer::sum);
 
     dirty = true;
     return true;
@@ -27,33 +27,33 @@ public class Inventory {
   /**
    * Removes an item from the inventory.
    */
-  public boolean remove(String itemId, int amount) {
-    if (!items.containsKey(itemId) || amount <= 0) {
+  public boolean remove(String itemType, int amount) {
+    if (!items.containsKey(itemType) || amount <= 0) {
       return false;
     }
 
-    int current = items.get(itemId);
+    int current = items.get(itemType);
     if (current < amount) {
       return false;
     }
 
     int updated = current - amount;
     if (updated == 0) {
-      items.remove(itemId);
+      items.remove(itemType);
     } else {
-      items.put(itemId, updated);
+      items.put(itemType, updated);
     }
 
     dirty = true;
     return true;
   }
 
-  public int getQuantity(String itemId) {
-    return items.getOrDefault(itemId, 0);
+  public int getQuantity(String itemType) {
+    return items.getOrDefault(itemType, 0);
   }
 
-  public boolean has(String itemId, int amount) {
-    return getQuantity(itemId) >= amount;
+  public boolean has(String itemType, int amount) {
+    return getQuantity(itemType) >= amount;
   }
 
   public int size() {
