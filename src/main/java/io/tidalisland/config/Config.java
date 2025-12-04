@@ -1,5 +1,7 @@
 package io.tidalisland.config;
 
+import java.util.Random;
+
 /** Global configuration for the game. */
 public final class Config {
 
@@ -8,11 +10,16 @@ public final class Config {
   private final ConfigData data;
   private final boolean debug;
 
+  private final Random random;
+
   private Config() {
     this.data = ConfigLoader.load("/config.json");
 
     // Environment variables
     this.debug = Boolean.parseBoolean(System.getenv().getOrDefault("DEBUG", "false"));
+
+    // Random
+    this.random = new Random();
   }
 
   /** Singleton access. */
@@ -37,6 +44,14 @@ public final class Config {
 
   public static boolean debug() {
     return get().debug;
+  }
+
+  public Random getRandom() {
+    return random;
+  }
+
+  public static Random random() {
+    return get().random;
   }
 
   public static int tileSize() {

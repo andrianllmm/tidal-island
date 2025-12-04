@@ -9,19 +9,20 @@ import java.awt.Graphics;
 import java.util.List;
 
 /**
- * Represents a tree.
+ * Represents a bush.
  */
-public class Tree extends WorldObject implements Interactable {
-  private int health = 5;
+public class Bush extends WorldObject implements Interactable {
+  private int health = 2;
 
   /**
-   * Creates a new tree.
+   * Creates a new bush.
    */
-  public Tree(Position position) {
-    super("tree", position, true);
+  public Bush(Position position) {
+    super("bush", position, true);
     spriteSet =
-        SpriteSetBuilder.build("/sprites/worldobjects/tree.png", "/sprites/worldobjects/tree.json");
-    collider = new ColliderBuilder().container(spriteSet.getCurrentFrame().getSize()).build();
+        SpriteSetBuilder.build("/sprites/worldobjects/bush.png", "/sprites/worldobjects/bush.json");
+    collider =
+        new ColliderBuilder().container(spriteSet.getCurrentFrame().getSize()).scale(0.8).build();
     collider.updatePosition(position);
   }
 
@@ -29,8 +30,7 @@ public class Tree extends WorldObject implements Interactable {
   public InteractResult interact(Player player) {
     health--;
     if (health <= 0) {
-      List<DropDefinition> drops =
-          List.of(new DropDefinition("wood", 1), new DropDefinition("leaf", 2, 4));
+      List<DropDefinition> drops = List.of(new DropDefinition("leaf", 3, 5));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);

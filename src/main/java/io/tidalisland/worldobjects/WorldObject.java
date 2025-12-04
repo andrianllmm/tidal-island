@@ -10,7 +10,7 @@ import java.awt.Graphics;
  * Represents an object in the world.
  */
 public abstract class WorldObject {
-  protected String id;
+  protected final String type;
   protected Position position;
   protected SpriteSet spriteSet;
   protected Collider collider;
@@ -19,8 +19,8 @@ public abstract class WorldObject {
   /**
    * Creates a new world object.
    */
-  public WorldObject(String id, Position position, boolean solid) {
-    this.id = id;
+  public WorldObject(String type, Position position, boolean solid) {
+    this.type = type;
     this.position = position;
     this.solid = solid;
   }
@@ -29,8 +29,8 @@ public abstract class WorldObject {
 
   public abstract void draw(Graphics g, Camera camera);
 
-  public String getId() {
-    return id;
+  public String getType() {
+    return type;
   }
 
   public Position getPosition() {

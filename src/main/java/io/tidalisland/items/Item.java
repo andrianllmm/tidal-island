@@ -6,16 +6,16 @@ import io.tidalisland.graphics.sprites.Sprite;
  * Represents an item.
  */
 public abstract class Item {
-  protected String id;
+  protected final String type;
   protected String description;
   protected Sprite sprite;
 
-  public Item(String id) {
-    this.id = id;
+  public Item(String type) {
+    this.type = type;
   }
 
-  public String getId() {
-    return id;
+  public String getType() {
+    return type;
   }
 
   public String getDescription() {

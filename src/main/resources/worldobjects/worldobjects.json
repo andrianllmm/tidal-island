@@ -1,9 +1,26 @@
 {
   "objects": [
-    { "id": "tree", "position": [10, 10] },
-    { "id": "tree", "position": [9, 8] },
     { "id": "tree", "position": [6, 7] },
-    { "id": "tree", "position": [11, 13] },
-    { "id": "tree", "position": [5, 14] }
+    { "id": "tree", "position": [5, 9] },
+    { "id": "tree", "position": [10, 5] },
+    { "id": "tree", "position": [6, 12] },
+    { "id": "tree", "position": [4, 10] },
+    { "id": "tree", "position": [8, 14] },
+    { "id": "tree", "position": [9, 15] },
+    { "id": "tree", "position": [10, 14] },
+    { "id": "tree", "position": [15, 10] },
+    { "id": "tree", "position": [14, 11] },
+    { "id": "tree", "position": [12, 7] },
+    { "id": "tree", "position": [13, 8] },
+    { "id": "tree", "position": [12, 13] },
+
+    { "id": "rock", "position": [5, 8] },
+    { "id": "rock", "position": [14, 9] },
+    { "id": "rock", "position": [7, 13] },
+
+    { "id": "bush", "position": [8, 8] },
+    { "id": "bush", "position": [10, 10] },
+    { "id": "bush", "position": [11, 9] },
+    { "id": "bush", "position": [9, 12] }
   ]
 }

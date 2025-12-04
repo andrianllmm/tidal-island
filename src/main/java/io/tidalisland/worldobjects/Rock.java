@@ -9,18 +9,18 @@ import java.awt.Graphics;
 import java.util.List;
 
 /**
- * Represents a tree.
+ * Represents a rock.
  */
-public class Tree extends WorldObject implements Interactable {
+public class Rock extends WorldObject implements Interactable {
   private int health = 5;
 
   /**
-   * Creates a new tree.
+   * Creates a new rock.
    */
-  public Tree(Position position) {
-    super("tree", position, true);
+  public Rock(Position position) {
+    super("rock", position, true);
     spriteSet =
-        SpriteSetBuilder.build("/sprites/worldobjects/tree.png", "/sprites/worldobjects/tree.json");
+        SpriteSetBuilder.build("/sprites/worldobjects/rock.png", "/sprites/worldobjects/rock.json");
     collider = new ColliderBuilder().container(spriteSet.getCurrentFrame().getSize()).build();
     collider.updatePosition(position);
   }
@@ -29,8 +29,7 @@ public class Tree extends WorldObject implements Interactable {
   public InteractResult interact(Player player) {
     health--;
     if (health <= 0) {
-      List<DropDefinition> drops =
-          List.of(new DropDefinition("wood", 1), new DropDefinition("leaf", 2, 4));
+      List<DropDefinition> drops = List.of(new DropDefinition("stone", 1, 3));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);
