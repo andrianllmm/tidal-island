@@ -56,7 +56,7 @@ public class UiInventoryPanel extends UiPanel {
 
     itemsPanel.getChildren().clear(); // clear previous items
 
-    for (ItemStack stack : inventory.getStacks()) {
+    for (ItemStack<? extends Item> stack : inventory.getStacks()) {
       UiPanel slot = new UiPanel(64, 64);
       slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
       slot.setStyle(UiStyleDirector.makeTransparent());

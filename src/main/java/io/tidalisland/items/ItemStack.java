@@ -2,15 +2,17 @@ package io.tidalisland.items;
 
 /**
  * Represents a stack of items.
+ *
+ * @param <T> the type of item this stack holds
  */
-public class ItemStack {
-  private final Item item;
+public class ItemStack<T extends Item> {
+  private final T item;
   private int quantity;
 
   /**
    * Creates a new stack of items.
    */
-  public ItemStack(Item item, int quantity) {
+  public ItemStack(T item, int quantity) {
     if (quantity > item.getMaxStackSize()) {
       throw new IllegalArgumentException("Too many items for stack");
     }
@@ -18,10 +20,16 @@ public class ItemStack {
     this.quantity = quantity;
   }
 
-  public Item getItem() {
+  /**
+   * Returns the item in this stack.
+   */
+  public T getItem() {
     return item;
   }
 
+  /**
+   * Returns the current quantity in this stack.
+   */
   public int getQuantity() {
     return quantity;
   }
@@ -45,12 +53,17 @@ public class ItemStack {
     quantity -= amount;
   }
 
+  /**
+   * Returns true if the stack is full.
+   */
   public boolean isFull() {
     return quantity >= item.getMaxStackSize();
   }
 
+  /**
+   * Returns the remaining capacity in this stack.
+   */
   public int getRemainingCapacity() {
     return item.getMaxStackSize() - quantity;
   }
 }
-

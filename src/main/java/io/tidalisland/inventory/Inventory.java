@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class Inventory {
   /** Map of item types to stacks of items for fast lookup. */
-  private final Map<String, List<ItemStack>> items = new HashMap<>(); // item type -> list of stacks
+  private final Map<String, List<ItemStack<? extends Item>>> items = new HashMap<>();
   private final int maxSlots;
   private boolean dirty = false;
 
@@ -35,11 +35,12 @@ public class Inventory {
       return false;
     }
 
-    List<ItemStack> stacks = items.computeIfAbsent(item.getType(), k -> new ArrayList<>());
+    List<ItemStack<? extends Item>> stacks =
+        items.computeIfAbsent(item.getType(), k -> new ArrayList<>());
     int remaining = amount;
 
     // Fill existing stacks
-    for (ItemStack stack : stacks) {
+    for (ItemStack<? extends Item> stack : stacks) {
       if (!stack.isFull()) {
         int toAdd = Math.min(stack.getRemainingCapacity(), remaining);
         stack.add(toAdd);
@@ -61,7 +62,7 @@ public class Inventory {
     // Create new stacks as needed
     while (remaining > 0) {
       int toAdd = Math.min(item.getMaxStackSize(), remaining);
-      stacks.add(new ItemStack(item, toAdd));
+      stacks.add(new ItemStack<>(item, toAdd));
       remaining -= toAdd;
     }
 
@@ -77,7 +78,7 @@ public class Inventory {
       return false;
     }
 
-    List<ItemStack> stacks = items.get(item.getType());
+    List<ItemStack<? extends Item>> stacks = items.get(item.getType());
     if (stacks == null) {
       return false;
     }
@@ -85,7 +86,7 @@ public class Inventory {
     int remaining = amount;
 
     // Remove from existing stacks
-    for (ItemStack stack : stacks) {
+    for (ItemStack<? extends Item> stack : stacks) {
       if (remaining <= 0) {
         break;
       }
@@ -113,7 +114,7 @@ public class Inventory {
 
   /** Returns the quantity of an item in the inventory. */
   public int getQuantity(Item item) {
-    List<ItemStack> stacks = items.get(item.getType());
+    List<ItemStack<? extends Item>> stacks = items.get(item.getType());
     if (stacks == null) {
       return 0;
     }
@@ -149,10 +150,10 @@ public class Inventory {
   }
 
   /** Returns the stacks of items in the inventory. */
-  public List<ItemStack> getStacks() {
-    List<ItemStack> stacks = new ArrayList<>();
-    for (Map.Entry<String, List<ItemStack>> entry : items.entrySet()) {
-      for (ItemStack stack : entry.getValue()) {
+  public List<ItemStack<? extends Item>> getStacks() {
+    List<ItemStack<? extends Item>> stacks = new ArrayList<>();
+    for (Map.Entry<String, List<ItemStack<? extends Item>>> entry : items.entrySet()) {
+      for (ItemStack<? extends Item> stack : entry.getValue()) {
         stacks.add(stack);
       }
     }
@@ -162,7 +163,7 @@ public class Inventory {
   /** Returns the summary of the inventory (item type -> total quantity). */
   public Map<String, Integer> getSummary() {
     Map<String, Integer> summary = new HashMap<>();
-    for (Map.Entry<String, List<ItemStack>> entry : items.entrySet()) {
+    for (Map.Entry<String, List<ItemStack<? extends Item>>> entry : items.entrySet()) {
       int total = entry.getValue().stream().mapToInt(ItemStack::getQuantity).sum();
       summary.put(entry.getKey(), total);
     }
