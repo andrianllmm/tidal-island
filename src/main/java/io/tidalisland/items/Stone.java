@@ -11,7 +11,7 @@ public class Stone extends Item {
    * Creates a stone item.
    */
   public Stone() {
-    super("stone");
+    super("stone", 16);
     this.description = "Stone is a common material.";
     this.sprite = new Sprite("/sprites/items/stone.png");
   }

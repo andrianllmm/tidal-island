@@ -34,7 +34,7 @@ public class InteractionManager {
 
       for (DropDefinition def : result.dropDefs) {
         Drop drop = def.generate();
-        player.getInventory().add(drop.getItemType(), drop.getQuantity());
+        player.getInventory().add(drop.getItem(), drop.getQuantity());
       }
     }
   }

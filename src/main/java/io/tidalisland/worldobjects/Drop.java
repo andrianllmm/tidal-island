@@ -1,19 +1,21 @@
 package io.tidalisland.worldobjects;
 
+import io.tidalisland.items.Item;
+
 /**
  * Represents a drop descriptor.
  */
 public class Drop {
-  private final String itemType;
+  private final Item item;
   private final int quantity;
 
-  public Drop(String itemType, int quantity) {
-    this.itemType = itemType;
+  public Drop(Item item, int quantity) {
+    this.item = item;
     this.quantity = quantity;
   }
 
-  public String getItemType() {
-    return itemType;
+  public Item getItem() {
+    return item;
   }
 
   public int getQuantity() {

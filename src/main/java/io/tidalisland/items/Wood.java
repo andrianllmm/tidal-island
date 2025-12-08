@@ -10,7 +10,7 @@ public class Wood extends Item {
    * Creates a new wood item.
    */
   public Wood() {
-    super("wood");
+    super("wood", 8);
     this.description = "Wood is a common material.";
     this.sprite = new Sprite("/sprites/items/wood.png");
   }
