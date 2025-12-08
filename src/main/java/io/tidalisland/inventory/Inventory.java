@@ -113,20 +113,16 @@ public class Inventory {
   }
 
   /** Returns the quantity of an item in the inventory. */
-  public int getQuantity(Item item) {
-    List<ItemStack<? extends Item>> stacks = items.get(item.getType());
+  public int getQuantity(String itemType) {
+    List<ItemStack<? extends Item>> stacks = items.get(itemType);
     if (stacks == null) {
       return 0;
     }
     return stacks.stream().mapToInt(ItemStack::getQuantity).sum();
   }
 
-  public boolean has(Item item, int amount) {
-    return getQuantity(item) >= amount;
-  }
-
-  public boolean has(Item item) {
-    return getQuantity(item) > 0;
+  public int getQuantity(Item item) {
+    return getQuantity(item.getType());
   }
 
   public int getMaxSlots() {
