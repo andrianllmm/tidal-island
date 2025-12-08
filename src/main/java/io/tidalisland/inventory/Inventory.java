@@ -14,7 +14,18 @@ import java.util.Set;
 public class Inventory {
   /** Map of item types to stacks of items for fast lookup. */
   private final Map<String, List<ItemStack>> items = new HashMap<>(); // item type -> list of stacks
+  private final int maxSlots;
   private boolean dirty = false;
+
+  /**
+   * Creates a new inventory.
+   */
+  public Inventory(int maxSlots) {
+    if (maxSlots < 1) {
+      throw new IllegalArgumentException("Max slots must be at least 1");
+    }
+    this.maxSlots = maxSlots;
+  }
 
   /**
    * Adds an item to the inventory.
@@ -38,6 +49,13 @@ public class Inventory {
           return true;
         }
       }
+    }
+
+    // Calculate free slots
+    int freeSlots = maxSlots - getUsedSlots();
+    int neededSlots = (int) Math.ceil((double) remaining / item.getMaxStackSize());
+    if (neededSlots > freeSlots) {
+      return false; // Not enough slots for new stacks
     }
 
     // Create new stacks as needed
@@ -108,6 +126,14 @@ public class Inventory {
 
   public boolean has(Item item) {
     return getQuantity(item) > 0;
+  }
+
+  public int getMaxSlots() {
+    return maxSlots;
+  }
+
+  public int getUsedSlots() {
+    return items.values().stream().mapToInt(List::size).sum();
   }
 
   public int size() {

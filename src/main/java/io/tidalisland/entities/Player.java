@@ -27,7 +27,7 @@ public class Player extends Entity {
   public Player(KeyHandler keys, Position position) {
     super(position, Direction.RIGHT, 4);
 
-    this.inventory = new Inventory();
+    this.inventory = new Inventory(24);
     this.keys = keys;
 
     // Import sprites
