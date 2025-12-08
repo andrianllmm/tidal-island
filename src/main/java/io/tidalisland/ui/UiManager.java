@@ -1,11 +1,14 @@
 package io.tidalisland.ui;
 
 import io.tidalisland.config.Config;
+import io.tidalisland.crafting.CraftingManager;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
 import io.tidalisland.ui.components.UiComponent;
 import io.tidalisland.ui.components.UiPanel;
+import io.tidalisland.ui.layout.HorizontalAlignment;
+import io.tidalisland.ui.layout.HorizontalStackLayout;
 import io.tidalisland.ui.styles.UiStyle;
 import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Graphics2D;
@@ -29,10 +32,23 @@ public class UiManager {
     this.root = new UiPanel(Config.screenWidth(), Config.screenHeight(), 0, 0);
     UiStyle style = UiStyleDirector.fromTransparent().padding(24).build();
     this.root.setStyle(style);
+    this.root.setLayout(new HorizontalStackLayout(0));
+
+    UiPanel left = new UiPanel(Config.screenWidth() / 2 - 20, Config.screenHeight());
+    left.setStyle(UiStyleDirector.fromTransparent().padding(8).build());
+    left.getLayout().setAlignment(HorizontalAlignment.LEFT);
+    UiPanel right = new UiPanel(Config.screenWidth() / 2 - 20, Config.screenHeight());
+    right.setStyle(UiStyleDirector.fromTransparent().padding(8).build());
+    right.getLayout().setAlignment(HorizontalAlignment.RIGHT);
+    root.add(left);
+    root.add(right);
 
     // Components
     UiInventoryPanel inv = new UiInventoryPanel(inventory);
-    root.add(inv);
+    left.add(inv);
+
+    UiCraftingPanel crafting = new UiCraftingPanel(inventory, new CraftingManager());
+    right.add(crafting);
   }
 
   /**
