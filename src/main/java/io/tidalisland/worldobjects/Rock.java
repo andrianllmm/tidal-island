@@ -4,6 +4,7 @@ import io.tidalisland.collision.ColliderBuilder;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteSetBuilder;
+import io.tidalisland.items.Stone;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
 import java.util.List;
@@ -29,7 +30,7 @@ public class Rock extends WorldObject implements Interactable {
   public InteractResult interact(Player player) {
     health--;
     if (health <= 0) {
-      List<DropDefinition> drops = List.of(new DropDefinition("stone", 1, 3));
+      List<Drop> drops = List.of(new Drop(new Stone(), 1, 3));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);

@@ -4,6 +4,7 @@ import io.tidalisland.collision.ColliderBuilder;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteSetBuilder;
+import io.tidalisland.items.Leaf;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Bush extends WorldObject implements Interactable {
   public InteractResult interact(Player player) {
     health--;
     if (health <= 0) {
-      List<DropDefinition> drops = List.of(new DropDefinition("leaf", 3, 5));
+      List<Drop> drops = List.of(new Drop(new Leaf(), 3, 5));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);

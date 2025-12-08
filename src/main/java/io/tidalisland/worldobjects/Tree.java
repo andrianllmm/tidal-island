@@ -4,6 +4,8 @@ import io.tidalisland.collision.ColliderBuilder;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteSetBuilder;
+import io.tidalisland.items.Leaf;
+import io.tidalisland.items.Wood;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
 import java.util.List;
@@ -29,8 +31,7 @@ public class Tree extends WorldObject implements Interactable {
   public InteractResult interact(Player player) {
     health--;
     if (health <= 0) {
-      List<DropDefinition> drops =
-          List.of(new DropDefinition("wood", 1), new DropDefinition("leaf", 2, 4));
+      List<Drop> drops = List.of(new Drop(new Wood(), 1), new Drop(new Leaf(), 2, 4));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);

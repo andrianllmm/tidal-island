@@ -10,7 +10,7 @@ public class Leaf extends Item {
    * Creates a new leaf item.
    */
   public Leaf() {
-    super("leaf");
+    super("leaf", 32);
     this.description = "A leaf is a common plant.";
     this.sprite = new Sprite("/sprites/items/leaf.png");
   }
