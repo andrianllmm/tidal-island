@@ -44,16 +44,13 @@ public class UiInventoryPanel extends UiPanel {
     visible = false;
 
     refresh();
+    inventory.addListener(evt -> refresh());
   }
 
   /**
    * Rebuilds the items grid based on inventory contents.
    */
   public void refresh() {
-    if (!inventory.isDirty()) {
-      return;
-    }
-
     itemsPanel.getChildren().clear(); // clear previous items
 
     for (ItemStack<? extends Item> stack : inventory.getStacks()) {
@@ -71,8 +68,6 @@ public class UiInventoryPanel extends UiPanel {
       label.style(s -> s.fontSize(12));
       slot.add(label);
     }
-
-    inventory.clearDirty();
   }
 
   @Override
@@ -80,6 +75,5 @@ public class UiInventoryPanel extends UiPanel {
     if (keys.isJustPressed("toggle_inventory")) {
       toggleVisible();
     }
-    refresh();
   }
 }

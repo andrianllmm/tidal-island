@@ -85,6 +85,7 @@ public class UiCraftingPanel extends UiPanel {
     visible = false;
 
     refreshAll();
+    inventory.addListener(evt -> refreshAll());
   }
 
   private void refreshAll() {
@@ -107,11 +108,6 @@ public class UiCraftingPanel extends UiPanel {
   public void onUpdate(KeyHandler keys, MouseHandler mouse) {
     if (keys.isJustPressed("toggle_crafting")) {
       toggleVisible();
-    }
-
-    if (inventory.isDirty()) {
-      refreshAll();
-      inventory.clearDirty();
     }
   }
 
