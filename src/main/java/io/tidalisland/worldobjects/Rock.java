@@ -30,7 +30,7 @@ public class Rock extends WorldObject implements Interactable {
   public InteractResult interact(Player player) {
     health--;
     if (health <= 0) {
-      List<DropDefinition> drops = List.of(new DropDefinition(new Stone(), 1, 3));
+      List<Drop> drops = List.of(new Drop(new Stone(), 1, 3));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);

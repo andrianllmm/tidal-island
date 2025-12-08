@@ -31,8 +31,7 @@ public class Tree extends WorldObject implements Interactable {
   public InteractResult interact(Player player) {
     health--;
     if (health <= 0) {
-      List<DropDefinition> drops =
-          List.of(new DropDefinition(new Wood(), 1), new DropDefinition(new Leaf(), 2, 4));
+      List<Drop> drops = List.of(new Drop(new Wood(), 1), new Drop(new Leaf(), 2, 4));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);
