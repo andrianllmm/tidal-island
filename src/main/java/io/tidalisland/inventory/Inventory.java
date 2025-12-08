@@ -1,5 +1,8 @@
 package io.tidalisland.inventory;
 
+import io.tidalisland.events.EventListener;
+import io.tidalisland.events.InventoryChangeEvent;
+import io.tidalisland.events.Observable;
 import io.tidalisland.items.Item;
 import io.tidalisland.items.ItemStack;
 import java.util.ArrayList;
@@ -7,15 +10,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Represents the player's inventory.
  */
-public class Inventory {
+public class Inventory implements Observable<InventoryChangeEvent> {
   /** Map of item types to stacks of items for fast lookup. */
   private final Map<String, List<ItemStack<? extends Item>>> items = new HashMap<>();
   private final int maxSlots;
-  private boolean dirty = false;
+  private final CopyOnWriteArrayList<EventListener<InventoryChangeEvent>> listeners =
+      new CopyOnWriteArrayList<>();
 
   /**
    * Creates a new inventory.
@@ -46,7 +51,7 @@ public class Inventory {
         stack.add(toAdd);
         remaining -= toAdd;
         if (remaining == 0) {
-          dirty = true;
+          emitChange(item, amount, true);
           return true;
         }
       }
@@ -66,7 +71,7 @@ public class Inventory {
       remaining -= toAdd;
     }
 
-    dirty = true;
+    emitChange(item, amount, true);
     return true;
   }
 
@@ -108,7 +113,7 @@ public class Inventory {
       return false;
     }
 
-    dirty = true;
+    emitChange(item, amount, false);
     return true;
   }
 
@@ -166,20 +171,23 @@ public class Inventory {
     return summary;
   }
 
-  /** Checks if the inventory has been modified. */
-  public boolean isDirty() {
-    return dirty;
+  private void emitChange(Item item, int amount, boolean added) {
+    dispatch(new InventoryChangeEvent(item, amount, added), listeners);
   }
 
-  /** Clears the dirty flag. */
-  public boolean clearDirty() {
-    boolean old = dirty;
-    dirty = false;
-    return old;
+  @Override
+  public void addListener(EventListener<InventoryChangeEvent> listener) {
+    listeners.add(listener);
+  }
+
+  @Override
+  public void removeListener(EventListener<InventoryChangeEvent> listener) {
+    listeners.remove(listener);
   }
 
   @Override
   public String toString() {
     return getSummary().toString();
   }
+
 }
