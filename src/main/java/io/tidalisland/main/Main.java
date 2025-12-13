@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 /**
  * Main entry point.
  */
-public class Game {
+public class Main {
   /**
    * Launches the game.
    */
