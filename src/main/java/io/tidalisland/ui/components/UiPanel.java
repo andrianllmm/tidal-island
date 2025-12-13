@@ -6,7 +6,7 @@ import io.tidalisland.ui.layout.LayoutManager;
 import io.tidalisland.ui.layout.VerticalStackLayout;
 import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 
 /**
  * A container that groups UI components.
@@ -33,7 +33,7 @@ public class UiPanel extends UiComponent {
   }
 
   @Override
-  protected void onRender(Graphics2D g) {
+  protected void onRender(Graphics g) {
     int ax = getAbsX();
     int ay = getAbsY();
 

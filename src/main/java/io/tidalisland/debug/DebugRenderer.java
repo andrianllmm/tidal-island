@@ -11,7 +11,7 @@ import io.tidalisland.ui.styles.UiStyle;
 import io.tidalisland.worldobjects.WorldObjectManager;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 
 /**
  * Renders debug information for development.
@@ -42,7 +42,7 @@ public class DebugRenderer {
   /**
    * Renders debug information to the screen.
    */
-  public void render(Graphics2D g) {
+  public void render(Graphics g) {
     if (!enabled) {
       return;
     }
@@ -91,12 +91,12 @@ public class DebugRenderer {
     renderUiDebug(g, ui.getRoot());
   }
 
-  private void renderColliderDebug(Graphics2D g) {
+  private void renderColliderDebug(Graphics g) {
     worldObjectManager.getAll().forEach(obj -> obj.getCollider().draw(g, camera));
     player.getCollider().draw(g, camera);
   }
 
-  private void renderUiDebug(Graphics2D g, UiComponent component) {
+  private void renderUiDebug(Graphics g, UiComponent component) {
     if (!component.isVisible()) {
       return;
     }

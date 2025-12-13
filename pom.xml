@@ -99,7 +99,7 @@
           <artifactId>exec-maven-plugin</artifactId>
           <version>3.6.2</version>
           <configuration>
-            <mainClass>io.tidalisland.main.Game</mainClass>
+            <mainClass>io.tidalisland.main.Main</mainClass>
           </configuration>
         </plugin>
         <plugin>

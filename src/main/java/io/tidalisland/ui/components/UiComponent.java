@@ -4,7 +4,7 @@ import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.ui.styles.UiStyle;
 import io.tidalisland.ui.styles.UiStyleBuilder;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
@@ -78,7 +78,7 @@ public abstract class UiComponent {
   /**
    * Renders the component.
    */
-  public void render(Graphics2D g) {
+  public void render(Graphics g) {
     if (!visible) {
       return;
     }
@@ -94,7 +94,7 @@ public abstract class UiComponent {
   /**
    * Subclass-specific rendering logic.
    */
-  protected abstract void onRender(Graphics2D g);
+  protected abstract void onRender(Graphics g);
 
   /**
    * Updates the component's interaction state.
