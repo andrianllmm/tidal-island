@@ -3,7 +3,7 @@ package io.tidalisland.ui.components;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.ui.styles.UiStyleDirector;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 
 /**
  * A button.
@@ -32,7 +32,7 @@ public class UiButton extends UiPanel {
   }
 
   @Override
-  protected void onRender(Graphics2D g) {
+  protected void onRender(Graphics g) {
     super.onRender(g);
     label.render(g);
   }

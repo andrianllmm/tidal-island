@@ -5,7 +5,7 @@ import io.tidalisland.input.MouseHandler;
 import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Color;
 import java.awt.FontMetrics;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class UiLabel extends UiComponent {
   }
 
   @Override
-  protected void onRender(Graphics2D g) {
+  protected void onRender(Graphics g) {
     int ax = getAbsX();
     int ay = getAbsY();
 

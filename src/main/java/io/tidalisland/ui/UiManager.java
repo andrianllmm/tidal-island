@@ -11,7 +11,7 @@ import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.HorizontalStackLayout;
 import io.tidalisland.ui.styles.UiStyle;
 import io.tidalisland.ui.styles.UiStyleDirector;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 
 /**
  * Manages all UI components using a root panel.
@@ -75,7 +75,7 @@ public class UiManager {
   /**
    * Renders all UI components via the root panel.
    */
-  public void render(Graphics2D g) {
+  public void render(Graphics g) {
     root.render(g);
   }
 

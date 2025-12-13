@@ -2,7 +2,7 @@ package io.tidalisland.ui.components;
 
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -69,7 +69,7 @@ public class UiImage extends UiComponent {
   }
 
   @Override
-  protected void onRender(Graphics2D g) {
+  protected void onRender(Graphics g) {
     if (image == null) {
       return;
     }
