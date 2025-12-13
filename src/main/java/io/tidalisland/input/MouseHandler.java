@@ -96,7 +96,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
   }
 
   /**
-   * Called by Swing when a mouse button goes down.
+   * Called when a mouse button goes down.
    */
   @Override
   public void mousePressed(MouseEvent e) {
@@ -112,7 +112,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
   }
 
   /**
-   * Called by Swing when a mouse button goes up.
+   * Called when a mouse button goes up.
    */
   @Override
   public void mouseReleased(MouseEvent e) {

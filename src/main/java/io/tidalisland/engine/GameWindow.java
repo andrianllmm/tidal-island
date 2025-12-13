@@ -1,27 +1,36 @@
 package io.tidalisland.engine;
 
-import javax.swing.JFrame;
+import java.awt.Frame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * The game window.
  */
-public class GameWindow extends JFrame {
+public class GameWindow extends Frame {
   /**
    * Creates a new game window.
    */
-  public GameWindow() {
+  public GameWindow(Game game, GameCanvas canvas) {
     super("Tidal Island");
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
     setResizable(true);
     setLocationRelativeTo(null);
-  }
 
-  public void addPanel(GamePanel panel) {
-    add(panel);
+    // Handle closing the window
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        if (game != null) {
+          game.stop();
+        }
+        dispose();
+        System.exit(0);
+      }
+    });
+
+    // Add canvas
+    add(canvas);
     pack();
-  }
-
-  public void showWindow() {
-    setVisible(true);
+    canvas.requestFocus();
   }
 }

@@ -11,17 +11,16 @@ import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.ui.UiManager;
 import io.tidalisland.worldobjects.InteractionManager;
 import io.tidalisland.worldobjects.WorldObjectManager;
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /**
  * The game panel.
  */
-public class GamePanel extends JPanel {
+public class GameCanvas extends Canvas {
   // Input handlers
   private KeyHandler keys;
   private MouseHandler mouse;
@@ -39,10 +38,9 @@ public class GamePanel extends JPanel {
   /**
    * Sets up the panel.
    */
-  public GamePanel() {
+  public GameCanvas() {
     setPreferredSize(new Dimension(Config.screenWidth(), Config.screenHeight()));
     setBackground(Color.BLACK);
-    setDoubleBuffered(true);
 
     // Initialize input handlers
     keys = new KeyHandler();
@@ -53,7 +51,7 @@ public class GamePanel extends JPanel {
 
     addKeyListener(keys);
     setFocusable(true);
-    SwingUtilities.invokeLater(() -> requestFocusInWindow());
+    requestFocus();
 
     worldMap = new WorldMap();
     player = new Player(keys);
@@ -77,9 +75,7 @@ public class GamePanel extends JPanel {
     ui.update();
   }
 
-  @Override
-  protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
+  protected void render(Graphics g) {
     Graphics2D g2 = (Graphics2D) g;
 
     try {

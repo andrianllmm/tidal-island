@@ -1,7 +1,7 @@
 package io.tidalisland.main;
 
-import io.tidalisland.engine.GameLoop;
-import io.tidalisland.engine.GamePanel;
+import io.tidalisland.engine.Game;
+import io.tidalisland.engine.GameCanvas;
 import io.tidalisland.engine.GameWindow;
 
 /**
@@ -12,14 +12,10 @@ public class Main {
    * Launches the game.
    */
   public static void main(final String[] args) {
-    GameWindow window = new GameWindow();
-
-    GamePanel gamePanel = new GamePanel();
-    window.addPanel(gamePanel);
-
-    window.showWindow();
-
-    GameLoop gameLoop = new GameLoop(gamePanel);
-    gameLoop.start();
+    GameCanvas canvas = new GameCanvas();
+    Game game = new Game(canvas);
+    GameWindow window = new GameWindow(game, canvas);
+    window.setVisible(true);
+    game.start();
   }
 }
