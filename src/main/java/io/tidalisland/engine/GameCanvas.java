@@ -7,8 +7,10 @@ import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
+import io.tidalisland.spawning.SpawnManager;
 import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.ui.UiManager;
+import io.tidalisland.utils.Position;
 import io.tidalisland.worldobjects.InteractionManager;
 import io.tidalisland.worldobjects.WorldObjectManager;
 import java.awt.Canvas;
@@ -26,10 +28,11 @@ public class GameCanvas extends Canvas {
   private MouseHandler mouse;
 
   private WorldMap worldMap;
-  private Player player;
   private WorldObjectManager worldObjectManager;
   private CollisionManager collisionManager;
   private InteractionManager interactionManager;
+  private SpawnManager spawnManager;
+  private Player player;
   private Camera camera;
   private UiManager ui;
 
@@ -54,15 +57,16 @@ public class GameCanvas extends Canvas {
     requestFocus();
 
     worldMap = new WorldMap();
-    player = new Player(keys);
     worldObjectManager = new WorldObjectManager();
     collisionManager = new CollisionManager(worldMap, worldObjectManager);
     interactionManager = new InteractionManager(worldObjectManager);
+    spawnManager = new SpawnManager(worldMap, worldObjectManager);
+    player = new Player(keys, spawnManager.findValidSpawnPosition());
     camera = new Camera();
     ui = new UiManager(keys, mouse, player.getInventory());
 
-    debugRenderer =
-        new DebugRenderer(mouse, ui, worldObjectManager, collisionManager, camera, player);
+    debugRenderer = new DebugRenderer(
+        mouse, ui, worldObjectManager, collisionManager, camera, player);
   }
 
   /**
