@@ -1,10 +1,8 @@
 package io.tidalisland.worldobjects;
 
 import io.tidalisland.collision.Collider;
-import io.tidalisland.config.Config;
 import io.tidalisland.entities.Entity;
 import io.tidalisland.entities.Player;
-import io.tidalisland.utils.Position;
 
 /**
  * Manages interactions between entities and world objects.
@@ -39,23 +37,13 @@ public class InteractionManager {
   }
 
   private WorldObject getObjectInFront(Entity entity) {
-    Collider interactionZone = entity.getCollider().copy();
-    interactionZone.move(entity.getDirection(), entity.getInteractionRange());
+    Collider playerCollider = entity.getCollider().copy();
+    playerCollider.move(entity.getDirection(), entity.getInteractionRange());
 
-    // only check tiles in interactionZone
-    int startCol = interactionZone.getX() / Config.tileSize();
-    int startRow = interactionZone.getY() / Config.tileSize();
-    int endCol = (interactionZone.getX() + interactionZone.getWidth() - 1) / Config.tileSize();
-    int endRow = (interactionZone.getY() + interactionZone.getHeight() - 1) / Config.tileSize();
-
-    for (int row = startRow; row <= endRow; row++) {
-      for (int col = startCol; col <= endCol; col++) {
-        Position tilePos = new Position(col * Config.tileSize(), row * Config.tileSize());
-        WorldObject obj = worldObjectManager.get(tilePos);
-
-        if (obj instanceof Interactable && interactionZone.intersects(obj.getCollider())) {
-          return obj;
-        }
+    // check all objects
+    for (WorldObject obj : worldObjectManager.getAll()) {
+      if (obj instanceof Interactable && playerCollider.intersects(obj.getCollider())) {
+        return obj;
       }
     }
 

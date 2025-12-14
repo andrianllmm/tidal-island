@@ -1,14 +1,6 @@
 {
   "objects": [
     {
-      "id": "tree",
-      "position": [34, 36]
-    },
-    {
-      "id": "tree",
-      "position": [34, 39]
-    },
-    {
       "id": "bush",
       "position": [26, 31]
     },

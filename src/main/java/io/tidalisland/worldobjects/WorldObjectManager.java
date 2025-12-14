@@ -1,7 +1,10 @@
 package io.tidalisland.worldobjects;
 
+import io.tidalisland.collision.Collider;
+import io.tidalisland.config.Config;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
+import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
 import java.util.Collection;
@@ -12,15 +15,17 @@ import java.util.Map;
  * Manages world objects.
  */
 public class WorldObjectManager {
-  Map<Position, WorldObject> worldObjects;
+  private final WorldMap worldMap;
+  private Map<Position, WorldObject> worldObjects;
 
   /**
    * Creates a new world object manager.
    */
-  public WorldObjectManager() {
-    worldObjects = new HashMap<>();
+  public WorldObjectManager(WorldMap worldMap) {
+    this.worldMap = worldMap;
+    this.worldObjects = new HashMap<>();
 
-    for (WorldObject obj : WorldObjectLoader.load("/worldobjects/worldobjects.json")) {
+    for (WorldObject obj : WorldObjectLoader.load("/worldobjects/worldobjects.json", worldMap)) {
       add(obj);
     }
   }
@@ -39,11 +44,12 @@ public class WorldObjectManager {
    * Adds a world object.
    */
   public boolean add(WorldObject obj) {
-    Position pos = obj.getPosition();
-    if (worldObjects.containsKey(pos)) {
-      return false;
+    for (WorldObject existing : getAll()) {
+      if (existing.getCollider().intersects(obj.getCollider())) {
+        return false;
+      }
     }
-    worldObjects.put(pos, obj);
+    worldObjects.put(obj.getPosition(), obj);
     return true;
   }
 
@@ -70,15 +76,20 @@ public class WorldObjectManager {
    * Moves a world object from one position to another.
    */
   public boolean move(WorldObject obj, Position next) {
-    if (worldObjects.containsKey(next)) {
-      return false;
+    Collider nextCollider = obj.getCollider().copy();
+    nextCollider.updatePosition(next);
+
+    for (WorldObject existing : getAll()) {
+      if (existing != obj && existing.getCollider().intersects(nextCollider)) {
+        return false;
+      }
     }
+
     worldObjects.remove(obj.getPosition());
     obj.setPosition(next);
     worldObjects.put(next, obj);
     return true;
   }
-
 
   /**
    * Moves a world object at a given position to another.
@@ -95,6 +106,25 @@ public class WorldObjectManager {
   }
 
   /**
+   * Gets a world object at a given tile position.
+   */
+  public WorldObject getObjectAtTile(int col, int row) {
+    for (WorldObject obj : getAll()) {
+      int objTileX = obj.getPosition().getX() / Config.tileSize();
+      int objTileY = obj.getPosition().getY() / Config.tileSize();
+      int objTileWidth = obj.getCollider().getWidth();
+      int objTileHeight = obj.getCollider().getHeight();
+
+      if (col >= objTileX && col < objTileX + objTileWidth
+          && row >= objTileY && row < objTileY + objTileHeight) {
+        return obj; // tile is covered by this object
+      }
+    }
+
+    return null; // no object covers this tile
+  }
+
+  /**
    * Gets all world objects.
    */
   public Collection<WorldObject> getAll() {
@@ -107,7 +137,6 @@ public class WorldObjectManager {
   public boolean has(Position pos) {
     return worldObjects.containsKey(pos);
   }
-
 
   /**
    * Has a world object.
@@ -139,5 +168,9 @@ public class WorldObjectManager {
     for (WorldObject worldObject : getAll()) {
       worldObject.draw(g, camera);
     }
+  }
+
+  public WorldMap getWorldMap() {
+    return worldMap;
   }
 }

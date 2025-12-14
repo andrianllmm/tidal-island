@@ -2,6 +2,7 @@ package io.tidalisland.worldobjects;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.tidalisland.config.Config;
+import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.utils.Position;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class WorldObjectLoader {
   /**
    * Loads world objects from a file.
    */
-  public static List<WorldObject> load(String path) {
+  public static List<WorldObject> load(String path, WorldMap worldMap) {
     try (InputStream is = WorldObjectLoader.class.getResourceAsStream(path)) {
       if (is == null) {
         throw new IllegalArgumentException("Map file not found: " + path);
@@ -34,6 +35,9 @@ public class WorldObjectLoader {
         int y = obj.position.get(1) * Config.tileSize();
 
         WorldObject created = WorldObjectRegistry.create(obj.id, new Position(x, y));
+        if (created instanceof Raft raft) {
+          raft.setWorldMap(worldMap);
+        }
         if (created != null) {
           result.add(created);
         } else {

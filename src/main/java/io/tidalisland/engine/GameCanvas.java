@@ -58,16 +58,17 @@ public class GameCanvas extends Canvas {
     requestFocus();
 
     worldMap = new WorldMap();
-    worldObjectManager = new WorldObjectManager();
+    worldObjectManager = new WorldObjectManager(worldMap);
     collisionManager = new CollisionManager(worldMap, worldObjectManager);
     interactionManager = new InteractionManager(worldObjectManager);
     spawnManager = new SpawnManager(worldMap, worldObjectManager);
     player = new Player(keys, spawnManager.findValidSpawnPosition());
     tidalManager = new TidalManager(
-        worldMap, worldObjectManager, worldMap.getTileSet(), player, 5.0, 10.0);
+        worldMap, worldObjectManager, worldMap.getTileSet(), player, 5, 10);
 
     camera = new Camera();
-    ui = new UiManager(keys, mouse, player.getInventory(), tidalManager);
+    ui = new UiManager(
+        keys, mouse, player.getInventory(), worldObjectManager, tidalManager, player);
 
     debugRenderer = new DebugRenderer(
         mouse, ui, worldObjectManager, collisionManager, camera, player);

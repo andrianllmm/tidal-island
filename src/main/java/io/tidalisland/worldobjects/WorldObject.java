@@ -15,6 +15,7 @@ public abstract class WorldObject {
   protected SpriteSet spriteSet;
   protected Collider collider;
   protected boolean solid;
+  protected boolean floatable;
 
   /**
    * Creates a new world object.
@@ -23,6 +24,7 @@ public abstract class WorldObject {
     this.type = type;
     this.position = position;
     this.solid = solid;
+    this.floatable = false;
   }
 
   public abstract void update();
@@ -39,6 +41,7 @@ public abstract class WorldObject {
 
   public void setPosition(Position position) {
     this.position = position;
+    this.collider.updatePosition(position);
   }
 
   public SpriteSet getSpriteSet() {
@@ -55,5 +58,13 @@ public abstract class WorldObject {
 
   public void setSolid(boolean solid) {
     this.solid = solid;
+  }
+
+  public boolean isFloatable() {
+    return floatable;
+  }
+
+  public void setFloatable(boolean floatable) {
+    this.floatable = floatable;
   }
 }

@@ -2,6 +2,7 @@ package io.tidalisland.ui;
 
 import io.tidalisland.config.Config;
 import io.tidalisland.crafting.CraftingManager;
+import io.tidalisland.entities.Player;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
@@ -13,6 +14,7 @@ import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.layout.VerticalStackLayout;
 import io.tidalisland.ui.styles.UiStyle;
 import io.tidalisland.ui.styles.UiStyleDirector;
+import io.tidalisland.worldobjects.WorldObjectManager;
 import java.awt.Graphics;
 
 /**
@@ -27,8 +29,12 @@ public class UiManager {
   /**
    * Initializes UI manager.
    */
-  public UiManager(KeyHandler keys, MouseHandler mouse, Inventory inventory,
-      TidalManager tidalManager) {
+  public UiManager(
+      KeyHandler keys, MouseHandler mouse,
+      Inventory inventory, WorldObjectManager worldObjectManager,
+      TidalManager tidalManager,
+      Player player) {
+
     this.keys = keys;
     this.mouse = mouse;
 
@@ -63,7 +69,7 @@ public class UiManager {
     root.add(bottom);
 
     // Components
-    UiInventoryPanel inv = new UiInventoryPanel(inventory);
+    UiInventoryPanel inv = new UiInventoryPanel(inventory, worldObjectManager, player);
     left.add(inv);
 
     UiCraftingPanel crafting = new UiCraftingPanel(inventory, new CraftingManager());

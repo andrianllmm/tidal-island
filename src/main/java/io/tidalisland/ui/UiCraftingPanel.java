@@ -123,6 +123,7 @@ public class UiCraftingPanel extends UiPanel {
 
     public void refresh() {
       getChildren().clear();
+
       for (Recipe recipe : craftingManager.getAllRecipes()) {
         UiPanel slot = new UiPanel(64, 64);
         slot.setStyle(UiStyleDirector.makeTransparent());
@@ -136,12 +137,8 @@ public class UiCraftingPanel extends UiPanel {
         }
 
         slot.setOnClick(() -> {
-          if (selectedRecipe == null) {
-            selectedRecipe = recipe;
-          } else {
-            selectedRecipe = null;
-          }
-          refreshAll();
+          selectedRecipe = (selectedRecipe == recipe) ? null : recipe;
+          runAfterUpdate(UiCraftingPanel.this::refreshAll);
         });
 
         Item item = recipe.getResult().getItem();
