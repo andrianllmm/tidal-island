@@ -98,9 +98,28 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
           <version>3.6.2</version>
-          <configuration>
-            <mainClass>io.tidalisland.main.Main</mainClass>
-          </configuration>
+          <executions>
+            <execution>
+              <id>main</id>
+              <goals>
+                <goal>java</goal>
+              </goals>
+              <configuration>
+                <mainClass>io.tidalisland.main.Main</mainClass>
+                <cleanupDaemonThreads>false</cleanupDaemonThreads>
+              </configuration>
+            </execution>
+            <execution>
+              <id>world-builder</id>
+              <goals>
+                <goal>java</goal>
+              </goals>
+              <configuration>
+                <mainClass>io.tidalisland.worldbuilder.WorldBuilder</mainClass>
+                <cleanupDaemonThreads>false</cleanupDaemonThreads>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

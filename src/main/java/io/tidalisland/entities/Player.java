@@ -31,18 +31,13 @@ public class Player extends Entity {
     this.keys = keys;
 
     // Import sprites
-    spriteSet =
-        SpriteSetBuilder.build("/sprites/entities/player.png", "/sprites/entities/player.json");
+    spriteSet = SpriteSetBuilder.build(
+        "/sprites/entities/player.png", "/sprites/entities/player.json");
 
     // Create collider
     collider = new ColliderBuilder().container(spriteSet.getCurrentFrame().getSize()).scale(0.6)
         .anchor(ColliderAnchor.CENTER, ColliderAnchor.BOTTOM).build();
     collider.updatePosition(position);
-  }
-
-  public Player(KeyHandler keys) {
-    this(keys, new Position(Config.screenWidth() / 2 - (Config.tileSize() / 2),
-        Config.screenHeight() / 2 - (Config.tileSize() / 2)));
   }
 
   @Override

@@ -49,7 +49,8 @@ public class WorldMapLoader {
     }
   }
 
-  private static class WorldMapData {
+  /** Data for world map. */
+  public static class WorldMapData {
     public List<List<Integer>> layout;
     public String tileset;
   }

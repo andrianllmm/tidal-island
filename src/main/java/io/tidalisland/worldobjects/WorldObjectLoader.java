@@ -49,11 +49,13 @@ public class WorldObjectLoader {
     }
   }
 
-  private static class WorldObjectData {
+  /** Data for world objects. */
+  public static class WorldObjectData {
     public List<ObjectEntry> objects;
   }
 
-  private static class ObjectEntry {
+  /** Data for a single world object. */
+  public static class ObjectEntry {
     public String id;
 
     public List<Integer> position;

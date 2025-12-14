@@ -1,7 +1,9 @@
 package io.tidalisland.worldobjects;
 
 import io.tidalisland.utils.Position;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -11,7 +13,8 @@ import java.util.function.Function;
 public final class WorldObjectRegistry {
   private static final Map<String, Function<Position, WorldObject>> objects = new HashMap<>();
 
-  private WorldObjectRegistry() {}
+  private WorldObjectRegistry() {
+  }
 
   static {
     register("tree", Tree::new);
@@ -40,12 +43,16 @@ public final class WorldObjectRegistry {
     return factory.apply(pos);
   }
 
+  public static WorldObject create(String id) {
+    return create(id, new Position(0, 0));
+  }
+
   public static boolean has(String id) {
     return objects.containsKey(id);
   }
 
-  public static String viewAll() {
-    return objects.keySet().toString();
+  /** Gets all world object ids. */
+  public static List<String> getAllIds() {
+    return new ArrayList<>(objects.keySet());
   }
-
 }
