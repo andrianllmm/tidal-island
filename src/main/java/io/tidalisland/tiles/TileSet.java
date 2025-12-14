@@ -17,6 +17,17 @@ public class TileSet {
     return tiles.get(id);
   }
 
+  /** Gets a tile id by name. */
+  public int get(String name) {
+    for (int i = 0; i < tiles.size(); i++) {
+      Tile tile = tiles.get(i);
+      if (tile.getName().equals(name)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
   /** Gets all tiles. */
   public List<Tile> getAll() {
     return List.copyOf(tiles);
