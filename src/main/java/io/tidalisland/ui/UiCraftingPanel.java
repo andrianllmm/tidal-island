@@ -123,6 +123,7 @@ public class UiCraftingPanel extends UiPanel {
 
     public void refresh() {
       getChildren().clear();
+
       for (Recipe recipe : craftingManager.getAllRecipes()) {
         UiPanel slot = new UiPanel(64, 64);
         slot.setStyle(UiStyleDirector.makeTransparent());

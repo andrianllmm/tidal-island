@@ -3,17 +3,21 @@ package io.tidalisland.worldobjects;
 import io.tidalisland.collision.ColliderAnchor;
 import io.tidalisland.collision.ColliderBuilder;
 import io.tidalisland.config.Config;
+import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteSetBuilder;
+import io.tidalisland.items.RaftItem;
 import io.tidalisland.tiles.Tile;
 import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
+import java.util.List;
 
 /**
  * Represents a raft.
  */
-public class Raft extends WorldObject {
+public class Raft extends WorldObject implements Interactable {
+  private int health = 15;
   private WorldMap worldMap;
 
   /**
@@ -32,6 +36,16 @@ public class Raft extends WorldObject {
 
   public void setWorldMap(WorldMap worldMap) {
     this.worldMap = worldMap;
+  }
+
+  @Override
+  public InteractResult interact(Player player) {
+    health--;
+    if (health <= 0) {
+      List<Drop> drops = List.of(new Drop(new RaftItem(), 1, 1));
+      return new InteractResult(drops, true);
+    }
+    return new InteractResult(List.of(), false);
   }
 
   @Override

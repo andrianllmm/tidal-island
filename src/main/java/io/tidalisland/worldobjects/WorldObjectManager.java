@@ -1,5 +1,6 @@
 package io.tidalisland.worldobjects;
 
+import io.tidalisland.collision.Collider;
 import io.tidalisland.config.Config;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
@@ -14,13 +15,15 @@ import java.util.Map;
  * Manages world objects.
  */
 public class WorldObjectManager {
-  Map<Position, WorldObject> worldObjects;
+  private final WorldMap worldMap;
+  private Map<Position, WorldObject> worldObjects;
 
   /**
    * Creates a new world object manager.
    */
   public WorldObjectManager(WorldMap worldMap) {
-    worldObjects = new HashMap<>();
+    this.worldMap = worldMap;
+    this.worldObjects = new HashMap<>();
 
     for (WorldObject obj : WorldObjectLoader.load("/worldobjects/worldobjects.json", worldMap)) {
       add(obj);
@@ -41,11 +44,12 @@ public class WorldObjectManager {
    * Adds a world object.
    */
   public boolean add(WorldObject obj) {
-    Position pos = obj.getPosition();
-    if (worldObjects.containsKey(pos)) {
-      return false;
+    for (WorldObject existing : getAll()) {
+      if (existing.getCollider().intersects(obj.getCollider())) {
+        return false;
+      }
     }
-    worldObjects.put(pos, obj);
+    worldObjects.put(obj.getPosition(), obj);
     return true;
   }
 
@@ -72,9 +76,15 @@ public class WorldObjectManager {
    * Moves a world object from one position to another.
    */
   public boolean move(WorldObject obj, Position next) {
-    if (worldObjects.containsKey(next)) {
-      return false;
+    Collider nextCollider = obj.getCollider().copy();
+    nextCollider.updatePosition(next);
+
+    for (WorldObject existing : getAll()) {
+      if (existing != obj && existing.getCollider().intersects(nextCollider)) {
+        return false;
+      }
     }
+
     worldObjects.remove(obj.getPosition());
     obj.setPosition(next);
     worldObjects.put(next, obj);
@@ -158,5 +168,9 @@ public class WorldObjectManager {
     for (WorldObject worldObject : getAll()) {
       worldObject.draw(g, camera);
     }
+  }
+
+  public WorldMap getWorldMap() {
+    return worldMap;
   }
 }

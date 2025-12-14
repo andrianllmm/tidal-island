@@ -1,10 +1,6 @@
 {
   "objects": [
     {
-      "id": "raft",
-      "position": [33, 35]
-    },
-    {
       "id": "bush",
       "position": [26, 31]
     },

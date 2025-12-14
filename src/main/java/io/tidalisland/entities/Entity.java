@@ -49,6 +49,35 @@ public abstract class Entity {
    */
   public abstract void draw(Graphics g, Camera camera);
 
+  /**
+   * Gets the tile the entity is facing.
+   */
+  public Position getFacingTile() {
+    int tileSize = Config.tileSize();
+
+    int col = position.getX() / tileSize;
+    int row = position.getY() / tileSize;
+
+    switch (direction) {
+      case UP:
+        row -= 1;
+        break;
+      case DOWN:
+        row += 1;
+        break;
+      case LEFT:
+        col -= 1;
+        break;
+      case RIGHT:
+        col += 1;
+        break;
+      default:
+        return null; // Direction.NONE
+    }
+
+    return new Position(col * tileSize, row * tileSize);
+  }
+
   public Position getPosition() {
     return position;
   }
@@ -85,4 +114,3 @@ public abstract class Entity {
     this.interactionRange = interactionRange;
   }
 }
-

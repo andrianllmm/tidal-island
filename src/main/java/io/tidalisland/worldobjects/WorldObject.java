@@ -41,6 +41,7 @@ public abstract class WorldObject {
 
   public void setPosition(Position position) {
     this.position = position;
+    this.collider.updatePosition(position);
   }
 
   public SpriteSet getSpriteSet() {

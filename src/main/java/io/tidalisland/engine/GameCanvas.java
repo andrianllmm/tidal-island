@@ -67,7 +67,8 @@ public class GameCanvas extends Canvas {
         worldMap, worldObjectManager, worldMap.getTileSet(), player, 5, 10);
 
     camera = new Camera();
-    ui = new UiManager(keys, mouse, player.getInventory(), tidalManager);
+    ui = new UiManager(
+        keys, mouse, player.getInventory(), worldObjectManager, tidalManager, player);
 
     debugRenderer = new DebugRenderer(
         mouse, ui, worldObjectManager, collisionManager, camera, player);

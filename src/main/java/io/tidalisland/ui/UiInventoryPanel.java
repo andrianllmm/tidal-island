@@ -1,10 +1,13 @@
 package io.tidalisland.ui;
 
+import io.tidalisland.entities.Player;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
 import io.tidalisland.items.Item;
 import io.tidalisland.items.ItemStack;
+import io.tidalisland.items.Placeable;
+import io.tidalisland.ui.components.UiButton;
 import io.tidalisland.ui.components.UiImage;
 import io.tidalisland.ui.components.UiLabel;
 import io.tidalisland.ui.components.UiPanel;
@@ -13,21 +16,29 @@ import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.layout.VerticalStackLayout;
 import io.tidalisland.ui.styles.UiStyleDirector;
+import io.tidalisland.worldobjects.WorldObjectManager;
+import java.awt.Color;
 
 /**
  * Inventory window UI.
  */
 public class UiInventoryPanel extends UiPanel {
   private final Inventory inventory;
-  private final UiPanel itemsPanel;
+  private final WorldObjectManager worldObjectManager;
+  private final Player player;
+  private ItemStack<? extends Item> selectedStack;
   private final UiLabel titleLabel;
+  private final UiPanel itemsPanel;
+  private final UiPanel actionsPanel;
 
   /**
    * Creates a new inventory panel.
    */
-  public UiInventoryPanel(Inventory inventory) {
+  public UiInventoryPanel(Inventory inventory, WorldObjectManager wom, Player player) {
     super(276, 424);
     this.inventory = inventory;
+    this.worldObjectManager = wom;
+    this.player = player;
 
     setLayout(new VerticalStackLayout(8));
 
@@ -41,6 +52,12 @@ public class UiInventoryPanel extends UiPanel {
     itemsPanel.setStyle(UiStyleDirector.makeTransparent());
     add(itemsPanel);
 
+    actionsPanel = new UiPanel(276, 24);
+    actionsPanel.setLayout(new VerticalStackLayout(4));
+    actionsPanel.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM);
+    actionsPanel.setStyle(UiStyleDirector.makeTransparent());
+    add(actionsPanel);
+
     visible = false;
 
     refresh();
@@ -51,22 +68,61 @@ public class UiInventoryPanel extends UiPanel {
    * Rebuilds the items grid based on inventory contents.
    */
   public void refresh() {
-    itemsPanel.getChildren().clear(); // clear previous items
+    itemsPanel.getChildren().clear();
+    actionsPanel.getChildren().clear();
 
     for (ItemStack<? extends Item> stack : inventory.getStacks()) {
       UiPanel slot = new UiPanel(64, 64);
-      slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
       slot.setStyle(UiStyleDirector.makeTransparent());
-      itemsPanel.add(slot);
+      slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
+      slot.style(s -> s.borderColor(Color.WHITE).cornerRadius(8));
+
+      if (stack == selectedStack) {
+        slot.style(s -> s.borderWidth(2));
+      } else {
+        slot.style(s -> s.borderWidth(0));
+      }
+
+      // Click handler
+      slot.setOnClick(() -> {
+        selectedStack = stack;
+        runAfterUpdate(this::refresh);
+      });
 
       Item item = stack.getItem();
       UiImage icon = new UiImage(item.getSprite().getFrame().getImage(), 36, 36);
       slot.add(icon);
 
-      int qty = stack.getQuantity();
-      UiLabel label = new UiLabel(String.valueOf(qty), 36, 12);
+      UiLabel label = new UiLabel(String.valueOf(stack.getQuantity()), 36, 12);
       label.style(s -> s.fontSize(12));
       slot.add(label);
+
+      itemsPanel.add(slot);
+    }
+
+    rebuildActions();
+  }
+
+  private void rebuildActions() {
+    actionsPanel.getChildren().clear();
+
+    if (selectedStack == null) {
+      return;
+    }
+
+    Item item = selectedStack.getItem();
+
+    if (item instanceof Placeable placeable) {
+      UiButton placeButton = new UiButton("Place", 64, 24);
+      placeButton.setOnClick(() -> {
+        if (placeable.place(worldObjectManager, player)) {
+          inventory.remove(item, 1);
+          selectedStack = null;
+          runAfterUpdate(this::refresh);
+        }
+      });
+
+      actionsPanel.add(placeButton);
     }
   }
 
