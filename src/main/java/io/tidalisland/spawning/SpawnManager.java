@@ -27,8 +27,8 @@ public class SpawnManager {
   }
 
   /**
-   * Finds a random valid spawn position anywhere in the world.
-   * A valid position is one where the tile is not solid and has no world object.
+   * Finds a random valid spawn position anywhere in the world. A valid position is one where the
+   * tile is not solid and has no world object.
    */
   public Position findValidSpawnPosition() {
     List<Position> validPositions = getAllValidPositions();
@@ -48,8 +48,8 @@ public class SpawnManager {
   }
 
   /**
-   * Finds a valid spawn position near a target position within a given radius.
-   * Searches in a square area around the target position.
+   * Finds a valid spawn position near a target position within a given radius. Searches in a square
+   * area around the target position.
    */
   public Position findSpawnNearPosition(Position target, int radius) {
     if (target == null || radius < 0) {
@@ -87,8 +87,7 @@ public class SpawnManager {
   }
 
   /**
-   * Finds multiple valid spawn positions.
-   * Useful for spawning groups of entities or items.
+   * Finds multiple valid spawn positions. Useful for spawning groups of entities or items.
    */
   public List<Position> findMultipleSpawns(int count) {
     if (count <= 0) {
@@ -193,7 +192,6 @@ public class SpawnManager {
     if (Config.debug()) {
       int col = position.getX() / Config.tileSize();
       int row = position.getY() / Config.tileSize();
-      System.out.println("Entity spawned at tile (" + col + ", " + row + ")");
     }
   }
 }

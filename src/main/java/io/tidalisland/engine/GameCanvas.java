@@ -8,9 +8,9 @@ import io.tidalisland.graphics.Camera;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.spawning.SpawnManager;
+import io.tidalisland.tide.TidalManager;
 import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.ui.UiManager;
-import io.tidalisland.utils.Position;
 import io.tidalisland.worldobjects.InteractionManager;
 import io.tidalisland.worldobjects.WorldObjectManager;
 import java.awt.Canvas;
@@ -33,6 +33,7 @@ public class GameCanvas extends Canvas {
   private InteractionManager interactionManager;
   private SpawnManager spawnManager;
   private Player player;
+  private TidalManager tidalManager;
   private Camera camera;
   private UiManager ui;
 
@@ -62,8 +63,11 @@ public class GameCanvas extends Canvas {
     interactionManager = new InteractionManager(worldObjectManager);
     spawnManager = new SpawnManager(worldMap, worldObjectManager);
     player = new Player(keys, spawnManager.findValidSpawnPosition());
+    tidalManager = new TidalManager(
+        worldMap, worldObjectManager, worldMap.getTileSet(), player, 5.0, 10.0);
+
     camera = new Camera();
-    ui = new UiManager(keys, mouse, player.getInventory());
+    ui = new UiManager(keys, mouse, player.getInventory(), tidalManager);
 
     debugRenderer = new DebugRenderer(
         mouse, ui, worldObjectManager, collisionManager, camera, player);
@@ -73,9 +77,12 @@ public class GameCanvas extends Canvas {
    * Updates the game.
    */
   public void update() {
-    worldObjectManager.update();
-    player.update(collisionManager, interactionManager);
-    camera.update(player);
+    if (!tidalManager.isFullyFlooded()) {
+      tidalManager.update();
+      worldObjectManager.update();
+      player.update(collisionManager, interactionManager);
+      camera.update(player);
+    }
     ui.update();
   }
 

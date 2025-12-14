@@ -100,4 +100,3 @@ public class Position {
     setY(position.getY());
   }
 }
-

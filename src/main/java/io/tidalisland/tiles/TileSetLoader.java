@@ -24,7 +24,7 @@ public class TileSetLoader {
       TileSet tileset = new TileSet();
 
       for (TileData t : data.tiles) {
-        Tile tile = new Tile(t.name, new Sprite(t.sprite), t.solid);
+        Tile tile = new Tile(t.id, t.name, new Sprite(t.sprite), t.solid);
         tileset.set(t.id, tile);
       }
 

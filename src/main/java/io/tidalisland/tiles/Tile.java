@@ -6,17 +6,23 @@ import io.tidalisland.graphics.sprites.Sprite;
  * A tile.
  */
 public class Tile {
-  private String name;
+  private final int id;
+  private final String name;
   private Sprite sprite;
   private boolean solid;
 
   /**
    * Initializes a tile.
    */
-  public Tile(String name, Sprite sprite, boolean solid) {
+  public Tile(int id, String name, Sprite sprite, boolean solid) {
+    this.id = id;
     this.name = name;
     this.sprite = sprite;
     this.solid = solid;
+  }
+
+  public int getId() {
+    return id;
   }
 
   public String getName() {

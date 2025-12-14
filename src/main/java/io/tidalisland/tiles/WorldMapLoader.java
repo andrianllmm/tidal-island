@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class WorldMapLoader {
   /**
-   * Loads a world map from a file.
+   * Loads a world map from a file and returns the map data and tileset.
    */
-  public static Tile[][] load(String path) {
+  public static LoadResult loadWithTileSet(String path) {
     try (InputStream is = WorldMapLoader.class.getResourceAsStream(path)) {
       if (is == null) {
         throw new IllegalArgumentException("Map file not found: " + path);
@@ -41,7 +41,7 @@ public class WorldMapLoader {
         }
       }
 
-      return map;
+      return new LoadResult(map, tileSet);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -49,9 +49,28 @@ public class WorldMapLoader {
     }
   }
 
+  /**
+   * Loads a world map from a file (legacy method).
+   */
+  public static Tile[][] load(String path) {
+    LoadResult result = loadWithTileSet(path);
+    return result != null ? result.map : null;
+  }
+
   /** Data for world map. */
   public static class WorldMapData {
     public List<List<Integer>> layout;
     public String tileset;
+  }
+
+  /** Result containing both map and tileset. */
+  public static class LoadResult {
+    public final Tile[][] map;
+    public final TileSet tileSet;
+
+    public LoadResult(Tile[][] map, TileSet tileSet) {
+      this.map = map;
+      this.tileSet = tileSet;
+    }
   }
 }
