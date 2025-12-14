@@ -136,12 +136,8 @@ public class UiCraftingPanel extends UiPanel {
         }
 
         slot.setOnClick(() -> {
-          if (selectedRecipe == null) {
-            selectedRecipe = recipe;
-          } else {
-            selectedRecipe = null;
-          }
-          refreshAll();
+          selectedRecipe = (selectedRecipe == recipe) ? null : recipe;
+          runAfterUpdate(UiCraftingPanel.this::refreshAll);
         });
 
         Item item = recipe.getResult().getItem();

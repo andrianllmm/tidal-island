@@ -37,6 +37,9 @@ public abstract class UiComponent {
   protected UiComponent parent;
   protected final List<UiComponent> children = new ArrayList<>();
 
+  // Tasks to run after update
+  private final List<Runnable> postUpdateTasks = new ArrayList<>();
+
   /**
    * Initializes a new component.
    */
@@ -68,12 +71,19 @@ public abstract class UiComponent {
     for (UiComponent child : children) {
       child.update(keys, mouse);
     }
+
+    postUpdateTasks.forEach(Runnable::run);
+    postUpdateTasks.clear();
   }
 
   /**
    * Subclass-specific update logic.
    */
   protected abstract void onUpdate(KeyHandler keys, MouseHandler mouse);
+
+  protected void runAfterUpdate(Runnable r) {
+    postUpdateTasks.add(r);
+  }
 
   /**
    * Renders the component.
@@ -129,7 +139,6 @@ public abstract class UiComponent {
     UiStyleBuilder builder = UiStyleBuilder.from(style); // create a builder from current style
     style = modifier.apply(builder).build(); // apply modifications and rebuild
   }
-
 
   /**
    * Called when this component is clicked.
