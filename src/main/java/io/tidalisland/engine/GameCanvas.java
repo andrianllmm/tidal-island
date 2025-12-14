@@ -64,7 +64,7 @@ public class GameCanvas extends Canvas {
     spawnManager = new SpawnManager(worldMap, worldObjectManager);
     player = new Player(keys, spawnManager.findValidSpawnPosition());
     tidalManager = new TidalManager(
-        worldMap, worldObjectManager, worldMap.getTileSet(), player, 2, 3);
+        worldMap, worldObjectManager, worldMap.getTileSet(), player, 5, 10);
 
     camera = new Camera();
     ui = new UiManager(keys, mouse, player.getInventory(), tidalManager);

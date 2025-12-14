@@ -10,12 +10,15 @@ import java.util.function.Supplier;
 public final class ItemRegistry {
   private static final Map<String, Supplier<Item>> items = new HashMap<>();
 
-  private ItemRegistry() {}
+  private ItemRegistry() {
+  }
 
   static {
     register("wood", Wood::new);
     register("stone", Stone::new);
     register("leaf", Leaf::new);
+    register("plank", Plank::new);
+    register("raft", RaftItem::new);
   }
 
   /** Registers an item. */
