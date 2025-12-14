@@ -3,7 +3,6 @@ package io.tidalisland.entities;
 import io.tidalisland.collision.ColliderAnchor;
 import io.tidalisland.collision.ColliderBuilder;
 import io.tidalisland.collision.CollisionManager;
-import io.tidalisland.config.Config;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteFrame;
 import io.tidalisland.graphics.sprites.SpriteSetBuilder;

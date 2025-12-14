@@ -20,8 +20,8 @@ public class Rock extends WorldObject implements Interactable {
    */
   public Rock(Position position) {
     super("rock", position, true);
-    spriteSet =
-        SpriteSetBuilder.build("/sprites/worldobjects/rock.png", "/sprites/worldobjects/rock.json");
+    spriteSet = SpriteSetBuilder.build(
+        "/sprites/worldobjects/rock.png", "/sprites/worldobjects/rock.json");
     collider = new ColliderBuilder().container(spriteSet.getCurrentFrame().getSize()).build();
     collider.updatePosition(position);
   }
@@ -37,7 +37,8 @@ public class Rock extends WorldObject implements Interactable {
   }
 
   @Override
-  public void update() {}
+  public void update() {
+  }
 
   @Override
   public void draw(Graphics g, Camera camera) {

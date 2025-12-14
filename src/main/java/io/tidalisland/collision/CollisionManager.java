@@ -64,19 +64,39 @@ public class CollisionManager {
    * Checks if a collider intersects any solid tiles in the world.
    */
   private boolean collidesWithTiles(Collider collider) {
+    // Check if the player is standing on any floatable object
+    for (WorldObject obj : worldObjectManager.getAll()) {
+      if (obj.isFloatable() && obj.getCollider().contains(collider)) {
+        return false;
+      }
+    }
+
+    // Check collisions with solid tiles
     int startCol = collider.getX() / Config.tileSize();
     int startRow = collider.getY() / Config.tileSize();
-    int endCol = (collider.getX() + collider.getWidth() - 1) / Config.tileSize();
-    int endRow = (collider.getY() + collider.getHeight() - 1) / Config.tileSize();
+    int endCol = (collider.getX() + collider.getWidth()) / Config.tileSize();
+    int endRow = (collider.getY() + collider.getHeight()) / Config.tileSize();
 
     for (int row = startRow; row <= endRow; row++) {
       for (int col = startCol; col <= endCol; col++) {
         Tile tile = worldMap.getTile(col, row);
+        if (tile == null) {
+          continue;
+        }
 
-        if (tile != null && tile.isSolid()) {
-          // Create tile collider
-          Collider tileCollider = new Collider(col * Config.tileSize(), row * Config.tileSize(),
-              Config.tileSize(), Config.tileSize());
+        boolean tileIsSolid = tile.isSolid();
+
+        // Water is solid if no floatable object covers it
+        if (tile.getName().equals("water")) {
+          tileIsSolid = true;
+        }
+
+        if (tileIsSolid) {
+          Collider tileCollider = new Collider(
+              col * Config.tileSize(),
+              row * Config.tileSize(),
+              Config.tileSize(),
+              Config.tileSize());
 
           if (collider.intersects(tileCollider)) {
             return true;
@@ -92,22 +112,16 @@ public class CollisionManager {
    * Checks if a collider intersects any world objects in the world.
    */
   private WorldObject getCollidingObject(Collider collider) {
-    int startCol = collider.getX() / Config.tileSize();
-    int startRow = collider.getY() / Config.tileSize();
-    int endCol = (collider.getX() + collider.getWidth() - 1) / Config.tileSize();
-    int endRow = (collider.getY() + collider.getHeight() - 1) / Config.tileSize();
+    for (WorldObject obj : worldObjectManager.getAll()) {
+      // Skip non-solid objects
+      if (!obj.isSolid()) {
+        continue;
+      }
 
-    for (int row = startRow; row <= endRow; row++) {
-      for (int col = startCol; col <= endCol; col++) {
-        Position pos = new Position(col * Config.tileSize(), row * Config.tileSize());
-        WorldObject obj = worldObjectManager.get(pos);
-
-        if (obj != null && collider.intersects(obj.getCollider())) {
-          return obj;
-        }
+      if (collider.intersects(obj.getCollider())) {
+        return obj;
       }
     }
-
     return null;
   }
 }

@@ -1,7 +1,9 @@
 package io.tidalisland.worldobjects;
 
+import io.tidalisland.config.Config;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
+import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
 import java.util.Collection;
@@ -17,10 +19,10 @@ public class WorldObjectManager {
   /**
    * Creates a new world object manager.
    */
-  public WorldObjectManager() {
+  public WorldObjectManager(WorldMap worldMap) {
     worldObjects = new HashMap<>();
 
-    for (WorldObject obj : WorldObjectLoader.load("/worldobjects/worldobjects.json")) {
+    for (WorldObject obj : WorldObjectLoader.load("/worldobjects/worldobjects.json", worldMap)) {
       add(obj);
     }
   }
@@ -79,7 +81,6 @@ public class WorldObjectManager {
     return true;
   }
 
-
   /**
    * Moves a world object at a given position to another.
    */
@@ -95,6 +96,25 @@ public class WorldObjectManager {
   }
 
   /**
+   * Gets a world object at a given tile position.
+   */
+  public WorldObject getObjectAtTile(int col, int row) {
+    for (WorldObject obj : getAll()) {
+      int objTileX = obj.getPosition().getX() / Config.tileSize();
+      int objTileY = obj.getPosition().getY() / Config.tileSize();
+      int objTileWidth = obj.getCollider().getWidth();
+      int objTileHeight = obj.getCollider().getHeight();
+
+      if (col >= objTileX && col < objTileX + objTileWidth
+          && row >= objTileY && row < objTileY + objTileHeight) {
+        return obj; // tile is covered by this object
+      }
+    }
+
+    return null; // no object covers this tile
+  }
+
+  /**
    * Gets all world objects.
    */
   public Collection<WorldObject> getAll() {
@@ -107,7 +127,6 @@ public class WorldObjectManager {
   public boolean has(Position pos) {
     return worldObjects.containsKey(pos);
   }
-
 
   /**
    * Has a world object.

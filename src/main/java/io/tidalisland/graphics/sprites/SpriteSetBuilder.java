@@ -8,21 +8,32 @@ import java.util.List;
  */
 public class SpriteSetBuilder {
 
-  private SpriteSetBuilder() {}
+  private SpriteSetBuilder() {
+  }
 
   /**
    * Builds a sprite set from a sprite atlas and sheet.
    */
   public static SpriteSet build(SpriteAtlas atlas, SpriteSheet sheet) {
     SpriteSet spriteSet = new SpriteSet();
-    for (SpriteSheet.FrameTag tag : sheet.meta.frameTags) {
+    if (sheet.meta.frameTags.isEmpty()) {
+      // No tags, create one sprite assuming all frames are in under one tag
       List<SpriteFrame> frames = new ArrayList<>();
-      for (int i = tag.from; i <= tag.to; i++) {
-        SpriteSheet.FrameData fd = sheet.frames.get(i);
+      for (SpriteSheet.FrameData fd : sheet.frames) {
         frames.add(new SpriteFrame(atlas.getFrame(fd.frame.x, fd.frame.y, fd.frame.w, fd.frame.h),
             fd.duration));
       }
-      spriteSet.addSprite(tag.name, new Sprite(frames));
+      spriteSet.addSprite("default", new Sprite(frames));
+    } else {
+      for (SpriteSheet.FrameTag tag : sheet.meta.frameTags) {
+        List<SpriteFrame> frames = new ArrayList<>();
+        for (int i = tag.from; i <= tag.to; i++) {
+          SpriteSheet.FrameData fd = sheet.frames.get(i);
+          frames.add(new SpriteFrame(atlas.getFrame(fd.frame.x, fd.frame.y, fd.frame.w, fd.frame.h),
+              fd.duration));
+        }
+        spriteSet.addSprite(tag.name, new Sprite(frames));
+      }
     }
     return spriteSet;
   }

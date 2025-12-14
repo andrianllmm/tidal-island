@@ -1,5 +1,6 @@
 package io.tidalisland.tide;
 
+import io.tidalisland.collision.Collider;
 import io.tidalisland.config.Config;
 import io.tidalisland.entities.Player;
 import io.tidalisland.tiles.Tile;
@@ -103,7 +104,7 @@ public class TidalManager {
     // Destroy world objects on this tile
     Position worldPos = new Position(col * Config.tileSize(), row * Config.tileSize());
     WorldObject obj = worldObjectManager.get(worldPos);
-    if (obj != null) {
+    if (obj != null && !obj.isFloatable()) {
       worldObjectManager.remove(obj);
     }
 
@@ -175,6 +176,13 @@ public class TidalManager {
       return;
     }
 
+    Position worldPos = new Position(playerCol * Config.tileSize(), playerRow * Config.tileSize());
+    WorldObject obj = worldObjectManager.get(worldPos);
+
+    if (obj != null && obj.isFloatable()) {
+      return; // player is safe on floatable object, no pushback
+    }
+
     Position safeTile = findNearestSafeTile(floodCol, floodRow);
     if (safeTile != null) {
       playerPos.setPosition(safeTile);
@@ -240,17 +248,28 @@ public class TidalManager {
     if (tile == null) {
       return false;
     }
+
+    Position worldPos = new Position(col * Config.tileSize(), row * Config.tileSize());
+
+    // Check for any floatable object overlapping this tile
+    for (WorldObject obj : worldObjectManager.getAll()) {
+      if (obj.isFloatable() && obj.getCollider().intersects(
+          new Collider(worldPos.getX(), worldPos.getY(), Config.tileSize(), Config.tileSize()))) {
+        return true;
+      }
+    }
+
+    // Water without floatable is unsafe
     if (tile.getId() == waterTileId) {
       return false;
     }
+
+    // Solid terrain blocks player
     if (tile.isSolid()) {
       return false;
     }
 
-    Position worldPos = new Position(
-        col * Config.tileSize(),
-        row * Config.tileSize());
-
+    // No blocking objects on this tile
     return !worldObjectManager.has(worldPos);
   }
 

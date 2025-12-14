@@ -20,6 +20,7 @@ public final class WorldObjectRegistry {
     register("tree", Tree::new);
     register("rock", Rock::new);
     register("bush", Bush::new);
+    register("raft", Raft::new);
   }
 
   /**

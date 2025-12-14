@@ -81,6 +81,15 @@ public class Collider {
   }
 
   /**
+   * Checks if a collider is inside this collider.
+   */
+  public boolean contains(Collider other) {
+    return other.getX() >= this.getX() && other.getY() >= this.getY()
+        && other.getX() + other.getWidth() <= this.getX() + this.getWidth()
+        && other.getY() + other.getHeight() <= this.getY() + this.getHeight();
+  }
+
+  /**
    * Get a copy of this collider.
    */
   public Collider copy() {
@@ -120,12 +129,20 @@ public class Collider {
     return rect;
   }
 
+  public Position getPosition() {
+    return new Position(rect.x, rect.y);
+  }
+
   public int getX() {
     return rect.x;
   }
 
   public int getY() {
     return rect.y;
+  }
+
+  public Size getSize() {
+    return new Size(rect.width, rect.height);
   }
 
   public int getWidth() {
@@ -151,5 +168,4 @@ public class Collider {
   public void setHeight(int height) {
     rect.height = height;
   }
-
 }
