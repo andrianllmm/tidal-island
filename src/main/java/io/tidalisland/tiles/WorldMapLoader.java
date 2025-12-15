@@ -6,13 +6,16 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * Loader for world maps.
+ * Loader for {@link WorldMap}s.
  */
 public class WorldMapLoader {
   /**
-   * Loads a world map from a file and returns the map data and tileset.
+   * Loads a world map with map daa and tileset from a file.
+   *
+   * @param path the path to the file
+   * @return the loaded world map
    */
-  public static LoadResult loadWithTileSet(String path) {
+  public static LoadResult load(String path) {
     try (InputStream is = WorldMapLoader.class.getResourceAsStream(path)) {
       if (is == null) {
         throw new IllegalArgumentException("Map file not found: " + path);
@@ -47,14 +50,6 @@ public class WorldMapLoader {
       e.printStackTrace();
       return null;
     }
-  }
-
-  /**
-   * Loads a world map from a file (legacy method).
-   */
-  public static Tile[][] load(String path) {
-    LoadResult result = loadWithTileSet(path);
-    return result != null ? result.map : null;
   }
 
   /** Data for world map. */

@@ -12,6 +12,11 @@ public class Game implements Runnable {
   private Thread gameThread;
   private boolean running;
 
+  /**
+   * Creates a new game.
+   *
+   * @param gamePanel the game panel
+   */
   public Game(GameCanvas gamePanel) {
     this.gamePanel = gamePanel;
   }

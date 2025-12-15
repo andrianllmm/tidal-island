@@ -16,6 +16,9 @@ public class SpriteSheet {
 
   /**
    * Loads a sprite sheet from a file.
+   *
+   * @param path the path to the file
+   * @return the loaded sprite sheet
    */
   public static SpriteSheet load(String path) {
     try {
@@ -31,20 +34,20 @@ public class SpriteSheet {
     }
   }
 
-  /** Frame data. */
+  /** Sprite sheet frame data. */
   public static class FrameData {
     public String filename;
     public Frame frame;
     public int duration;
   }
 
-  /** Meta data. */
+  /** Sprite sheet meta data. */
   public static class Meta {
     public List<FrameTag> frameTags;
     public List<Layer> layers;
   }
 
-  /** Frame. */
+  /** Sprite sheet frame. */
   public static class Frame {
     public int x;
     public int y;
@@ -52,7 +55,7 @@ public class SpriteSheet {
     public int h;
   }
 
-  /** Frame tag. */
+  /** Sprite sheet frame tag. */
   public static class FrameTag {
     public String name;
     public int from;
@@ -61,7 +64,7 @@ public class SpriteSheet {
     public String color;
   }
 
-  /** Layer. */
+  /** Sprite sheet layer. */
   public static class Layer {
     public String name;
     public int opacity;

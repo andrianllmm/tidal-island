@@ -3,7 +3,7 @@ package io.tidalisland.graphics.sprites;
 import java.util.List;
 
 /**
- * A sprite with list of frames.
+ * A sprite with list of {@link SpriteFrame}s.
  */
 public class Sprite {
   private final List<SpriteFrame> frames;
@@ -16,18 +16,28 @@ public class Sprite {
 
   /**
    * Creates a new sprite with a single frame.
+   *
+   * @param frame the frame
    */
   public Sprite(SpriteFrame frame) {
     frames = List.of(frame);
     animated = false;
   }
 
+  /**
+   * Creates a new sprite with a single frame from a path.
+   *
+   * @param path the path
+   */
   public Sprite(String path) {
     this(new SpriteFrame(path));
   }
 
   /**
    * Creates a new sprite with multiple frames.
+   *
+   * @param frames the frames
+   * @param looping whether the animation should loop
    */
   public Sprite(List<SpriteFrame> frames, boolean looping) {
     this.frames = frames;
@@ -36,6 +46,11 @@ public class Sprite {
     lastTime = System.currentTimeMillis();
   }
 
+  /**
+   * Creates a new sprite with multiple frames with looping enabled.
+   *
+   * @param frames the frames
+   */
   public Sprite(List<SpriteFrame> frames) {
     this(frames, true);
   }

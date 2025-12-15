@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * Loader for tile sets.
+ * Loader for {@link TileSet}s.
  */
 public class TileSetLoader {
   /**

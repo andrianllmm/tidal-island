@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Loader for world objects.
+ * Loader for {@link WorldObject}s.
  */
 public class WorldObjectLoader {
   /**

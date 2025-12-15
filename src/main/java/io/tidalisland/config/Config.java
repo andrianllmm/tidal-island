@@ -2,7 +2,9 @@ package io.tidalisland.config;
 
 import java.util.Random;
 
-/** Global configuration for the game. */
+/**
+ * Global configuration for the game.
+ */
 public final class Config {
 
   private static Config instance;
@@ -22,7 +24,11 @@ public final class Config {
     this.random = new Random();
   }
 
-  /** Singleton access. */
+  /**
+   * Gets the singleton instance of the config.
+   *
+   * @return the singleton instance
+   */
   public static Config get() {
     if (instance == null) {
       synchronized (Config.class) {

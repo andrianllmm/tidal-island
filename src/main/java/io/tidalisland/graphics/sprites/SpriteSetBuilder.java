@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Imports sprite sets.
+ * Builder for creating {@link SpriteSet}s.
  */
 public class SpriteSetBuilder {
 
-  private SpriteSetBuilder() {
-  }
+  private SpriteSetBuilder() {}
 
   /**
    * Builds a sprite set from a sprite atlas and sheet.

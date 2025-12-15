@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Manages the tidal mechanic that gradually floods the island.
+ * Manages the tidal mechanic that floods the island.
  */
 public class TidalManager {
   private final WorldMap worldMap;
@@ -33,9 +33,8 @@ public class TidalManager {
   /**
    * Creates a new tidal manager.
    */
-  public TidalManager(
-      WorldMap worldMap, WorldObjectManager worldObjectManager, TileSet tileSet, Player player,
-      double minFloodIntervalSeconds, double maxFloodIntervalSeconds) {
+  public TidalManager(WorldMap worldMap, WorldObjectManager worldObjectManager, TileSet tileSet,
+      Player player, double minFloodIntervalSeconds, double maxFloodIntervalSeconds) {
     if (minFloodIntervalSeconds <= 0 || maxFloodIntervalSeconds < minFloodIntervalSeconds) {
       throw new IllegalArgumentException("Invalid flood interval range");
     }
@@ -142,7 +141,7 @@ public class TidalManager {
    */
   private boolean isAdjacentToWater(int col, int row) {
     // Check all 4 cardinal directions
-    int[][] directions = { { 0, -1 }, { 0, 1 }, { -1, 0 }, { 1, 0 } };
+    int[][] directions = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 
     for (int[] dir : directions) {
       int neighborCol = col + dir[0];
@@ -202,12 +201,10 @@ public class TidalManager {
     boolean[][] visited = new boolean[height][width];
     ArrayDeque<int[]> queue = new ArrayDeque<>();
 
-    queue.add(new int[] { startCol, startRow });
+    queue.add(new int[] {startCol, startRow});
     visited[startRow][startCol] = true;
 
-    int[][] dirs = {
-        { 0, -1 }, { 0, 1 }, { -1, 0 }, { 1, 0 }
-    };
+    int[][] dirs = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 
     while (!queue.isEmpty()) {
       int[] cur = queue.poll();
@@ -216,9 +213,7 @@ public class TidalManager {
 
       Tile tile = worldMap.getTile(col, row);
       if (tile != null && isSafeTile(col, row)) {
-        return new Position(
-            col * Config.tileSize(),
-            row * Config.tileSize());
+        return new Position(col * Config.tileSize(), row * Config.tileSize());
       }
 
       for (int[] d : dirs) {
@@ -233,7 +228,7 @@ public class TidalManager {
         }
 
         visited[nr][nc] = true;
-        queue.add(new int[] { nc, nr });
+        queue.add(new int[] {nc, nr});
       }
     }
 
@@ -308,7 +303,6 @@ public class TidalManager {
   }
 
   private long randomInterval() {
-    return ThreadLocalRandom.current()
-        .nextLong(minFloodInterval, maxFloodInterval + 1);
+    return ThreadLocalRandom.current().nextLong(minFloodInterval, maxFloodInterval + 1);
   }
 }

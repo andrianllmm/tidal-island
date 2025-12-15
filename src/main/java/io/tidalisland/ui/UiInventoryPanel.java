@@ -20,7 +20,7 @@ import io.tidalisland.worldobjects.WorldObjectManager;
 import java.awt.Color;
 
 /**
- * Inventory window UI.
+ * UI panel for the inventory.
  */
 public class UiInventoryPanel extends UiPanel {
   private final Inventory inventory;

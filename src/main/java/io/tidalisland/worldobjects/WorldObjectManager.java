@@ -115,8 +115,8 @@ public class WorldObjectManager {
       int objTileWidth = obj.getCollider().getWidth();
       int objTileHeight = obj.getCollider().getHeight();
 
-      if (col >= objTileX && col < objTileX + objTileWidth
-          && row >= objTileY && row < objTileY + objTileHeight) {
+      if (col >= objTileX && col < objTileX + objTileWidth && row >= objTileY
+          && row < objTileY + objTileHeight) {
         return obj; // tile is covered by this object
       }
     }

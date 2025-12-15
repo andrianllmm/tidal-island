@@ -10,7 +10,7 @@ import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Color;
 
 /**
- * Displays the tide timer on the UI as a panel with a label and progress bar.
+ * Displays the tide timer.
  */
 public class UiTideTimer extends UiPanel {
 
@@ -43,8 +43,8 @@ public class UiTideTimer extends UiPanel {
     add(timerLabel);
 
     // Create progress bar
-    progressBar = new UiProgressBar(
-        200, 10, tidalManager::getFloodProgress, new TideColorStrategy());
+    progressBar =
+        new UiProgressBar(200, 10, tidalManager::getFloodProgress, new TideColorStrategy());
     progressBar.setX((width - 200) / 2);
     progressBar.setY(35);
     add(progressBar);

@@ -37,8 +37,8 @@ public class WorldExporter {
     return dir;
   }
 
-  private static void exportWorldMap(
-      EditorState state, ObjectMapper mapper, File dir, String tilesetPath) throws Exception {
+  private static void exportWorldMap(EditorState state, ObjectMapper mapper, File dir,
+      String tilesetPath) throws Exception {
     List<List<Integer>> layout = new ArrayList<>();
     for (int y = 0; y < state.getMapHeight(); y++) {
       List<Integer> row = new ArrayList<>();
@@ -52,12 +52,11 @@ public class WorldExporter {
     mapData.tileset = tilesetPath;
     mapData.layout = layout;
 
-    mapper.writerWithDefaultPrettyPrinter()
-        .writeValue(new File(dir, "map.json"), mapData);
+    mapper.writerWithDefaultPrettyPrinter().writeValue(new File(dir, "map.json"), mapData);
   }
 
-  private static void exportWorldObjects(
-      EditorState state, ObjectMapper mapper, File dir) throws Exception {
+  private static void exportWorldObjects(EditorState state, ObjectMapper mapper, File dir)
+      throws Exception {
     List<ObjectEntry> objects = new ArrayList<>();
     for (Map.Entry<Position, String> entry : state.getWorldObjects().entrySet()) {
       ObjectEntry obj = new ObjectEntry();
@@ -69,7 +68,7 @@ public class WorldExporter {
     WorldObjectData worldObjData = new WorldObjectData();
     worldObjData.objects = objects;
 
-    mapper.writerWithDefaultPrettyPrinter()
-        .writeValue(new File(dir, "worldobjects.json"), worldObjData);
+    mapper.writerWithDefaultPrettyPrinter().writeValue(new File(dir, "worldobjects.json"),
+        worldObjData);
   }
 }

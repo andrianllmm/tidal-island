@@ -3,16 +3,21 @@ package io.tidalisland.items;
 import io.tidalisland.graphics.sprites.Sprite;
 
 /**
- * Represents an item.
+ * Represents an item in the game.
  */
 public abstract class Item {
+
   protected final String type;
-  private final int maxStackSize; // >1 for stackable items, 1 otherwise
+  protected final int maxStackSize; // >1 for stackable items, 1 otherwise
   protected String description;
   protected Sprite sprite;
 
   /**
    * Creates a new item.
+   *
+   * @param type the type
+   * @param maxStackSize the max stack size
+   * @throws IllegalArgumentException if max stack size is less than 1
    */
   public Item(String type, int maxStackSize) {
     this.type = type;

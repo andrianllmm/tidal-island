@@ -12,12 +12,14 @@ public class Camera {
 
   /**
    * Updates the camera position.
+   *
+   * @param target the target entity to focus on
    */
   public void update(Entity target) {
     int x = target.getPosition().getX();
     int y = target.getPosition().getY();
-    int w = target.getRenderSize().getWidth();
-    int h = target.getRenderSize().getHeight();
+    int w = target.getSpriteSet().getCurrentFrame().getSize().getWidth();
+    int h = target.getSpriteSet().getCurrentFrame().getSize().getHeight();
 
     int centerX = x + (w / 2) - (Config.screenWidth() / 2);
     int centerY = y + (h / 2) - (Config.screenHeight() / 2);

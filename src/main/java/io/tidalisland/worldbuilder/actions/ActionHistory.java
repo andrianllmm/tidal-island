@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * Manages undo/redo history for editor actions.
+ * Manages undo/redo history for {@link EditorAction}s.
  */
 public class ActionHistory {
   private final Deque<EditorAction> undoStack = new ArrayDeque<>();

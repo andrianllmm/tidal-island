@@ -21,9 +21,9 @@ public class Tree extends WorldObject implements Interactable {
    */
   public Tree(Position position) {
     super("tree", position, true);
-    spriteSet = SpriteSetBuilder.build(
-        "/sprites/worldobjects/tree.png", "/sprites/worldobjects/tree.json");
-    collider = new ColliderBuilder().container(spriteSet.getCurrentFrame().getSize()).build();
+    spriteSet =
+        SpriteSetBuilder.build("/sprites/worldobjects/tree.png", "/sprites/worldobjects/tree.json");
+    collider = new ColliderBuilder().size(spriteSet.getCurrentFrame().getSize()).build();
     collider.updatePosition(position);
   }
 
@@ -38,8 +38,7 @@ public class Tree extends WorldObject implements Interactable {
   }
 
   @Override
-  public void update() {
-  }
+  public void update() {}
 
   @Override
   public void draw(Graphics g, Camera camera) {

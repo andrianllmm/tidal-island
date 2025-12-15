@@ -11,13 +11,13 @@ import java.util.Map;
  * Manages keyboard input for the game.
  */
 public class KeyHandler implements KeyListener {
-  // Map of action names -> list of key codes.
+  /** Map of action names -> list of key codes. */
   private final Map<String, List<Integer>> keyBindings;
 
-  // Stores whether each action is currently held down (action name -> true/false).
+  /** Stores whether each action is currently held down (action name -> true/false). */
   private final Map<String, Boolean> heldDown;
 
-  // Records actions that were just pressed this frame.
+  /** Records actions that were just pressed this frame. */
   private final Map<String, Boolean> justPressed = new HashMap<>();
 
   /**

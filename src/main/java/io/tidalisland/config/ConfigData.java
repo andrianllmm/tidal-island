@@ -32,7 +32,6 @@ public final class ConfigData {
     this.fps = fps;
   }
 
-  /** Derived values for convenience. */
   public int getTileSize() {
     return baseTileSize * pixelScale;
   }

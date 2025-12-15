@@ -9,7 +9,7 @@ import java.util.Map;
  * Represents a recipe for crafting.
  */
 public class Recipe {
-  private final Map<String, Integer> ingredients; // item type -> quantity
+  private final Map<String, Integer> ingredients;
   private final ItemStack<? extends Item> result;
 
   public Recipe(Map<String, Integer> ingredients, ItemStack<? extends Item> result) {
@@ -17,17 +17,30 @@ public class Recipe {
     this.result = result;
   }
 
-  /** Returns the ingredients of this recipe. */
+  /**
+   * Returns the ingredients of this recipe.
+   *
+   * @return a map of item type -> quantity
+   */
   public Map<String, Integer> getIngredients() {
     return ingredients;
   }
 
-  /** Get the result of this recipe. */
+  /**
+   * Get the result of this recipe.
+   *
+   * @return the result
+   */
   public ItemStack<? extends Item> getResult() {
     return result;
   }
 
-  /** Check if an inventory has enough items to craft this recipe. */
+  /**
+   * Checks if this recipe can be crafted with the given inventory.
+   *
+   * @param inventory the inventory
+   * @return true if the recipe can be crafted, false otherwise
+   */
   public boolean canCraft(Inventory inventory) {
     for (Map.Entry<String, Integer> entry : ingredients.entrySet()) {
       if (inventory.getQuantity(entry.getKey()) < entry.getValue()) {

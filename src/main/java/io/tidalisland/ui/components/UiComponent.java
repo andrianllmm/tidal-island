@@ -42,6 +42,11 @@ public abstract class UiComponent {
 
   /**
    * Initializes a new component.
+   *
+   * @param width the width
+   * @param height the height
+   * @param x the x-coordinate
+   * @param y the y-coordinate
    */
   public UiComponent(int width, int height, int x, int y) {
     this.x = x;
@@ -51,6 +56,12 @@ public abstract class UiComponent {
     this.style = new UiStyleBuilder().build();
   }
 
+  /**
+   * Initializes a new component at the origin.
+   *
+   * @param width the width
+   * @param height the height
+   */
   public UiComponent(int width, int height) {
     this(width, height, 0, 0);
   }
@@ -126,7 +137,11 @@ public abstract class UiComponent {
   }
 
   /**
-   * Hit detection.
+   * Detects if mouse is over this component.
+   *
+   * @param mouseX the mouse x-coordinate
+   * @param mouseY the mouse y-coordinate
+   * @return true if the mouse is over this component, false otherwise
    */
   public boolean contains(int mouseX, int mouseY) {
     int ax = getAbsX();
@@ -134,11 +149,25 @@ public abstract class UiComponent {
     return (mouseX >= ax && mouseX <= ax + width) && (mouseY >= ay && mouseY <= ay + height);
   }
 
-  /** Apply multiple style edits at once using a lambda. */
+  /**
+   * Applies multiple style edits at once using a lambda.
+   *
+   * <p>
+   * Example usage:
+   * </p>
+   *
+   * <pre>{@code
+   * style(s -> s.padding(8).fontSize(16));
+   * }</pre>
+   *
+   * @param modifier receives the current style builder and returns the modified builder
+   * @see UiStyleBuilder
+   */
   public void style(UnaryOperator<UiStyleBuilder> modifier) {
     UiStyleBuilder builder = UiStyleBuilder.from(style); // create a builder from current style
     style = modifier.apply(builder).build(); // apply modifications and rebuild
   }
+
 
   /**
    * Called when this component is clicked.

@@ -6,8 +6,13 @@ import io.tidalisland.ui.components.UiComponent;
  * Positions children vertically.
  */
 public class VerticalStackLayout extends LayoutManager {
-  private final int spacing; // spacing between children
+  private final int spacing;
 
+  /**
+   * Creates a vertical stack layout.
+   *
+   * @param spacing the spacing between children
+   */
   public VerticalStackLayout(int spacing) {
     this.spacing = spacing;
   }

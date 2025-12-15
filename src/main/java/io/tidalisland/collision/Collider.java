@@ -16,16 +16,34 @@ public class Collider {
   private int offsetX = 0;
   private int offsetY = 0;
 
+  /**
+   * Creates a new collider with the specified position and size.
+   *
+   * @param x the x-coordinate
+   * @param y the y-coordinate
+   * @param width the width
+   * @param height the height
+   */
   public Collider(int x, int y, int width, int height) {
     this.rect = new Rectangle(x, y, width, height);
   }
 
+  /**
+   * Creates a new collider with the specified position and size using {@link Position} and
+   * {@link Size} objects.
+   *
+   * @param position the position
+   * @param size the size
+   */
   public Collider(Position position, Size size) {
     this(position.getX(), position.getY(), size.getWidth(), size.getHeight());
   }
 
   /**
    * Checks if this collider intersects with another collider.
+   *
+   * @param other the other collider
+   * @return true if the colliders intersect, false otherwise
    */
   public boolean intersects(Collider other) {
     return rect.intersects(other.rect);
@@ -33,6 +51,9 @@ public class Collider {
 
   /**
    * Checks if a point is inside this collider.
+   *
+   * @param px the x-coordinate of the point
+   * @param py the y-coordinate of the point
    */
   public boolean contains(int px, int py) {
     return rect.contains(px, py);
@@ -40,6 +61,9 @@ public class Collider {
 
   /**
    * Checks if a collider is inside this collider.
+   *
+   * @param other the other collider
+   * @return true if the other collider is inside this collider, false otherwise
    */
   public boolean contains(Collider other) {
     return other.getX() >= this.getX() && other.getY() >= this.getY()
@@ -49,6 +73,9 @@ public class Collider {
 
   /**
    * Updates the collider position.
+   *
+   * @param newX the new x-coordinate
+   * @param newY the new y-coordinate
    */
   public void updatePosition(int newX, int newY) {
     rect.x = newX + offsetX;
@@ -57,6 +84,9 @@ public class Collider {
 
   /**
    * Updates the collider position from a Position.
+   *
+   * @param position the position to copy from
+   * @see #updatePosition(int, int)
    */
   public void updatePosition(Position position) {
     updatePosition(position.getX(), position.getY());
@@ -64,6 +94,9 @@ public class Collider {
 
   /**
    * Moves the collider with a given distance.
+   *
+   * @param dx the change in x-coordinate
+   * @param dy the change in y-coordinate
    */
   public void move(int dx, int dy) {
     rect.x += dx;
@@ -72,6 +105,9 @@ public class Collider {
 
   /**
    * Moves the collider in a given direction.
+   *
+   * @param direction the direction to move
+   * @param distance the distance to move
    */
   public void move(Direction direction, int distance) {
     switch (direction) {
@@ -86,6 +122,8 @@ public class Collider {
 
   /**
    * Get a copy of this collider.
+   *
+   * @return a new collider with the same position and size
    */
   public Collider copy() {
     Collider copy = new Collider(rect.x, rect.y, rect.width, rect.height);
@@ -95,6 +133,9 @@ public class Collider {
 
   /**
    * Draws the collider for debugging.
+   *
+   * @param g the graphics context
+   * @param camera the camera
    */
   public void draw(Graphics g, Camera camera) {
     if (g == null || camera == null) {

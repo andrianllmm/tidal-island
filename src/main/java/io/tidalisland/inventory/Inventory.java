@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Represents the player's inventory.
+ * Represents an inventory.
  */
 public class Inventory implements Observable<InventoryChangeEvent> {
   /** Map of item types to stacks of items for fast lookup. */
@@ -23,7 +23,10 @@ public class Inventory implements Observable<InventoryChangeEvent> {
       new CopyOnWriteArrayList<>();
 
   /**
-   * Creates a new inventory.
+   * Creates a new inventory with the specified max slots.
+   *
+   * @param maxSlots the max slots
+   * @throws IllegalArgumentException if max slots is less than 1
    */
   public Inventory(int maxSlots) {
     if (maxSlots < 1) {
@@ -34,6 +37,10 @@ public class Inventory implements Observable<InventoryChangeEvent> {
 
   /**
    * Adds an item to the inventory.
+   *
+   * @param item the item
+   * @param amount the amount
+   * @return true if the item was added, false otherwise
    */
   public boolean add(Item item, int amount) {
     if (amount <= 0) {
@@ -77,6 +84,10 @@ public class Inventory implements Observable<InventoryChangeEvent> {
 
   /**
    * Removes an item from the inventory.
+   *
+   * @param item the item
+   * @param amount the amount
+   * @return true if the item was removed, false otherwise
    */
   public boolean remove(Item item, int amount) {
     if (amount <= 0) {
@@ -121,7 +132,12 @@ public class Inventory implements Observable<InventoryChangeEvent> {
     return true;
   }
 
-  /** Returns the quantity of an item in the inventory. */
+  /**
+   * Gets the quantity of an item in the inventory.
+   *
+   * @param itemType the item type
+   * @return the quantity
+   */
   public int getQuantity(String itemType) {
     List<ItemStack<? extends Item>> stacks = items.get(itemType);
     if (stacks == null) {
@@ -154,7 +170,11 @@ public class Inventory implements Observable<InventoryChangeEvent> {
     return items.keySet();
   }
 
-  /** Returns the stacks of items in the inventory. */
+  /**
+   * Gets the stacks of items in the inventory.
+   *
+   * @return a list of item stacks
+   */
   public List<ItemStack<? extends Item>> getStacks() {
     List<ItemStack<? extends Item>> stacks = new ArrayList<>();
     for (Map.Entry<String, List<ItemStack<? extends Item>>> entry : items.entrySet()) {
@@ -165,7 +185,11 @@ public class Inventory implements Observable<InventoryChangeEvent> {
     return stacks;
   }
 
-  /** Returns the summary of the inventory (item type -> total quantity). */
+  /**
+   * Gets the summary of the inventory.
+   *
+   * @return a map of item type -> total quantity
+   */
   public Map<String, Integer> getSummary() {
     Map<String, Integer> summary = new HashMap<>();
     for (Map.Entry<String, List<ItemStack<? extends Item>>> entry : items.entrySet()) {
@@ -175,6 +199,7 @@ public class Inventory implements Observable<InventoryChangeEvent> {
     return summary;
   }
 
+  /** Emits an inventory change event. */
   private void emitChange(Item item, int amount, boolean added) {
     dispatch(new InventoryChangeEvent(item, amount, added), listeners);
   }
