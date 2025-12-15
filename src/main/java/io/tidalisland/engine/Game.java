@@ -69,6 +69,7 @@ public class Game implements Runnable {
       lastTime = currentTime;
 
       if (delta >= 1) {
+        GameClock.getInstance().update();
         gamePanel.update();
         render(bs);
         gamePanel.endFrame();
