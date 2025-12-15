@@ -42,8 +42,6 @@ public class SpawnManager {
     // Pick a random valid position
     Position chosenPosition = validPositions.get(random.nextInt(validPositions.size()));
 
-    logSpawnPosition(chosenPosition);
-
     return chosenPosition;
   }
 
@@ -183,15 +181,5 @@ public class SpawnManager {
     }
 
     return closest;
-  }
-
-  /**
-   * Logs the spawn position for debugging.
-   */
-  private void logSpawnPosition(Position position) {
-    if (Config.debug()) {
-      int col = position.getX() / Config.tileSize();
-      int row = position.getY() / Config.tileSize();
-    }
   }
 }
