@@ -12,6 +12,7 @@ import java.util.Map;
  * Manages mouse input for the game.
  */
 public class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
+
   // Mouse button IDs
   /** Left mouse button. */
   public static final int BTN_LEFT = 1;

@@ -6,6 +6,7 @@ import java.util.Objects;
  * Represents a size in a 2D space.
  */
 public class Size {
+
   private int width;
   private int height;
 

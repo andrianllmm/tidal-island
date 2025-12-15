@@ -12,6 +12,7 @@ import java.awt.Graphics;
  * A container that groups UI components.
  */
 public class UiPanel extends UiComponent {
+
   private LayoutManager layoutManager;
 
   /**

@@ -8,6 +8,7 @@ import io.tidalisland.utils.Position;
  * The game camera.
  */
 public class Camera {
+
   private Position position = new Position(0, 0);
 
   /**
@@ -18,8 +19,8 @@ public class Camera {
   public void update(Entity target) {
     int x = target.getPosition().getX();
     int y = target.getPosition().getY();
-    int w = target.getSpriteSet().getCurrentFrame().getSize().getWidth();
-    int h = target.getSpriteSet().getCurrentFrame().getSize().getHeight();
+    int w = target.getCollider().getWidth();
+    int h = target.getCollider().getHeight();
 
     int centerX = x + (w / 2) - (Config.screenWidth() / 2);
     int centerY = y + (h / 2) - (Config.screenHeight() / 2);

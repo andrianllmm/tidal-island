@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Represents an observable object that can notify listeners of events.
  */
 public interface Observable<E extends Event> {
+
   /**
    * Adds a listener to the observable.
    *

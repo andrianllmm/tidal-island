@@ -12,6 +12,7 @@ import java.util.List;
  * Loader for {@link WorldObject}s.
  */
 public class WorldObjectLoader {
+
   /**
    * Loads world objects from a file.
    */

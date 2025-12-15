@@ -8,6 +8,7 @@ import java.awt.image.BufferStrategy;
  * The game.
  */
 public class Game implements Runnable {
+
   private GameCanvas gamePanel;
   private Thread gameThread;
   private boolean running;

@@ -9,6 +9,7 @@ import java.util.Map;
  * Represents a recipe for crafting.
  */
 public class Recipe {
+
   private final Map<String, Integer> ingredients;
   private final ItemStack<? extends Item> result;
 

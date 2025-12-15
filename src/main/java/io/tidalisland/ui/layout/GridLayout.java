@@ -6,6 +6,7 @@ import io.tidalisland.ui.components.UiComponent;
  * Positions children in a grid.
  */
 public class GridLayout extends LayoutManager {
+
   private final int columns;
   private final int cellWidth;
   private final int cellHeight;

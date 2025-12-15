@@ -10,6 +10,7 @@ import javax.swing.JPanel;
  * A panel for undo/redo buttons.
  */
 public class HistoryPanel extends JPanel {
+
   /** Creates a new history panel. */
   public HistoryPanel(EditorState state) {
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));

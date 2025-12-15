@@ -23,6 +23,7 @@ import java.awt.Color;
  * UI panel for the inventory.
  */
 public class UiInventoryPanel extends UiPanel {
+
   private final Inventory inventory;
   private final WorldObjectManager worldObjectManager;
   private final Player player;
@@ -90,7 +91,7 @@ public class UiInventoryPanel extends UiPanel {
       });
 
       Item item = stack.getItem();
-      UiImage icon = new UiImage(item.getSprite().getFrame().getImage(), 36, 36);
+      UiImage icon = new UiImage(item.getSprite().getImage(), 36, 36);
       slot.add(icon);
 
       UiLabel label = new UiLabel(String.valueOf(stack.getQuantity()), 36, 12);

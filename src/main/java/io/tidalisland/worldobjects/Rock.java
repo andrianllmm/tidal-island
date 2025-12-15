@@ -13,6 +13,7 @@ import java.util.List;
  * Represents a rock.
  */
 public class Rock extends WorldObject implements Interactable {
+
   private int health = 5;
 
   /**
@@ -22,7 +23,7 @@ public class Rock extends WorldObject implements Interactable {
     super("rock", position, true);
     spriteSet =
         SpriteSetBuilder.build("/sprites/worldobjects/rock.png", "/sprites/worldobjects/rock.json");
-    collider = new ColliderBuilder().size(spriteSet.getCurrentFrame().getSize()).build();
+    collider = new ColliderBuilder().size(spriteSet.getFrame().getSize()).build();
     collider.updatePosition(position);
   }
 
@@ -47,6 +48,6 @@ public class Rock extends WorldObject implements Interactable {
 
     Position screenPos = position.subtract(camera.getPosition());
 
-    spriteSet.getCurrentFrame().draw(g, screenPos);
+    spriteSet.getFrame().draw(g, screenPos);
   }
 }

@@ -2,7 +2,6 @@ package io.tidalisland.states;
 
 import io.tidalisland.config.Config;
 import io.tidalisland.engine.GameClock;
-import io.tidalisland.input.KeyHandler;
 import io.tidalisland.ui.components.UiLabel;
 import io.tidalisland.ui.components.UiPanel;
 import io.tidalisland.ui.layout.HorizontalAlignment;

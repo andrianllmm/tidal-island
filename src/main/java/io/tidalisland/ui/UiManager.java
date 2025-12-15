@@ -21,6 +21,7 @@ import java.awt.Graphics;
  * Manages all UI components using a root panel.
  */
 public class UiManager {
+
   private final UiPanel root;
   private final KeyHandler keys;
   private final MouseHandler mouse;

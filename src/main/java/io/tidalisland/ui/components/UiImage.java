@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
  * A component that displays an image.
  */
 public class UiImage extends UiComponent {
+
   private BufferedImage image;
 
   /**

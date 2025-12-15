@@ -6,6 +6,7 @@ package io.tidalisland.items;
  * @param <T> the type of item this stack holds
  */
 public class ItemStack<T extends Item> {
+
   private final T item;
   private int quantity;
 

@@ -12,6 +12,7 @@ import java.util.Map;
  * Represents the recipe book containing a list of {@link Recipe}s.
  */
 public class RecipeBook {
+
   private static final List<Recipe> RECIPES = new ArrayList<>();
 
   static {

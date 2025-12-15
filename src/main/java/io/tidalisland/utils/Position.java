@@ -6,6 +6,7 @@ import java.util.Objects;
  * Represents a position in a 2D space.
  */
 public class Position {
+
   private int x;
   private int y;
 

@@ -17,6 +17,7 @@ import java.awt.Graphics;
  * The player entity.
  */
 public class Player extends Entity {
+
   private Inventory inventory;
   private KeyHandler keys;
 
@@ -34,7 +35,7 @@ public class Player extends Entity {
         SpriteSetBuilder.build("/sprites/entities/player.png", "/sprites/entities/player.json");
 
     // Create collider
-    collider = new ColliderBuilder().size(spriteSet.getCurrentFrame().getSize()).scale(0.6)
+    collider = new ColliderBuilder().size(spriteSet.getFrame().getSize()).scale(0.6)
         .anchor(ColliderAnchor.CENTER, ColliderAnchor.BOTTOM).build();
     collider.updatePosition(position);
   }
@@ -90,7 +91,7 @@ public class Player extends Entity {
 
     Position screenPos = position.subtract(camera.getPosition());
 
-    SpriteFrame currentFrame = spriteSet.getCurrentFrame();
+    SpriteFrame currentFrame = spriteSet.getFrame();
     currentFrame.setFlipX(direction == Direction.LEFT);
 
     currentFrame.draw(g, screenPos);

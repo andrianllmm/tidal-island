@@ -6,6 +6,7 @@ import io.tidalisland.worldbuilder.EditorState;
  * Action for placing or removing a single tile.
  */
 public class TileAction implements EditorAction {
+
   private final EditorState state;
   private final int col;
   private final int row;

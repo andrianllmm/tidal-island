@@ -12,6 +12,7 @@ import java.awt.Rectangle;
  * Represents a 2D collider.
  */
 public class Collider {
+
   private final Rectangle rect;
   private int offsetX = 0;
   private int offsetY = 0;

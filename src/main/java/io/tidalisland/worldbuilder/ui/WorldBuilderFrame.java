@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  * Main frame for the World Builder application.
  */
 public class WorldBuilderFrame extends JFrame {
+
   private final String tilesetPath;
   private final EditorState editorState;
   private final MapCanvas mapCanvas;
@@ -27,10 +28,7 @@ public class WorldBuilderFrame extends JFrame {
     this.tilesetPath = tilesetPath;
     TileSet tileSet = TileSetLoader.load(tilesetPath);
 
-    this.editorState = new EditorState(
-        Config.mapWidth(),
-        Config.mapHeight(),
-        tileSet);
+    this.editorState = new EditorState(Config.mapWidth(), Config.mapHeight(), tileSet);
 
     setTitle("World Builder");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,10 +84,7 @@ public class WorldBuilderFrame extends JFrame {
 
   private void saveMap() {
     if (!isMapComplete()) {
-      JOptionPane.showMessageDialog(
-          this,
-          "Cannot save: some tiles are not set.",
-          "Save Error",
+      JOptionPane.showMessageDialog(this, "Cannot save: some tiles are not set.", "Save Error",
           JOptionPane.WARNING_MESSAGE);
       return;
     }
@@ -99,10 +94,7 @@ public class WorldBuilderFrame extends JFrame {
       JOptionPane.showMessageDialog(this, "Saved!");
     } catch (Exception e) {
       e.printStackTrace();
-      JOptionPane.showMessageDialog(
-          this,
-          "Failed to save: " + e.getMessage(),
-          "Save Error",
+      JOptionPane.showMessageDialog(this, "Failed to save: " + e.getMessage(), "Save Error",
           JOptionPane.ERROR_MESSAGE);
     }
   }

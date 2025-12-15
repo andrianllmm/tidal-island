@@ -27,7 +27,7 @@ public class WorldObjectSelect extends JPanel {
     for (String id : WorldObjectRegistry.getAllIds()) {
       WorldObject obj = WorldObjectRegistry.create(id);
 
-      ImageIcon icon = new ImageIcon(obj.getSpriteSet().getCurrentFrame().getImage());
+      ImageIcon icon = new ImageIcon(obj.getSpriteSet().getImage());
       CustomToggleButton btn = new CustomToggleButton(icon);
       btn.setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
 

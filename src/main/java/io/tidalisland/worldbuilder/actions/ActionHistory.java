@@ -7,6 +7,7 @@ import java.util.Deque;
  * Manages undo/redo history for {@link EditorAction}s.
  */
 public class ActionHistory {
+
   private final Deque<EditorAction> undoStack = new ArrayDeque<>();
   private final Deque<EditorAction> redoStack = new ArrayDeque<>();
   private static final int MAX_HISTORY = 100;

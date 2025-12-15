@@ -7,6 +7,7 @@ import io.tidalisland.utils.Size;
  * Builder for creating {@link Collider}s.
  */
 public class ColliderBuilder {
+
   private Size size;
   private double scaleX = 1.0;
   private double scaleY = 1.0;

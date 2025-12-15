@@ -14,6 +14,7 @@ import java.util.List;
  * Represents a tree.
  */
 public class Tree extends WorldObject implements Interactable {
+
   private int health = 5;
 
   /**
@@ -23,7 +24,7 @@ public class Tree extends WorldObject implements Interactable {
     super("tree", position, true);
     spriteSet =
         SpriteSetBuilder.build("/sprites/worldobjects/tree.png", "/sprites/worldobjects/tree.json");
-    collider = new ColliderBuilder().size(spriteSet.getCurrentFrame().getSize()).build();
+    collider = new ColliderBuilder().size(spriteSet.getFrame().getSize()).build();
     collider.updatePosition(position);
   }
 
@@ -48,6 +49,6 @@ public class Tree extends WorldObject implements Interactable {
 
     Position screenPos = position.subtract(camera.getPosition());
 
-    spriteSet.getCurrentFrame().draw(g, screenPos);
+    spriteSet.getFrame().draw(g, screenPos);
   }
 }

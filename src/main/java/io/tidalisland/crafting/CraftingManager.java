@@ -8,6 +8,7 @@ import java.util.List;
  * Manages crafting.
  */
 public class CraftingManager {
+
   /** A list of all recipes. */
   private final List<Recipe> recipes;
 

@@ -13,6 +13,7 @@ import java.util.List;
  * A component that displays text.
  */
 public class UiLabel extends UiComponent {
+
   private String text;
   private boolean wrapText = true; // wrap text to fit width
 

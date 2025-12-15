@@ -9,6 +9,7 @@ import java.util.List;
  * Loader for {@link TileSet}s.
  */
 public class TileSetLoader {
+
   /**
    * Loads a tile set from a file.
    */

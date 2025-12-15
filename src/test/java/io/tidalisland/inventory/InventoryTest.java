@@ -2,9 +2,7 @@ package io.tidalisland.inventory;
 
 import static org.assertj.core.api.Assertions.*;
 
-import io.tidalisland.events.InventoryChangeEvent;
 import io.tidalisland.items.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

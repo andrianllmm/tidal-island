@@ -6,6 +6,7 @@ import io.tidalisland.items.Item;
  * Event triggered when an item is added or removed from the inventory.
  */
 public class InventoryChangeEvent implements Event {
+
   private final Item item;
   private final int amount;
   private final boolean added;

@@ -11,6 +11,7 @@ import java.util.Map;
  * Manages keyboard input for the game.
  */
 public class KeyHandler implements KeyListener {
+
   /** Map of action names -> list of key codes. */
   private final Map<String, List<Integer>> keyBindings;
 
