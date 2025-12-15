@@ -2,6 +2,7 @@ package io.tidalisland.tide;
 
 import io.tidalisland.collision.Collider;
 import io.tidalisland.config.Config;
+import io.tidalisland.engine.GameClock;
 import io.tidalisland.entities.Player;
 import io.tidalisland.tiles.Tile;
 import io.tidalisland.tiles.TileSet;
@@ -22,11 +23,11 @@ public class TidalManager {
   private final WorldObjectManager worldObjectManager;
   private final TileSet tileSet;
   private final Player player;
-  private long lastFloodTime;
   private final long minFloodInterval;
   private final long maxFloodInterval;
-  private long currentFloodInterval;
   private int waterTileId = -1;
+  private long currentFloodInterval;
+  private long elapsedSinceLastFlood = 0;
 
   private boolean fullyFlooded = false;
 
@@ -46,7 +47,6 @@ public class TidalManager {
     this.minFloodInterval = (long) (minFloodIntervalSeconds * 1000);
     this.maxFloodInterval = (long) (maxFloodIntervalSeconds * 1000);
     this.currentFloodInterval = randomInterval();
-    this.lastFloodTime = System.currentTimeMillis();
 
     // Find water tile ID
     this.waterTileId = this.tileSet.get("water");
@@ -64,10 +64,12 @@ public class TidalManager {
       return;
     }
 
-    long now = System.currentTimeMillis();
-    if (now - lastFloodTime >= currentFloodInterval) {
+    long deltaMillis = GameClock.getInstance().getDeltaMillis();
+    elapsedSinceLastFlood += deltaMillis;
+
+    if (elapsedSinceLastFlood >= currentFloodInterval) {
       floodNextWave();
-      lastFloodTime = now;
+      elapsedSinceLastFlood = 0;
       currentFloodInterval = randomInterval();
     }
   }
@@ -272,19 +274,15 @@ public class TidalManager {
    * Returns the time remaining until the next flood (in seconds).
    */
   public double getTimeUntilNextFlood() {
-    long currentTime = System.currentTimeMillis();
-    long timeSinceLastFlood = currentTime - lastFloodTime;
-    long timeRemaining = currentFloodInterval - timeSinceLastFlood;
-    return Math.max(0, timeRemaining / 1000.0);
+    long remaining = currentFloodInterval - elapsedSinceLastFlood;
+    return Math.max(0, remaining / 1000.0);
   }
 
   /**
    * Returns the percentage of time until the next flood (0.0 to 1.0).
    */
   public double getFloodProgress() {
-    long currentTime = System.currentTimeMillis();
-    long timeSinceLastFlood = currentTime - lastFloodTime;
-    return Math.min(1.0, (double) timeSinceLastFlood / currentFloodInterval);
+    return Math.min(1.0, (double) elapsedSinceLastFlood / currentFloodInterval);
   }
 
   /**
@@ -299,7 +297,7 @@ public class TidalManager {
    */
   public void reset() {
     fullyFlooded = false;
-    lastFloodTime = System.currentTimeMillis();
+    elapsedSinceLastFlood = 0;
   }
 
   private long randomInterval() {

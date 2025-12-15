@@ -2,6 +2,7 @@ package io.tidalisland.debug;
 
 import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.config.Config;
+import io.tidalisland.engine.GameClock;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.input.MouseHandler;
@@ -53,6 +54,15 @@ public class DebugRenderer {
     int spacing = 20;
     int x = padding;
     int y = padding;
+
+    // Clock info
+    long delta = GameClock.getInstance().getDeltaMillis();
+    g.drawString("Delta ms: " + delta, x, y);
+    y += spacing;
+
+    long totalElapsed = GameClock.getInstance().getTotalElapsedMillis();
+    g.drawString("Total Game Time ms: " + totalElapsed, x, y);
+    y += spacing;
 
     // FPS
     g.drawString("FPS: " + Config.fps(), x, y);
