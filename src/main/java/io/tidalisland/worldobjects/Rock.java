@@ -13,6 +13,7 @@ import java.util.List;
  * Represents a rock.
  */
 public class Rock extends WorldObject implements Interactable {
+
   private int health = 5;
 
   /**

@@ -13,6 +13,7 @@ import java.util.List;
  * Represents a bush.
  */
 public class Bush extends WorldObject implements Interactable {
+
   private int health = 2;
 
   /**

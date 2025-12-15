@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
  * A custom button for the world builder.
  */
 public class CustomButton extends JButton {
+
   /**
    * Creates a new custom button.
    */

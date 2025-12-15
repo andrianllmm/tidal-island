@@ -19,6 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * Manages the tidal mechanic that floods the island.
  */
 public class TidalManager {
+
   private final WorldMap worldMap;
   private final WorldObjectManager worldObjectManager;
   private final TileSet tileSet;

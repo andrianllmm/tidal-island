@@ -8,6 +8,7 @@ import io.tidalisland.entities.Player;
  * Manages interactions between entities and world objects.
  */
 public class InteractionManager {
+
   private final WorldObjectManager worldObjectManager;
 
   public InteractionManager(WorldObjectManager wom) {

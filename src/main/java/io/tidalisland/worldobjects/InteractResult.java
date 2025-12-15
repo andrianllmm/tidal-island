@@ -6,6 +6,7 @@ import java.util.List;
  * Represents the result of an interaction.
  */
 public class InteractResult {
+
   public final List<Drop> drops;
   public final boolean destroyed;
 

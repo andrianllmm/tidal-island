@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
  * A frame of a sprite.
  */
 public class SpriteFrame {
+
   private BufferedImage image;
   private Size size;
   private int duration;

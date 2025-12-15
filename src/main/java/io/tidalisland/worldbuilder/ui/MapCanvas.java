@@ -25,6 +25,7 @@ import javax.swing.SwingUtilities;
  * Main drawing canvas for the World Builder.
  */
 public class MapCanvas extends JPanel {
+
   private final EditorState state;
 
   /** Creates a new map canvas. */
@@ -99,8 +100,7 @@ public class MapCanvas extends JPanel {
           int oldId = state.getTileId(col, row);
           if (oldId != newId) {
             state.setTileId(col, row, newId);
-            state.getActionHistory().addToStroke(
-                new TileAction(state, col, row, oldId, newId));
+            state.getActionHistory().addToStroke(new TileAction(state, col, row, oldId, newId));
             state.notifyChange();
           }
         }
@@ -110,8 +110,7 @@ public class MapCanvas extends JPanel {
         String selId = state.getSelectedWorldObjectId();
 
         state.setWorldObject(tilePos, selId);
-        state.getActionHistory().addToStroke(
-            new WorldObjectAction(state, tilePos, oldId, selId));
+        state.getActionHistory().addToStroke(new WorldObjectAction(state, tilePos, oldId, selId));
         state.notifyChange();
       }
 
@@ -122,8 +121,7 @@ public class MapCanvas extends JPanel {
         int oldTile = state.getTileId(col, row);
         if (oldTile != -1) {
           state.setTileId(col, row, -1);
-          state.getActionHistory().addToStroke(
-              new TileAction(state, col, row, oldTile, -1));
+          state.getActionHistory().addToStroke(new TileAction(state, col, row, oldTile, -1));
           state.notifyChange();
         }
       } else if (state.getSelectedWorldObjectId() != null) {
@@ -131,8 +129,7 @@ public class MapCanvas extends JPanel {
         String oldObj = state.getWorldObject(tilePos);
         if (oldObj != null) {
           state.setWorldObject(tilePos, null);
-          state.getActionHistory().addToStroke(
-              new WorldObjectAction(state, tilePos, oldObj, null));
+          state.getActionHistory().addToStroke(new WorldObjectAction(state, tilePos, oldObj, null));
           state.notifyChange();
         }
       }

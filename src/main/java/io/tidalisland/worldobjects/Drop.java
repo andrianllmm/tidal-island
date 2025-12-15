@@ -8,6 +8,7 @@ import io.tidalisland.items.Item;
  * Represents an item drop.
  */
 public class Drop {
+
   private final Item item;
   private final int minQuantity;
   private final int maxQuantity;

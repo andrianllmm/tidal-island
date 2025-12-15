@@ -6,6 +6,7 @@ import io.tidalisland.graphics.sprites.Sprite;
  * A tile.
  */
 public class Tile {
+
   private final int id;
   private final String name;
   private Sprite sprite;

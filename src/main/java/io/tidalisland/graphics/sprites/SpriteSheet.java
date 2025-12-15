@@ -9,6 +9,7 @@ import java.util.List;
  * A sprite sheet.
  */
 public class SpriteSheet {
+
   public List<FrameData> frames;
   public Meta meta;
 

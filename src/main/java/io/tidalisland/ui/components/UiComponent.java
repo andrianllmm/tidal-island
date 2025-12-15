@@ -13,6 +13,7 @@ import java.util.function.UnaryOperator;
  * Base class for all UI components in the game.
  */
 public abstract class UiComponent {
+
   // Position and size
   protected int x;
   protected int y;

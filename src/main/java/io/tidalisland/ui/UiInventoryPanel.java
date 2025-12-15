@@ -23,6 +23,7 @@ import java.awt.Color;
  * UI panel for the inventory.
  */
 public class UiInventoryPanel extends UiPanel {
+
   private final Inventory inventory;
   private final WorldObjectManager worldObjectManager;
   private final Player player;

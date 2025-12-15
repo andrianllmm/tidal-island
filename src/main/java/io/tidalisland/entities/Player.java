@@ -17,6 +17,7 @@ import java.awt.Graphics;
  * The player entity.
  */
 public class Player extends Entity {
+
   private Inventory inventory;
   private KeyHandler keys;
 

@@ -6,6 +6,7 @@ import io.tidalisland.ui.components.UiComponent;
  * Manages layout of {@link UiComponent}s inside a container.
  */
 public abstract class LayoutManager {
+
   protected HorizontalAlignment horAlign = HorizontalAlignment.LEFT;
   protected VerticalAlignment verAlign = VerticalAlignment.TOP;
 

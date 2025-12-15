@@ -9,6 +9,7 @@ import java.awt.Graphics;
  * A button.
  */
 public class UiButton extends UiPanel {
+
   private UiLabel label;
 
   /**

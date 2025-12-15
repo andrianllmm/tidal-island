@@ -8,6 +8,7 @@ import io.tidalisland.utils.Position;
  * The game camera.
  */
 public class Camera {
+
   private Position position = new Position(0, 0);
 
   /**

@@ -9,6 +9,7 @@ import java.util.Map;
  * Action for filling an area with a tile.
  */
 public class FillAction implements EditorAction {
+
   private final EditorState state;
   private final Map<Point, Integer> oldValues;
   private final int newTileId;

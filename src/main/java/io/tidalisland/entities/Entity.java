@@ -14,6 +14,7 @@ import java.awt.Graphics;
  * Base class for all entities.
  */
 public abstract class Entity {
+
   protected Position position;
   protected Direction direction = Direction.NONE;
   protected Collider collider;

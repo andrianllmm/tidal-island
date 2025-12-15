@@ -13,6 +13,7 @@ import java.util.Random;
  * Manages spawn positions for entities in the world.
  */
 public class SpawnManager {
+
   private final WorldMap worldMap;
   private final WorldObjectManager worldObjectManager;
   private final Random random;

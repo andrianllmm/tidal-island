@@ -17,6 +17,7 @@ import javax.swing.JPanel;
  * Small overview panel showing entire map with tiles and world objects.
  */
 public class MiniMapPanel extends JPanel {
+
   private final EditorState state;
   private final MapCanvas canvas;
 
@@ -73,18 +74,17 @@ public class MiniMapPanel extends JPanel {
       for (int x = 0; x < mapWidth; x++) {
         Tile tile = state.getTile(x, y);
         if (tile != null) {
-          tile.getSprite().getFrame()
-              .drawScaled(g, (int) (x * ts), (int) (y * ts), (int) ts, (int) ts);
+          tile.getSprite().getFrame().drawScaled(g, (int) (x * ts), (int) (y * ts), (int) ts,
+              (int) ts);
         }
 
         // Draw world objects
         String objId = state.getWorldObject(new Position(x, y));
         if (objId != null) {
-          WorldObject obj = WorldObjectRegistry
-              .create(objId, new Position(x, y));
+          WorldObject obj = WorldObjectRegistry.create(objId, new Position(x, y));
           if (obj.getSpriteSet() != null) {
-            obj.getSpriteSet().getCurrentFrame()
-                .drawScaled(g, (int) (x * ts), (int) (y * ts), (int) ts, (int) ts);
+            obj.getSpriteSet().getCurrentFrame().drawScaled(g, (int) (x * ts), (int) (y * ts),
+                (int) ts, (int) ts);
           }
         }
       }
@@ -93,7 +93,7 @@ public class MiniMapPanel extends JPanel {
     // Draw viewport rectangle
     g.setColor(Color.YELLOW);
     ViewPort vp = state.getViewPort();
-    g.drawRect((int) (vp.getX() * ts), (int) (vp.getY() * ts),
-        (int) (vp.getCols() * ts), (int) (vp.getRows() * ts));
+    g.drawRect((int) (vp.getX() * ts), (int) (vp.getY() * ts), (int) (vp.getCols() * ts),
+        (int) (vp.getRows() * ts));
   }
 }

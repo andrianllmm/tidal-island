@@ -9,6 +9,7 @@ import java.util.List;
  * Loader for {@link WorldMap}s.
  */
 public class WorldMapLoader {
+
   /**
    * Loads a world map with map daa and tileset from a file.
    *

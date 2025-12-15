@@ -9,6 +9,7 @@ import java.awt.Graphics;
  * The world map.
  */
 public class WorldMap {
+
   private Tile[][] map;
   private TileSet tileSet;
 

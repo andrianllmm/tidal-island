@@ -14,6 +14,7 @@ import java.util.List;
  * Represents a tree.
  */
 public class Tree extends WorldObject implements Interactable {
+
   private int health = 5;
 
   /**

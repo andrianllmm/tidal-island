@@ -7,6 +7,7 @@ import java.util.List;
  * Groups multiple actions into a single undoable unit (e.g., a brush stroke).
  */
 public class StrokeAction implements EditorAction {
+
   private final List<EditorAction> actions = new ArrayList<>();
 
   public void addAction(EditorAction action) {

@@ -7,6 +7,7 @@ import java.util.Map;
  * A set of {@link Sprite}s.
  */
 public class SpriteSet {
+
   private final Map<String, Sprite> sprites = new HashMap<>();
   private Sprite current;
 

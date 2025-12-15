@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
  * A sprite atlas.
  */
 public class SpriteAtlas {
+
   private BufferedImage atlas;
 
   /**

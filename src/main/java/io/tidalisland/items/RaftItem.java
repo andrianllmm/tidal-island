@@ -9,6 +9,7 @@ import io.tidalisland.worldobjects.WorldObjectManager;
  * Represents a raft item.
  */
 public class RaftItem extends Item implements Placeable {
+
   /**
    * Creates a new raft item.
    */

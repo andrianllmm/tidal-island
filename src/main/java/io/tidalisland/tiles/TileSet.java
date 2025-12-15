@@ -7,6 +7,7 @@ import java.util.List;
  * A set of tiles.
  */
 public class TileSet {
+
   private List<Tile> tiles = new ArrayList<>();
 
   /**

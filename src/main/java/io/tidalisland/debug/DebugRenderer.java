@@ -18,6 +18,7 @@ import java.awt.Graphics;
  * Renders debug information for development.
  */
 public class DebugRenderer {
+
   private boolean enabled = Config.debug();
 
   private MouseHandler mouse;

@@ -16,6 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Represents an inventory.
  */
 public class Inventory implements Observable<InventoryChangeEvent> {
+
   /** Map of item types to stacks of items for fast lookup. */
   private final Map<String, List<ItemStack<? extends Item>>> items = new HashMap<>();
   private final int maxSlots;

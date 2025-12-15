@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
  * The game window.
  */
 public class GameWindow extends Frame {
+
   /**
    * Creates a new game window.
    *

@@ -4,6 +4,7 @@ package io.tidalisland.worldbuilder;
  * Manages the viewport/camera position for the map editor.
  */
 public class ViewPort {
+
   private int x = 0;
   private int y = 0;
   private int cols = 20;

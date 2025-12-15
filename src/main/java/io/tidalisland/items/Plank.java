@@ -6,6 +6,7 @@ import io.tidalisland.graphics.sprites.Sprite;
  * Represents a plank.
  */
 public class Plank extends Item {
+
   /**
    * Creates a new plank.
    */

@@ -8,6 +8,7 @@ import io.tidalisland.engine.GameWindow;
  * Main entry point.
  */
 public class Main {
+
   /**
    * Launches the game.
    */

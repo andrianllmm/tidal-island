@@ -23,6 +23,7 @@ import java.util.Map;
  * UI panel for crafting.
  */
 public class UiCraftingPanel extends UiPanel {
+
   private final Inventory inventory;
   private final CraftingManager craftingManager;
 

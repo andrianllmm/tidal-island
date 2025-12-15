@@ -6,6 +6,7 @@ import java.util.List;
  * A sprite with list of {@link SpriteFrame}s.
  */
 public class Sprite {
+
   private final List<SpriteFrame> frames;
   private boolean animated = false;
   private boolean playing = true;

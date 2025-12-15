@@ -12,6 +12,7 @@ import io.tidalisland.worldobjects.WorldObjectManager;
  * Manages collisions between entities and the world.
  */
 public class CollisionManager {
+
   private final WorldMap worldMap;
   private final WorldObjectManager worldObjectManager;
   private int collisionCount;

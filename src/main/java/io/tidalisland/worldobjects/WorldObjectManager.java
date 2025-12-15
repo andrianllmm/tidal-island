@@ -15,6 +15,7 @@ import java.util.Map;
  * Manages world objects.
  */
 public class WorldObjectManager {
+
   private final WorldMap worldMap;
   private Map<Position, WorldObject> worldObjects;
 

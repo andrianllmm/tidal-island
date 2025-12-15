@@ -17,6 +17,7 @@ import java.util.List;
  * Represents a raft.
  */
 public class Raft extends WorldObject implements Interactable {
+
   private int health = 15;
   private WorldMap worldMap;
 
