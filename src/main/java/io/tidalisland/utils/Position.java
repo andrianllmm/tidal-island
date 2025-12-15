@@ -14,9 +14,6 @@ public class Position {
     this.y = y;
   }
 
-  public Position copy() {
-    return new Position(x, y);
-  }
 
   /**
    * Moves the position by the given x and y distance.
@@ -49,12 +46,25 @@ public class Position {
     return (int) Math.sqrt(dx * dx + dy * dy);
   }
 
+  /**
+   * Adds the given position to this position.
+   */
   public Position add(Position other) {
     return new Position(x + other.getX(), y + other.getY());
   }
 
+  /**
+   * Subtracts the given position from this position.
+   */
   public Position subtract(Position other) {
     return new Position(x - other.getX(), y - other.getY());
+  }
+
+  /**
+   * Creates a copy of this position.
+   */
+  public Position copy() {
+    return new Position(x, y);
   }
 
   @Override
