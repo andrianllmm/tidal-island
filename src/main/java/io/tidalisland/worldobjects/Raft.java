@@ -30,7 +30,7 @@ public class Raft extends WorldObject implements Interactable {
     spriteSet =
         SpriteSetBuilder.build("/sprites/worldobjects/raft.png", "/sprites/worldobjects/raft.json");
     spriteSet.setTag("floats");
-    collider = new ColliderBuilder().size(spriteSet.getCurrentFrame().getSize()).scale(1, 0.8)
+    collider = new ColliderBuilder().size(spriteSet.getFrame().getSize()).scale(1, 0.8)
         .anchor(ColliderAnchor.CENTER, ColliderAnchor.TOP).build();
     collider.updatePosition(position);
   }
@@ -79,6 +79,6 @@ public class Raft extends WorldObject implements Interactable {
 
     Position screenPos = position.subtract(camera.getPosition());
 
-    spriteSet.getCurrentFrame().draw(g, screenPos);
+    spriteSet.getFrame().draw(g, screenPos);
   }
 }

@@ -19,8 +19,7 @@ public class TileSelect extends JPanel {
   private static final int BUTTON_SIZE = 32;
 
   /** Creates a new tile select panel. */
-  public TileSelect(
-      EditorState state, ButtonGroup tileGroup, ButtonGroup objGroup) {
+  public TileSelect(EditorState state, ButtonGroup tileGroup, ButtonGroup objGroup) {
     setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
     setBackground(Color.BLACK);
     setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -29,7 +28,7 @@ public class TileSelect extends JPanel {
     for (int i = 0; i < tileSet.size(); i++) {
       Tile tile = tileSet.get(i);
 
-      ImageIcon icon = new ImageIcon(tile.getSprite().getFrame().getImage());
+      ImageIcon icon = new ImageIcon(tile.getSprite().getImage());
       CustomToggleButton btn = new CustomToggleButton(icon);
       btn.setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
 

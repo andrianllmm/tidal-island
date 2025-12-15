@@ -143,7 +143,7 @@ public class UiCraftingPanel extends UiPanel {
         });
 
         Item item = recipe.getResult().getItem();
-        UiImage icon = new UiImage(item.getSprite().getFrame().getImage(), 36, 36);
+        UiImage icon = new UiImage(item.getSprite().getImage(), 36, 36);
         slot.add(icon);
 
         add(slot);
@@ -176,7 +176,7 @@ public class UiCraftingPanel extends UiPanel {
         slot.setStyle(UiStyleDirector.makeTransparent());
         slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
-        UiImage icon = new UiImage(temp.getSprite().getFrame().getImage(), 36, 36);
+        UiImage icon = new UiImage(temp.getSprite().getImage(), 36, 36);
         slot.add(icon);
 
         int needed = entry.getValue();
@@ -208,7 +208,7 @@ public class UiCraftingPanel extends UiPanel {
 
       Item item = selectedRecipe.getResult().getItem();
       int qty = selectedRecipe.getResult().getQuantity();
-      UiImage icon = new UiImage(item.getSprite().getFrame().getImage(), 36, 36);
+      UiImage icon = new UiImage(item.getSprite().getImage(), 36, 36);
       add(icon);
       UiLabel label = new UiLabel("x" + qty, 36, 12);
       label.style(s -> s.fontSize(12));

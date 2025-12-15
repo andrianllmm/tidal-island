@@ -1,5 +1,6 @@
 package io.tidalisland.graphics.sprites;
 
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,11 +59,18 @@ public class SpriteSet {
     }
   }
 
+  /** Returns the current sprite. */
   public Sprite getCurrent() {
     return current;
   }
 
-  public SpriteFrame getCurrentFrame() {
+  /** Returns the current frame of the current sprite. */
+  public SpriteFrame getFrame() {
     return current == null ? null : current.getFrame();
+  }
+
+  /** Returns the image of the current frame. */
+  public BufferedImage getImage() {
+    return current == null ? null : current.getImage();
   }
 }

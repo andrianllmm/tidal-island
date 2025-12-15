@@ -1,5 +1,6 @@
 package io.tidalisland.graphics.sprites;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 /**
@@ -101,9 +102,15 @@ public class Sprite {
     }
   }
 
-  /**
-   * Gets the current frame.
-   */
+  public boolean isAnimated() {
+    return animated;
+  }
+
+  public void setSpeedMultiplier(double multiplier) {
+    this.speedMultiplier = multiplier;
+  }
+
+  /** Returns the current frame. */
   public SpriteFrame getFrame() {
     if (frames == null || frames.isEmpty()) {
       return null;
@@ -111,11 +118,8 @@ public class Sprite {
     return frames.get(frameIdx);
   }
 
-  public boolean isAnimated() {
-    return animated;
-  }
-
-  public void setSpeedMultiplier(double multiplier) {
-    this.speedMultiplier = multiplier;
+  /** Returns the image of the current frame. */
+  public BufferedImage getImage() {
+    return getFrame().getImage();
   }
 }

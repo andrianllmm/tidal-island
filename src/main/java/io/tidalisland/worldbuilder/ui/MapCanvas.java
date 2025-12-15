@@ -172,7 +172,7 @@ public class MapCanvas extends JPanel {
         if (objId != null) {
           WorldObject obj = WorldObjectRegistry.create(objId, tilePos);
           if (obj.getSpriteSet() != null) {
-            obj.getSpriteSet().getCurrentFrame().drawScaled(g, pixelX, pixelY, ts, ts);
+            obj.getSpriteSet().getFrame().drawScaled(g, pixelX, pixelY, ts, ts);
           }
         }
 

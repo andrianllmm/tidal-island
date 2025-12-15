@@ -83,8 +83,8 @@ public class MiniMapPanel extends JPanel {
         if (objId != null) {
           WorldObject obj = WorldObjectRegistry.create(objId, new Position(x, y));
           if (obj.getSpriteSet() != null) {
-            obj.getSpriteSet().getCurrentFrame().drawScaled(g, (int) (x * ts), (int) (y * ts),
-                (int) ts, (int) ts);
+            obj.getSpriteSet().getFrame().drawScaled(g, (int) (x * ts), (int) (y * ts), (int) ts,
+                (int) ts);
           }
         }
       }

@@ -23,7 +23,7 @@ public class Bush extends WorldObject implements Interactable {
     super("bush", position, true);
     spriteSet =
         SpriteSetBuilder.build("/sprites/worldobjects/bush.png", "/sprites/worldobjects/bush.json");
-    collider = new ColliderBuilder().size(spriteSet.getCurrentFrame().getSize()).scale(0.8).build();
+    collider = new ColliderBuilder().size(spriteSet.getFrame().getSize()).scale(0.8).build();
     collider.updatePosition(position);
   }
 
@@ -48,6 +48,6 @@ public class Bush extends WorldObject implements Interactable {
 
     Position screenPos = position.subtract(camera.getPosition());
 
-    spriteSet.getCurrentFrame().draw(g, screenPos);
+    spriteSet.getFrame().draw(g, screenPos);
   }
 }
