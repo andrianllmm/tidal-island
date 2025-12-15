@@ -83,6 +83,10 @@ public class Inventory implements Observable<InventoryChangeEvent> {
       return false;
     }
 
+    if (amount > getQuantity(item)) {
+      amount = getQuantity(item);
+    }
+
     List<ItemStack<? extends Item>> stacks = items.get(item.getType());
     if (stacks == null) {
       return false;

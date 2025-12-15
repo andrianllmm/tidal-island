@@ -14,11 +14,17 @@ public class Size {
     this.height = height;
   }
 
+  /**
+   * Scales the size by the given scale factors.
+   */
   public void scale(double scaleX, double scaleY) {
     width = (int) (width * scaleX);
     height = (int) (height * scaleY);
   }
 
+  /**
+   * Creates a copy of this size.
+   */
   public Size copy() {
     return new Size(width, height);
   }
@@ -59,5 +65,10 @@ public class Size {
 
   public void setHeight(int height) {
     this.height = height;
+  }
+
+  public void setSize(Size ize) {
+    setWidth(ize.getWidth());
+    setHeight(ize.getHeight());
   }
 }

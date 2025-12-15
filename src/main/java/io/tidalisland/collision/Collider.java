@@ -25,18 +25,26 @@ public class Collider {
   }
 
   /**
-   * Sets the offset of the collider.
-   */
-  public void setOffset(int offsetX, int offsetY) {
-    this.offsetX = offsetX;
-    this.offsetY = offsetY;
-  }
-
-  /**
    * Checks if this collider intersects with another collider.
    */
   public boolean intersects(Collider other) {
     return rect.intersects(other.rect);
+  }
+
+  /**
+   * Checks if a point is inside this collider.
+   */
+  public boolean contains(int px, int py) {
+    return rect.contains(px, py);
+  }
+
+  /**
+   * Checks if a collider is inside this collider.
+   */
+  public boolean contains(Collider other) {
+    return other.getX() >= this.getX() && other.getY() >= this.getY()
+        && other.getX() + other.getWidth() <= this.getX() + this.getWidth()
+        && other.getY() + other.getHeight() <= this.getY() + this.getHeight();
   }
 
   /**
@@ -47,6 +55,9 @@ public class Collider {
     rect.y = newY + offsetY;
   }
 
+  /**
+   * Updates the collider position from a Position.
+   */
   public void updatePosition(Position position) {
     updatePosition(position.getX(), position.getY());
   }
@@ -71,22 +82,6 @@ public class Collider {
       default -> {
       }
     }
-  }
-
-  /**
-   * Checks if a point is inside this collider.
-   */
-  public boolean contains(int px, int py) {
-    return rect.contains(px, py);
-  }
-
-  /**
-   * Checks if a collider is inside this collider.
-   */
-  public boolean contains(Collider other) {
-    return other.getX() >= this.getX() && other.getY() >= this.getY()
-        && other.getX() + other.getWidth() <= this.getX() + this.getWidth()
-        && other.getY() + other.getHeight() <= this.getY() + this.getHeight();
   }
 
   /**
@@ -167,5 +162,10 @@ public class Collider {
 
   public void setHeight(int height) {
     rect.height = height;
+  }
+
+  public void setOffset(int offsetX, int offsetY) {
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
   }
 }
