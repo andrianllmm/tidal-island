@@ -57,21 +57,22 @@ public class GameCanvas extends Canvas {
     setFocusable(true);
     requestFocus();
 
+    // Initialize members
     worldMap = new WorldMap();
     worldObjectManager = new WorldObjectManager(worldMap);
     collisionManager = new CollisionManager(worldMap, worldObjectManager);
     interactionManager = new InteractionManager(worldObjectManager);
     spawnManager = new SpawnManager(worldMap, worldObjectManager);
     player = new Player(keys, spawnManager.findValidSpawnPosition());
-    tidalManager = new TidalManager(
-        worldMap, worldObjectManager, worldMap.getTileSet(), player, 5, 10);
+    tidalManager =
+        new TidalManager(worldMap, worldObjectManager, worldMap.getTileSet(), player, 5, 10);
 
     camera = new Camera();
-    ui = new UiManager(
-        keys, mouse, player.getInventory(), worldObjectManager, tidalManager, player);
+    ui = new UiManager(keys, mouse, player.getInventory(), worldObjectManager, tidalManager,
+        player);
 
-    debugRenderer = new DebugRenderer(
-        mouse, ui, worldObjectManager, collisionManager, camera, player);
+    debugRenderer =
+        new DebugRenderer(mouse, ui, worldObjectManager, collisionManager, camera, player);
   }
 
   /**
@@ -87,6 +88,9 @@ public class GameCanvas extends Canvas {
     ui.update();
   }
 
+  /**
+   * Renders the game.
+   */
   protected void render(Graphics g) {
     Graphics2D g2 = (Graphics2D) g;
 
@@ -102,6 +106,9 @@ public class GameCanvas extends Canvas {
     }
   }
 
+  /**
+   * Called after each frame.
+   */
   public void endFrame() {
     keys.endFrame();
     mouse.endFrame();

@@ -29,11 +29,8 @@ public class UiManager {
   /**
    * Initializes UI manager.
    */
-  public UiManager(
-      KeyHandler keys, MouseHandler mouse,
-      Inventory inventory, WorldObjectManager worldObjectManager,
-      TidalManager tidalManager,
-      Player player) {
+  public UiManager(KeyHandler keys, MouseHandler mouse, Inventory inventory,
+      WorldObjectManager worldObjectManager, TidalManager tidalManager, Player player) {
 
     this.keys = keys;
     this.mouse = mouse;

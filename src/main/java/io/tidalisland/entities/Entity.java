@@ -7,7 +7,6 @@ import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteSet;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
-import io.tidalisland.utils.Size;
 import io.tidalisland.worldobjects.InteractionManager;
 import java.awt.Graphics;
 
@@ -24,6 +23,10 @@ public abstract class Entity {
 
   /**
    * Creates a new entity.
+   *
+   * @param position the position
+   * @param direction the direction
+   * @param speed the speed
    */
   public Entity(Position position, Direction direction, int speed) {
     this.position = position;
@@ -33,6 +36,9 @@ public abstract class Entity {
 
   /**
    * Creates a new entity with no direction.
+   *
+   * @param position the position
+   * @param speed the speed
    */
   public Entity(Position position, int speed) {
     this(position, Direction.NONE, speed);
@@ -51,6 +57,8 @@ public abstract class Entity {
 
   /**
    * Gets the tile the entity is facing.
+   *
+   * @return the tile position, or null if the entity is facing none
    */
   public Position getFacingTile() {
     int tileSize = Config.tileSize();
@@ -96,10 +104,6 @@ public abstract class Entity {
 
   public int getSpeed() {
     return speed;
-  }
-
-  public Size getRenderSize() {
-    return spriteSet.getCurrentFrame().getSize();
   }
 
   public void setDirection(Direction direction) {

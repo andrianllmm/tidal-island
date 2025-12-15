@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * Central registry for all world object types.
+ * Central registry for all {@link WorldObject}s.
  */
 public final class WorldObjectRegistry {
+
   private static final Map<String, Function<Position, WorldObject>> objects = new HashMap<>();
 
-  private WorldObjectRegistry() {
-  }
+  private WorldObjectRegistry() {}
 
   static {
     register("tree", Tree::new);
@@ -24,7 +24,11 @@ public final class WorldObjectRegistry {
   }
 
   /**
-   * Registers an world object type.
+   * Registers a world object.
+   *
+   * @param id the world object id
+   * @param factory the world object factory
+   * @throws IllegalArgumentException if the world object is already registered
    */
   public static void register(String id, Function<Position, WorldObject> factory) {
     if (objects.containsKey(id)) {
@@ -34,7 +38,11 @@ public final class WorldObjectRegistry {
   }
 
   /**
-   * Creates a world object a[t the given position.
+   * Creates a world object at the given position.
+   *
+   * @param id the world object id
+   * @param pos the position
+   * @return the created world object
    */
   public static WorldObject create(String id, Position pos) {
     Function<Position, WorldObject> factory = objects.get(id);
@@ -44,16 +52,32 @@ public final class WorldObjectRegistry {
     return factory.apply(pos);
   }
 
+  /**
+   * Creates a world object at the origin.
+   *
+   * @param id the world object id
+   * @return the created world object
+   */
   public static WorldObject create(String id) {
     return create(id, new Position(0, 0));
   }
 
-  public static boolean has(String id) {
-    return objects.containsKey(id);
-  }
-
-  /** Gets all world object ids. */
+  /**
+   * Gets all world object ids.
+   *
+   * @return a list of world object ids
+   */
   public static List<String> getAllIds() {
     return new ArrayList<>(objects.keySet());
+  }
+
+  /**
+   * Checks if a world object is registered.
+   *
+   * @param id the world object id
+   * @return true if the world object is registered, false otherwise
+   */
+  public static boolean has(String id) {
+    return objects.containsKey(id);
   }
 }

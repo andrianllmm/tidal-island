@@ -20,7 +20,7 @@ import java.awt.Color;
 import java.util.Map;
 
 /**
- * Crafting window UI.
+ * UI panel for crafting.
  */
 public class UiCraftingPanel extends UiPanel {
   private final Inventory inventory;

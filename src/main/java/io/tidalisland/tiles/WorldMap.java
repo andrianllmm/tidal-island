@@ -9,14 +9,14 @@ import java.awt.Graphics;
  * The world map.
  */
 public class WorldMap {
-  Tile[][] map;
-  TileSet tileSet;
+  private Tile[][] map;
+  private TileSet tileSet;
 
   /**
    * Initializes the world map.
    */
   public WorldMap() {
-    WorldMapLoader.LoadResult result = WorldMapLoader.loadWithTileSet("/maps/map.json");
+    WorldMapLoader.LoadResult result = WorldMapLoader.load("/maps/map.json");
     if (result != null) {
       this.map = result.map;
       this.tileSet = result.tileSet;
@@ -27,6 +27,9 @@ public class WorldMap {
 
   /**
    * Gets the tile at the given position.
+   *
+   * @param col the column
+   * @param row the row
    */
   public Tile getTile(int col, int row) {
     if (col < 0 || col >= Config.mapWidth() || row < 0 || row >= Config.mapHeight()) {
@@ -37,6 +40,10 @@ public class WorldMap {
 
   /**
    * Sets a tile at the given position.
+   *
+   * @param col the column
+   * @param row the row
+   * @param tileId the tile id
    */
   public void setTile(int col, int row, int tileId) {
     if (col < 0 || col >= Config.mapWidth() || row < 0 || row >= Config.mapHeight()) {
@@ -49,9 +56,6 @@ public class WorldMap {
     map[col][row] = tileSet.get(tileId);
   }
 
-  /**
-   * Sets the tile set for this world map.
-   */
   public void setTileSet(TileSet tileSet) {
     this.tileSet = tileSet;
   }

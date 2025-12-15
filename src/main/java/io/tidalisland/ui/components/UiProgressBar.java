@@ -27,10 +27,7 @@ public class UiProgressBar extends UiComponent {
   private ProgressColorStrategy colorStrategy;
 
   /** Creates a new progress bar. */
-  public UiProgressBar(
-      int width,
-      int height,
-      DoubleSupplier progressSupplier,
+  public UiProgressBar(int width, int height, DoubleSupplier progressSupplier,
       ProgressColorStrategy colorStrategy) {
     super(width, height);
     this.progressSupplier = progressSupplier;

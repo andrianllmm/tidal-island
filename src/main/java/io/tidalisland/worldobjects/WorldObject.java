@@ -7,9 +7,10 @@ import io.tidalisland.utils.Position;
 import java.awt.Graphics;
 
 /**
- * Represents an object in the world.
+ * Represents an object in the game world.
  */
 public abstract class WorldObject {
+
   protected final String type;
   protected Position position;
   protected SpriteSet spriteSet;
@@ -19,6 +20,10 @@ public abstract class WorldObject {
 
   /**
    * Creates a new world object.
+   *
+   * @param type the type
+   * @param position the position
+   * @param solid whether the object is solid
    */
   public WorldObject(String type, Position position, boolean solid) {
     this.type = type;

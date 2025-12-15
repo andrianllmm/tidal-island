@@ -5,13 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
 import java.util.Map;
 
-/** Loader for configuration from JSON. */
+/**
+ * Loader for {@link ConfigData} from a file.
+ */
 public final class ConfigLoader {
 
   private ConfigLoader() {}
 
   /**
-   * Loads configuration from JSON file.
+   * Loads configuration from file.
+   *
+   * @param path the path to the file
+   * @return the loaded configuration
    */
   public static ConfigData load(String path) {
     try (InputStream is = ConfigLoader.class.getResourceAsStream(path)) {

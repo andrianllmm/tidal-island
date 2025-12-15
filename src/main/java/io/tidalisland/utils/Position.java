@@ -3,20 +3,28 @@ package io.tidalisland.utils;
 import java.util.Objects;
 
 /**
- * 2D position.
+ * Represents a position in a 2D space.
  */
 public class Position {
   private int x;
   private int y;
 
+  /**
+   * Creates a new position at the specified coordinates.
+   *
+   * @param x the x-coordinate
+   * @param y the y-coordinate
+   */
   public Position(int x, int y) {
     this.x = x;
     this.y = y;
   }
 
-
   /**
-   * Moves the position by the given x and y distance.
+   * Moves this position by the specified delta values.
+   *
+   * @param dx the change in x-coordinate
+   * @param dy the change in y-coordinate
    */
   public void move(int dx, int dy) {
     x += dx;
@@ -24,21 +32,28 @@ public class Position {
   }
 
   /**
-   * Moves the position in the given direction by the given distance.
+   * Moves this position in the specified direction by the given distance. If the direction is
+   * {@code NONE}, the position remains unchanged.
+   *
+   * @param direction the direction to move
+   * @param distance the distance to move
    */
-  public void move(Direction direction, int d) {
+  public void move(Direction direction, int distance) {
     switch (direction) {
-      case UP -> move(0, -d);
-      case DOWN -> move(0, d);
-      case LEFT -> move(-d, 0);
-      case RIGHT -> move(d, 0);
+      case UP -> move(0, -distance);
+      case DOWN -> move(0, distance);
+      case LEFT -> move(-distance, 0);
+      case RIGHT -> move(distance, 0);
       default -> {
       }
     }
   }
 
   /**
-   * Calculates the distance between this position and the given position.
+   * Calculates the Euclidean distance between this position and another position.
+   *
+   * @param other the other position
+   * @return the distance as an integer
    */
   public int distanceTo(Position other) {
     int dx = other.x - x;
@@ -47,21 +62,29 @@ public class Position {
   }
 
   /**
-   * Adds the given position to this position.
+   * Returns a new position that is the sum of this position and the given position.
+   *
+   * @param other the position to add
+   * @return the resulting position
    */
   public Position add(Position other) {
     return new Position(x + other.getX(), y + other.getY());
   }
 
   /**
-   * Subtracts the given position from this position.
+   * Returns a new position that is the difference between this position and the given position.
+   *
+   * @param other the position to subtract
+   * @return the resulting position
    */
   public Position subtract(Position other) {
     return new Position(x - other.getX(), y - other.getY());
   }
 
   /**
-   * Creates a copy of this position.
+   * Creates and returns a copy of this position.
+   *
+   * @return a new Position with the same coordinates
    */
   public Position copy() {
     return new Position(x, y);
@@ -69,14 +92,14 @@ public class Position {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj == this) {
+    if (this == obj) {
       return true;
     }
     if (!(obj instanceof Position)) {
       return false;
     }
-    final Position other = (Position) obj;
-    return this.x == other.getX() && this.y == other.getY();
+    Position other = (Position) obj;
+    return x == other.getX() && y == other.getY();
   }
 
   @Override
@@ -105,6 +128,11 @@ public class Position {
     this.y = y;
   }
 
+  /*
+   * Updates this position to match another position.
+   *
+   * @param position the position to copy coordinates from
+   */
   public void setPosition(Position position) {
     setX(position.getX());
     setY(position.getY());

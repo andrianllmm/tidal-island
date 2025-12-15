@@ -1,12 +1,14 @@
 package io.tidalisland.ui.styles;
 
+import io.tidalisland.ui.components.UiComponent;
 import java.awt.Color;
 import java.awt.Font;
 
 /**
- * Immutable style definition for UI components.
+ * Immutable style definition for {@link UiComponent}s.
  */
 public final class UiStyle {
+
   // Background colors
   private final Color bg;
   private final Color hoverBg;

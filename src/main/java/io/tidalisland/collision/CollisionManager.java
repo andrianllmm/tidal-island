@@ -16,6 +16,12 @@ public class CollisionManager {
   private final WorldObjectManager worldObjectManager;
   private int collisionCount;
 
+  /**
+   * Creates a new collision manager.
+   *
+   * @param worldMap the world map
+   * @param worldObjectManager the world object manager
+   */
   public CollisionManager(WorldMap worldMap, WorldObjectManager worldObjectManager) {
     this.worldMap = worldMap;
     this.worldObjectManager = worldObjectManager;
@@ -23,6 +29,11 @@ public class CollisionManager {
 
   /**
    * Checks if an entity can move to a new position without colliding.
+   *
+   * @param entity the entity
+   * @param nextX the next x-coordinate
+   * @param nextY the next y-coordinate
+   * @return true if the entity can move to the new position, false otherwise
    */
   public boolean canMove(Entity entity, int nextX, int nextY) {
     // Create a hypothetical collider at the new position
@@ -47,15 +58,25 @@ public class CollisionManager {
 
   /**
    * Checks if an entity can move to a new position without colliding.
+   *
+   * @param entity the entity
+   * @param nextPosition the next position
+   * @return true if the entity can move to the new position, false otherwise
    */
   public boolean canMove(Entity entity, Position nextPosition) {
     return canMove(entity, nextPosition.getX(), nextPosition.getY());
   }
 
+  /**
+   * Resets the collision count to zero.
+   */
   public void resetCollisionCount() {
     collisionCount = 0;
   }
 
+  /**
+   * Gets the number of collisions that have occurred.
+   */
   public int getCollisionCount() {
     return collisionCount;
   }
@@ -92,11 +113,8 @@ public class CollisionManager {
         }
 
         if (tileIsSolid) {
-          Collider tileCollider = new Collider(
-              col * Config.tileSize(),
-              row * Config.tileSize(),
-              Config.tileSize(),
-              Config.tileSize());
+          Collider tileCollider = new Collider(col * Config.tileSize(), row * Config.tileSize(),
+              Config.tileSize(), Config.tileSize());
 
           if (collider.intersects(tileCollider)) {
             return true;

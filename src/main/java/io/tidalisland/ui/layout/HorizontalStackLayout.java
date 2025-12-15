@@ -6,8 +6,13 @@ import io.tidalisland.ui.components.UiComponent;
  * Positions children horizontally.
  */
 public class HorizontalStackLayout extends LayoutManager {
-  private final int spacing; // spacing between children
+  private final int spacing;
 
+  /**
+   * Creates a horizontal stack layout.
+   *
+   * @param spacing the spacing between children
+   */
   public HorizontalStackLayout(int spacing) {
     this.spacing = spacing;
   }

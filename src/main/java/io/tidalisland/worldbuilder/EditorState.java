@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Central state container for the World Builder editor.
- * Manages map data, selections, view state, and action history.
+ * Central state container for {@link WorldBuilder}.
  */
 public class EditorState {
+
   // Map data
   private final int[][] tileMap;
   private final Map<Position, String> worldObjects;

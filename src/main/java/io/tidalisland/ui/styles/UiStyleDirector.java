@@ -3,9 +3,10 @@ package io.tidalisland.ui.styles;
 import java.awt.Color;
 
 /**
- * Director for UI styles.
+ * Director for {@link UiStyle}s.
  */
 public final class UiStyleDirector {
+
   private UiStyleDirector() {}
 
   /** Creates a primary style. */

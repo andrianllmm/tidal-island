@@ -10,6 +10,9 @@ import java.awt.event.WindowEvent;
 public class GameWindow extends Frame {
   /**
    * Creates a new game window.
+   *
+   * @param game the game
+   * @param canvas the game canvas
    */
   public GameWindow(Game game, GameCanvas canvas) {
     super("Tidal Island");

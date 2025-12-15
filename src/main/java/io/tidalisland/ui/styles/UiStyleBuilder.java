@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 /**
- * Builder for UI styles.
+ * Builder for {@link UiStyle}.
  */
 public final class UiStyleBuilder {
 
@@ -84,13 +84,6 @@ public final class UiStyleBuilder {
     return this;
   }
 
-  /** Convenience method for setting uniform padding. */
-  public UiStyleBuilder padding(int p) {
-    this.paddingX = p;
-    this.paddingY = p;
-    return this;
-  }
-
   public UiStyleBuilder paddingX(int p) {
     this.paddingX = p;
     return this;
@@ -101,13 +94,29 @@ public final class UiStyleBuilder {
     return this;
   }
 
-  /** Builds a style. */
+  /** Convenience method for setting uniform padding. */
+  public UiStyleBuilder padding(int p) {
+    this.paddingX = p;
+    this.paddingY = p;
+    return this;
+  }
+
+  /**
+   * Builds a style.
+   *
+   * @return the built style
+   */
   public UiStyle build() {
     return new UiStyle(bg, hoverBg, pressedBg, textColor, disabledTextColor, borderColor,
         borderWidth, cornerRadius, font, paddingX, paddingY);
   }
 
-  /** Creates a builder from an existing style. */
+  /**
+   * Creates a builder from an existing style.
+   *
+   * @param style the style to copy
+   * @return the builder
+   */
   public static UiStyleBuilder from(UiStyle style) {
     return new UiStyleBuilder().bg(style.getBg()).hoverBg(style.getHoverBg())
         .pressedBg(style.getPressedBg()).textColor(style.getTextColor())
@@ -115,6 +124,5 @@ public final class UiStyleBuilder {
         .borderWidth(style.getBorderWidth()).cornerRadius(style.getCornerRadius())
         .font(style.getFont()).paddingX(style.getPaddingX()).paddingY(style.getPaddingY());
   }
-
 }
 

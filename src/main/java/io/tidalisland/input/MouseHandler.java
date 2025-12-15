@@ -13,49 +13,44 @@ import java.util.Map;
  */
 public class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
   // Mouse button IDs
+  /** Left mouse button. */
   public static final int BTN_LEFT = 1;
+  /** Right mouse button. */
   public static final int BTN_RIGHT = 2;
+  /** Middle mouse button. */
   public static final int BTN_MIDDLE = 3;
 
-  // Current mouse coordinates relative to the component.
+  /** Current mouse coordinates relative to the component. */
   private int mouseX = 0;
   private int mouseY = 0;
 
-  // Stores whether each mouse button is currently held down (button id -> true/false).
+  /** Stores whether each mouse button is currently held down (button id -> true/false). */
   private final Map<Integer, Boolean> heldDown = new HashMap<>();
 
-  // Records buttons that transitioned from up -> down this frame only.
+  /** Records buttons that transitioned from up -> down this frame only. */
   private final Map<Integer, Boolean> justPressed = new HashMap<>();
 
-  // Records buttons that transitioned from down -> up frame only.
+  /** Records buttons that transitioned from down -> up frame only. */
   private final Map<Integer, Boolean> justReleased = new HashMap<>();
 
-  // Where each button was pressed
+  /** Where each button was pressed. */
   private final Map<Integer, Integer> pressX = new HashMap<>();
   private final Map<Integer, Integer> pressY = new HashMap<>();
 
-  // Where each button was released (valid only on isJustReleased frame)
+  /** Where each button was released (valid only on isJustReleased frame). */
   private final Map<Integer, Integer> releaseX = new HashMap<>();
   private final Map<Integer, Integer> releaseY = new HashMap<>();
 
-  // How much the wheel moved this frame; positive = scrolled up, negative = down
+  /** How much the wheel moved this frame; positive = scrolled up, negative = down. */
   private int wheelDelta = 0;
 
   /**
    * Prepares the handler by registering known mouse buttons.
    */
   public MouseHandler() {
-    heldDown.put(MouseEvent.BUTTON1, false); // left click
-    heldDown.put(MouseEvent.BUTTON2, false); // middle click
-    heldDown.put(MouseEvent.BUTTON3, false); // right click
-  }
-
-  public int getX() {
-    return mouseX;
-  }
-
-  public int getY() {
-    return mouseY;
+    heldDown.put(BTN_LEFT, false);
+    heldDown.put(BTN_RIGHT, false);
+    heldDown.put(BTN_MIDDLE, false);
   }
 
   /**
@@ -150,8 +145,6 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
     wheelDelta += e.getWheelRotation();
   }
 
-  // The following three methods come from MouseListener, but this game doesn't use them (yet).
-
   @Override
   public void mouseClicked(MouseEvent e) {}
 
@@ -160,6 +153,14 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 
   @Override
   public void mouseExited(MouseEvent e) {}
+
+  public int getX() {
+    return mouseX;
+  }
+
+  public int getY() {
+    return mouseY;
+  }
 
   public int getPressX(int button) {
     return pressX.getOrDefault(button, mouseX);

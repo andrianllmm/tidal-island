@@ -19,38 +19,57 @@ public class SpriteFrame {
 
   /**
    * Creates a new sprite frame from an image.
+   *
+   * @param image the image
+   * @param duration the duration
    */
   public SpriteFrame(BufferedImage image, int duration) {
     this.image = image;
     this.duration = duration;
-    size = new Size(
-        image.getWidth() * Config.pixelScale(), image.getHeight() * Config.pixelScale());
+    size =
+        new Size(image.getWidth() * Config.pixelScale(), image.getHeight() * Config.pixelScale());
   }
 
+  /**
+   * Creates a new sprite frame from an image with no duration.
+   *
+   * @param image the image
+   */
   public SpriteFrame(BufferedImage image) {
     this(image, 0);
   }
 
   /**
    * Creates a new sprite frame from a path.
+   *
+   * @param path the path
+   * @param duration the duration
    */
   public SpriteFrame(String path, int duration) {
     try {
       this.image = ImageIO.read(SpriteFrame.class.getResourceAsStream(path));
       this.duration = duration;
-      size = new Size(
-          image.getWidth() * Config.pixelScale(), image.getHeight() * Config.pixelScale());
+      size =
+          new Size(image.getWidth() * Config.pixelScale(), image.getHeight() * Config.pixelScale());
     } catch (Exception e) {
       throw new RuntimeException("Failed to load sprite: " + path + " " + e.getMessage(), e);
     }
   }
 
+  /**
+   * Creates a new sprite frame from a path with no duration.
+   *
+   * @param path the path
+   */
   public SpriteFrame(String path) {
     this(path, 0);
   }
 
   /**
    * Draws the frame.
+   *
+   * @param g the graphics context
+   * @param position the position
    */
   public void draw(Graphics g, Position position) {
     int x = position.getX();
@@ -74,6 +93,12 @@ public class SpriteFrame {
 
   /**
    * Draws the frame scaled to a given width and height.
+   *
+   * @param g the graphics context
+   * @param x the x-coordinate
+   * @param y the y-coordinate
+   * @param width the width
+   * @param height the height
    */
   public void drawScaled(Graphics g, int x, int y, int width, int height) {
     int drawX = x;

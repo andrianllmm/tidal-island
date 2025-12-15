@@ -13,6 +13,11 @@ public class Tile {
 
   /**
    * Initializes a tile.
+   *
+   * @param id the tile id
+   * @param name the tile name
+   * @param sprite the tile sprite
+   * @param solid whether the tile is solid
    */
   public Tile(int id, String name, Sprite sprite, boolean solid) {
     this.id = id;

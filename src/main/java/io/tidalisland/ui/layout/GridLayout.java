@@ -6,14 +6,20 @@ import io.tidalisland.ui.components.UiComponent;
  * Positions children in a grid.
  */
 public class GridLayout extends LayoutManager {
-  private final int columns; // number of columns
-  private final int cellWidth; // width of each cell
-  private final int cellHeight; // height of each cell
-  private final int spacingX; // horizontal spacing between cells
-  private final int spacingY; // vertical spacing between cells
+  private final int columns;
+  private final int cellWidth;
+  private final int cellHeight;
+  private final int spacingX;
+  private final int spacingY;
 
   /**
    * Creates a grid layout.
+   *
+   * @param columns the number of columns
+   * @param cellWidth the width of each cell
+   * @param cellHeight the height of each cell
+   * @param spacingX the horizontal spacing between cells
+   * @param spacingY the vertical spacing between cells
    */
   public GridLayout(int columns, int cellWidth, int cellHeight, int spacingX, int spacingY) {
     this.columns = columns;
