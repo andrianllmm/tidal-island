@@ -1,8 +1,12 @@
 package io.tidalisland.engine;
 
 import io.tidalisland.config.Config;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 /**
  * The game.
@@ -13,13 +17,16 @@ public class Game implements Runnable {
   private Thread gameThread;
   private boolean running;
 
+  /** Off-screen buffer for rendering at native resolution. */
+  private BufferedImage gameBuffer;
+
   /**
    * Creates a new game.
-   *
-   * @param gamePanel the game panel
    */
   public Game(GameCanvas gamePanel) {
     this.gamePanel = gamePanel;
+    this.gameBuffer =
+        new BufferedImage(Config.screenWidth(), Config.screenHeight(), BufferedImage.TYPE_INT_ARGB);
   }
 
   /**
@@ -51,7 +58,6 @@ public class Game implements Runnable {
    */
   @Override
   public void run() {
-
     gamePanel.createBufferStrategy(2);
     BufferStrategy bs = gamePanel.getBufferStrategy();
 
@@ -72,8 +78,8 @@ public class Game implements Runnable {
       if (delta >= 1) {
         GameClock.getInstance().update();
         gamePanel.update();
-        render(bs);
         gamePanel.endFrame();
+        render(bs);
         delta--;
       }
     }
@@ -83,17 +89,48 @@ public class Game implements Runnable {
    * Renders the game.
    */
   private void render(BufferStrategy bs) {
+    // Render game to off-screen buffer at native resolution
+    Graphics2D bufferGraphics = gameBuffer.createGraphics();
+    try {
+      // Clear buffer
+      bufferGraphics.setColor(Color.BLACK);
+      bufferGraphics.fillRect(0, 0, Config.screenWidth(), Config.screenHeight());
+
+      // Render game to buffer
+      gamePanel.render(bufferGraphics);
+
+    } finally {
+      bufferGraphics.dispose();
+    }
+
+    // Scale buffer to screen with letterboxing
     do {
       do {
         Graphics g = bs.getDrawGraphics();
         try {
-          g.clearRect(0, 0, Config.screenWidth(), Config.screenHeight());
-          gamePanel.render(g);
+          Graphics2D g2 = (Graphics2D) g;
+
+          // Clear entire screen with black (letterbox)
+          g2.setColor(Color.BLACK);
+          g2.fillRect(0, 0, Config.windowWidth(), Config.windowHeight());
+
+          // Set scaling quality
+          g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+              RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+          g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+
+          // Draw scaled buffer to viewport
+          g2.drawImage(gameBuffer, Config.viewportX(), Config.viewportY(), Config.viewportWidth(),
+              Config.viewportHeight(), null);
+
         } finally {
           g.dispose();
         }
+
       } while (bs.contentsRestored());
+
       bs.show();
     } while (bs.contentsLost());
+
   }
 }

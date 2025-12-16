@@ -25,7 +25,9 @@ public class GameCanvas extends Canvas {
    */
   public GameCanvas() {
     setPreferredSize(new Dimension(Config.screenWidth(), Config.screenHeight()));
+    setMinimumSize(new Dimension(Config.screenWidth() / 2, Config.screenHeight() / 2));
     setBackground(Color.BLACK);
+    setIgnoreRepaint(true);
 
     keys = new KeyHandler();
     mouse = new MouseHandler();
@@ -48,11 +50,7 @@ public class GameCanvas extends Canvas {
 
   protected void render(Graphics g) {
     Graphics2D g2 = (Graphics2D) g;
-    try {
-      gsm.render(g2);
-    } finally {
-      g2.dispose();
-    }
+    gsm.render(g2);
   }
 
   public void endFrame() {

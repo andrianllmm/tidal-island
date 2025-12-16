@@ -69,6 +69,14 @@ public class DebugRenderer {
     g.drawString("FPS: " + Config.fps(), x, y);
     y += spacing;
 
+    // Resolution info
+    g.drawString("Window: " + Config.windowWidth() + "x" + Config.windowHeight(), x, y);
+    y += spacing;
+    g.drawString("Viewport: " + Config.viewportWidth() + "x" + Config.viewportHeight(), x, y);
+    y += spacing;
+    g.drawString("Scale: " + String.format("%.2f", Config.scale()), x, y);
+    y += spacing;
+
     // Mouse info
     g.drawString("Mouse X: " + mouse.getX(), x, y);
     y += spacing;
