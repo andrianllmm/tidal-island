@@ -1,5 +1,6 @@
 package io.tidalisland.input;
 
+import io.tidalisland.config.Config;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -96,12 +97,16 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
    */
   @Override
   public void mousePressed(MouseEvent e) {
+    if (!isInViewport(e.getX(), e.getY())) {
+      return; // Ignore clicks in letterbox area
+    }
+
     int button = e.getButton();
 
     if (!heldDown.get(button)) {
       justPressed.put(button, true);
-      pressX.put(button, e.getX());
-      pressY.put(button, e.getY());
+      pressX.put(button, screenToGameX(e.getX()));
+      pressY.put(button, screenToGameY(e.getY()));
     }
 
     heldDown.put(button, true);
@@ -117,8 +122,8 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
     heldDown.put(button, false);
     justReleased.put(button, true);
 
-    releaseX.put(button, e.getX());
-    releaseY.put(button, e.getY());
+    releaseX.put(button, screenToGameX(e.getX()));
+    releaseY.put(button, screenToGameY(e.getY()));
   }
 
   /**
@@ -126,8 +131,8 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
    */
   @Override
   public void mouseMoved(MouseEvent e) {
-    mouseX = e.getX();
-    mouseY = e.getY();
+    mouseX = screenToGameX(e.getX());
+    mouseY = screenToGameY(e.getY());
   }
 
   /**
@@ -143,7 +148,9 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
    */
   @Override
   public void mouseWheelMoved(MouseWheelEvent e) {
-    wheelDelta += e.getWheelRotation();
+    if (isInViewport(e.getX(), e.getY())) {
+      wheelDelta += e.getWheelRotation();
+    }
   }
 
   @Override
@@ -184,5 +191,31 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
    */
   public boolean isClick(int button) {
     return isJustReleased(button) && pressX.containsKey(button);
+  }
+
+  /**
+   * Converts screen coordinates to game coordinates accounting for viewport.
+   */
+  private int screenToGameX(int screenX) {
+    // Subtract viewport offset and scale
+    int x = screenX - Config.viewportX();
+    return (int) (x / Config.scale());
+  }
+
+  /**
+   * Converts screen coordinates to game coordinates accounting for viewport.
+   */
+  private int screenToGameY(int screenY) {
+    // Subtract viewport offset and scale
+    int y = screenY - Config.viewportY();
+    return (int) (y / Config.scale());
+  }
+
+  /**
+   * Checks if mouse is within the game viewport.
+   */
+  private boolean isInViewport(int screenX, int screenY) {
+    return screenX >= Config.viewportX() && screenX < Config.viewportX() + Config.viewportWidth()
+        && screenY >= Config.viewportY() && screenY < Config.viewportY() + Config.viewportHeight();
   }
 }

@@ -1,8 +1,8 @@
 {
   "pixelScale": 4,
   "baseTileSize": 16,
-  "colTiles": 16,
-  "rowTiles": 12,
+  "colTiles": 20,
+  "rowTiles": 15,
   "mapWidth": 50,
   "mapHeight": 50,
   "fps": 60
