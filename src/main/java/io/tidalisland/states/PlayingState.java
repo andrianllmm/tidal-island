@@ -75,17 +75,16 @@ public class PlayingState implements GameState {
     if (keys.isJustPressed(Action.PAUSE)) {
       gsm.push(new PauseState(gsm, keys));
     }
-    if (!tidalManager.isFullyFlooded()) {
-      tidalManager.update();
-      worldObjectManager.update();
-      player.update(collisionManager, interactionManager);
-      camera.update(player);
-    }
 
-    if (tidalManager.isFullyFlooded()) {
+    if (player.isDead() || tidalManager.isFullyFlooded()) {
       gsm.push(new GameOverState(gsm));
       return; // stop further updates
     }
+
+    tidalManager.update();
+    worldObjectManager.update();
+    player.update(collisionManager, interactionManager);
+    camera.update(player);
 
     ui.update();
   }

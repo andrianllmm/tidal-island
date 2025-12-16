@@ -17,7 +17,7 @@ import java.awt.Graphics;
 /**
  * The player entity.
  */
-public class Player extends Entity {
+public class Player extends LivingEntity {
 
   private Inventory inventory;
   private KeyHandler keys;
@@ -26,7 +26,7 @@ public class Player extends Entity {
    * Creates a new player entity.
    */
   public Player(KeyHandler keys, Position position) {
-    super(position, Direction.RIGHT, 4);
+    super(position, Direction.RIGHT, 4, 5.0, 0.5);
 
     this.inventory = new Inventory(24);
     this.keys = keys;
@@ -80,6 +80,8 @@ public class Player extends Entity {
       position.setPosition(nextPosition);
       collider.updatePosition(position);
     }
+
+    updateHunger();
 
     spriteSet.update();
   }

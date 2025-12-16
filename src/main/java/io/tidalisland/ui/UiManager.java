@@ -25,7 +25,6 @@ public class UiManager {
   private final UiPanel root;
   private final KeyHandler keys;
   private final MouseHandler mouse;
-  private UiTideTimer tideTimer;
 
   /**
    * Initializes UI manager.
@@ -63,6 +62,7 @@ public class UiManager {
 
     UiPanel bottom = new UiPanel(Config.screenWidth(), bottomHeight);
     bottom.setStyle(UiStyleDirector.fromTransparent().padding(8).build());
+    bottom.setLayout(new HorizontalStackLayout(8));
     bottom.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM);
     root.add(bottom);
 
@@ -73,7 +73,13 @@ public class UiManager {
     UiCraftingPanel crafting = new UiCraftingPanel(inventory, new CraftingManager());
     right.add(crafting);
 
-    tideTimer = new UiTideTimer(tidalManager);
+    UiPlayerHealth healthBar = new UiPlayerHealth(player);
+    bottom.add(healthBar);
+
+    UiPlayerHunger hungerBar = new UiPlayerHunger(player);
+    bottom.add(hungerBar);
+
+    UiTideTimer tideTimer = new UiTideTimer(tidalManager);
     bottom.add(tideTimer);
   }
 

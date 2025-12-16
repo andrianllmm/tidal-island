@@ -5,6 +5,7 @@ import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
+import io.tidalisland.items.Edible;
 import io.tidalisland.items.Item;
 import io.tidalisland.items.ItemStack;
 import io.tidalisland.items.Placeable;
@@ -29,7 +30,7 @@ public class UiInventoryPanel extends UiPanel {
   private final WorldObjectManager worldObjectManager;
   private final Player player;
   private ItemStack<? extends Item> selectedStack;
-  private final UiLabel titleLabel;
+  private final UiLabel title;
   private final UiPanel itemsPanel;
   private final UiPanel actionsPanel;
 
@@ -37,30 +38,33 @@ public class UiInventoryPanel extends UiPanel {
    * Creates a new inventory panel.
    */
   public UiInventoryPanel(Inventory inventory, WorldObjectManager wom, Player player) {
-    super(276, 424);
+    super(276, 380);
     this.inventory = inventory;
     this.worldObjectManager = wom;
     this.player = player;
 
+    setVisible(false);
+    style(s -> s.padding(8));
     setLayout(new VerticalStackLayout(8));
+    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
     // Title label
-    titleLabel = new UiLabel("Inventory", 268, 24);
-    add(titleLabel);
+    title = new UiLabel("Inventory", 268, 24);
+    title.style(s -> s.fontSize(16));
+    add(title);
 
-    // Items panel (grid)
+    // Items grid
     itemsPanel = new UiPanel(276, 256);
     itemsPanel.setLayout(new GridLayout(4, 64, 64, 4, 4));
     itemsPanel.setStyle(UiStyleDirector.makeTransparent());
     add(itemsPanel);
 
+    // Actions panel
     actionsPanel = new UiPanel(276, 24);
     actionsPanel.setLayout(new VerticalStackLayout(4));
     actionsPanel.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM);
     actionsPanel.setStyle(UiStyleDirector.makeTransparent());
     add(actionsPanel);
-
-    visible = false;
 
     refresh();
     inventory.addListener(evt -> refresh());
@@ -116,6 +120,7 @@ public class UiInventoryPanel extends UiPanel {
 
     if (item instanceof Placeable placeable) {
       UiButton placeButton = new UiButton("Place", 64, 24);
+      placeButton.style(s -> s.borderWidth(0));
       placeButton.setOnClick(() -> {
         if (placeable.place(worldObjectManager, player)) {
           inventory.remove(item, 1);
@@ -125,6 +130,19 @@ public class UiInventoryPanel extends UiPanel {
       });
 
       actionsPanel.add(placeButton);
+    } else if (item instanceof Edible edible) {
+      UiButton eatButton = new UiButton("Eat", 64, 24);
+      eatButton.style(s -> s.borderWidth(0));
+      eatButton.setOnClick(() -> {
+        if (edible.getHungerValue() > 0) {
+          player.eat(edible);
+          inventory.remove(item, 1);
+          selectedStack = null;
+          runAfterUpdate(this::refresh);
+        }
+      });
+
+      actionsPanel.add(eatButton);
     }
   }
 

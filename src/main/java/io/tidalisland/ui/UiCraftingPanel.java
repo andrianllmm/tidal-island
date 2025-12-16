@@ -39,14 +39,14 @@ public class UiCraftingPanel extends UiPanel {
    * Creates a new crafting panel.
    */
   public UiCraftingPanel(Inventory inventory, CraftingManager craftingManager) {
-    super(300, 560);
+    super(300, 540);
     this.inventory = inventory;
     this.craftingManager = craftingManager;
 
-    style(s -> s.padding(16));
-    setLayout(new VerticalStackLayout(12));
+    setVisible(false);
+    style(s -> s.padding(8));
+    setLayout(new VerticalStackLayout(8));
     getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-    setStyle(UiStyleDirector.makePanel());
 
     // Title
     UiLabel title = new UiLabel("Crafting Bench", 300, 28);
@@ -83,8 +83,6 @@ public class UiCraftingPanel extends UiPanel {
     craftButton.style(s -> s.borderWidth(0));
     craftButton.setOnClick(this::craftSelected);
     add(craftButton);
-
-    visible = false;
 
     refreshAll();
     inventory.addListener(evt -> refreshAll());
