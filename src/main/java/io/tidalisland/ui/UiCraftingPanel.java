@@ -2,6 +2,7 @@ package io.tidalisland.ui;
 
 import io.tidalisland.crafting.CraftingManager;
 import io.tidalisland.crafting.Recipe;
+import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
@@ -107,7 +108,7 @@ public class UiCraftingPanel extends UiPanel {
 
   @Override
   public void onUpdate(KeyHandler keys, MouseHandler mouse) {
-    if (keys.isJustPressed("toggle_crafting")) {
+    if (keys.isJustPressed(Action.TOGGLE_CRAFTING)) {
       toggleVisible();
     }
   }

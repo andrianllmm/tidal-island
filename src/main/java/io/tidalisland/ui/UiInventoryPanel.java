@@ -1,6 +1,7 @@
 package io.tidalisland.ui;
 
 import io.tidalisland.entities.Player;
+import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
@@ -129,7 +130,7 @@ public class UiInventoryPanel extends UiPanel {
 
   @Override
   public void onUpdate(KeyHandler keys, MouseHandler mouse) {
-    if (keys.isJustPressed("toggle_inventory")) {
+    if (keys.isJustPressed(Action.TOGGLE_INVENTORY)) {
       toggleVisible();
     }
   }

@@ -1,6 +1,7 @@
 package io.tidalisland.engine;
 
 import io.tidalisland.config.Config;
+import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.states.GameStateManager;
@@ -52,7 +53,7 @@ public class GameCanvas extends Canvas {
    */
   public void update() {
     gsm.update();
-    if (keys.isJustPressed("toggle_fullscreen") && onToggleFullscreen != null) {
+    if (keys.isJustPressed(Action.TOGGLE_FULLSCREEN) && onToggleFullscreen != null) {
       onToggleFullscreen.run();
     }
   }

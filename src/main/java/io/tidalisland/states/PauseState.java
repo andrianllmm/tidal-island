@@ -2,6 +2,7 @@ package io.tidalisland.states;
 
 import io.tidalisland.config.Config;
 import io.tidalisland.engine.GameClock;
+import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.ui.components.UiLabel;
 import io.tidalisland.ui.components.UiPanel;
@@ -37,7 +38,7 @@ public class PauseState implements GameState {
 
   @Override
   public void update() {
-    if (keys.isJustPressed("pause")) {
+    if (keys.isJustPressed(Action.PAUSE)) {
       gsm.pop(); // resume
     }
   }
