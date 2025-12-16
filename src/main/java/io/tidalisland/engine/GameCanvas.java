@@ -20,6 +20,8 @@ public class GameCanvas extends Canvas {
   private MouseHandler mouse;
   private GameStateManager gsm;
 
+  private Runnable onToggleFullscreen;
+
   /**
    * Initializes the canvas.
    */
@@ -39,22 +41,39 @@ public class GameCanvas extends Canvas {
 
     setFocusable(true);
     requestFocus();
+    requestFocusInWindow();
 
     gsm = new GameStateManager();
     gsm.push(new PlayingState(gsm, keys, mouse));
   }
 
+  /**
+   * Updates the game.
+   */
   public void update() {
     gsm.update();
+    if (keys.isJustPressed("toggle_fullscreen") && onToggleFullscreen != null) {
+      onToggleFullscreen.run();
+    }
   }
 
+  /**
+   * Renders the game.
+   */
   protected void render(Graphics g) {
     Graphics2D g2 = (Graphics2D) g;
     gsm.render(g2);
   }
 
+  /**
+   * Called at the end of each frame.
+   */
   public void endFrame() {
     keys.endFrame();
     mouse.endFrame();
+  }
+
+  public void setOnToggleFullscreen(Runnable callback) {
+    this.onToggleFullscreen = callback;
   }
 }

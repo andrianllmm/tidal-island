@@ -30,9 +30,13 @@ public class GameWindow extends Frame {
     add(canvas);
     pack();
     canvas.requestFocus();
+    canvas.requestFocusInWindow();
+    canvas.setOnToggleFullscreen(this::toggleFullscreen);
 
     setResizable(true);
     setLocationRelativeTo(null);
+
+    enterFullscreen();
 
     // Handle closing the window
     addWindowListener(new WindowAdapter() {
@@ -86,15 +90,17 @@ public class GameWindow extends Frame {
       graphicsDevice.setFullScreenWindow(this);
 
       int[] dimensions = Config.getFullscreenDimensions();
-      canvas.setSize(dimensions[0], dimensions[1]); // resize canvas
+      canvas.setSize(dimensions[0], dimensions[1]);
       Config.get().updateScreenDimensions(dimensions[0], dimensions[1]);
 
       validate();
       repaint();
 
       isFullscreen = true;
+
       setVisible(true);
       canvas.requestFocus();
+      canvas.requestFocusInWindow();
     } catch (Exception e) {
       System.err.println("Failed to enter fullscreen: " + e.getMessage());
       exitFullscreen();
@@ -114,14 +120,18 @@ public class GameWindow extends Frame {
         setResizable(true);
 
         canvas.setSize(Config.screenWidth(), Config.screenHeight());
+        Config.get().updateScreenDimensions(Config.screenWidth(), Config.screenHeight());
 
         validate();
         repaint();
+
+        isFullscreen = false;
 
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
         canvas.requestFocus();
+        canvas.requestFocusInWindow();
       } catch (Exception e) {
         System.err.println("Failed to exit fullscreen: " + e.getMessage());
       }
