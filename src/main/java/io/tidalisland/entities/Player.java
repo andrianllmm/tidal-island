@@ -6,6 +6,7 @@ import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteFrame;
 import io.tidalisland.graphics.sprites.SpriteSetBuilder;
+import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.inventory.Inventory;
 import io.tidalisland.utils.Direction;
@@ -44,22 +45,22 @@ public class Player extends Entity {
   public void update(CollisionManager collisionManager, InteractionManager interactionManager) {
     Position nextPosition = position.copy();
 
-    if (keys.isJustPressed("interact")) {
+    if (keys.isJustPressed(Action.INTERACT)) {
       interactionManager.interact(this);
     }
 
     // Determine movement direction
-    if (keys.anyDown("up", "down", "left", "right")) {
-      if (keys.isDown("up")) {
+    if (keys.anyDown(Action.UP, Action.DOWN, Action.LEFT, Action.RIGHT)) {
+      if (keys.isDown(Action.UP)) {
         direction = Direction.UP;
         spriteSet.setTag("walk_up");
-      } else if (keys.isDown("down")) {
+      } else if (keys.isDown(Action.DOWN)) {
         direction = Direction.DOWN;
         spriteSet.setTag("walk_down");
-      } else if (keys.isDown("left")) {
+      } else if (keys.isDown(Action.LEFT)) {
         direction = Direction.LEFT;
         spriteSet.setTag("walk_side");
-      } else if (keys.isDown("right")) {
+      } else if (keys.isDown(Action.RIGHT)) {
         direction = Direction.RIGHT;
         spriteSet.setTag("walk_side");
       }

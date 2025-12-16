@@ -4,6 +4,7 @@ import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.debug.DebugRenderer;
 import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
+import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.spawning.SpawnManager;
@@ -71,7 +72,7 @@ public class PlayingState implements GameState {
 
   @Override
   public void update() {
-    if (keys.isJustPressed("pause")) {
+    if (keys.isJustPressed(Action.PAUSE)) {
       gsm.push(new PauseState(gsm, keys));
     }
     if (!tidalManager.isFullyFlooded()) {

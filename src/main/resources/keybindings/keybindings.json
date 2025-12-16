@@ -1,0 +1,11 @@
+{
+  "UP": ["UP", "W"],
+  "DOWN": ["DOWN", "S"],
+  "LEFT": ["LEFT", "A"],
+  "RIGHT": ["RIGHT", "D"],
+  "INTERACT": ["E"],
+  "TOGGLE_INVENTORY": ["I"],
+  "TOGGLE_CRAFTING": ["C"],
+  "TOGGLE_FULLSCREEN": ["F"],
+  "PAUSE": ["ESCAPE"]
+}

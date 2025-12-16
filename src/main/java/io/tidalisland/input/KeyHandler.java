@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,27 +11,23 @@ import java.util.Map;
  */
 public class KeyHandler implements KeyListener {
 
-  /** Map of action names -> list of key codes. */
-  private final Map<String, List<Integer>> keyBindings;
+  /** Map of actions -> key codes that trigger them. */
+  private final KeyBindings keyBindings;
 
   /** Stores whether each action is currently held down (action name -> true/false). */
-  private final Map<String, Boolean> heldDown;
+  private final Map<Action, Boolean> heldDown;
 
   /** Records actions that were just pressed this frame. */
-  private final Map<String, Boolean> justPressed = new HashMap<>();
+  private final Map<Action, Boolean> justPressed = new HashMap<>();
 
   /**
    * Initializes default key bindings and state.
    */
   public KeyHandler() {
-    keyBindings = Map.of("up", List.of(KeyEvent.VK_UP, KeyEvent.VK_W), "down",
-        List.of(KeyEvent.VK_DOWN, KeyEvent.VK_S), "left", List.of(KeyEvent.VK_LEFT, KeyEvent.VK_A),
-        "right", List.of(KeyEvent.VK_RIGHT, KeyEvent.VK_D), "interact", List.of(KeyEvent.VK_E),
-        "toggle_inventory", List.of(KeyEvent.VK_I), "toggle_crafting", List.of(KeyEvent.VK_C),
-        "pause", List.of(KeyEvent.VK_ESCAPE), "toggle_fullscreen", List.of(KeyEvent.VK_F));
+    keyBindings = KeyBindingsLoader.load("/keybindings/keybindings.json");
 
     heldDown = new HashMap<>();
-    for (String action : keyBindings.keySet()) {
+    for (Action action : keyBindings.getActions()) {
       heldDown.put(action, false);
     }
   }
@@ -40,21 +35,21 @@ public class KeyHandler implements KeyListener {
   /**
    * Returns true if the action is currently held down.
    */
-  public boolean isDown(String action) {
+  public boolean isDown(Action action) {
     return heldDown.getOrDefault(action, false);
   }
 
   /**
    * Returns true if any of the given actions are currently held down.
    */
-  public boolean anyDown(String... actions) {
+  public boolean anyDown(Action... actions) {
     return Arrays.stream(actions).anyMatch(heldDown::get);
   }
 
   /**
    * Returns true only on the frame the action was pressed.
    */
-  public boolean isJustPressed(String action) {
+  public boolean isJustPressed(Action action) {
     return justPressed.getOrDefault(action, false);
   }
 
@@ -67,27 +62,27 @@ public class KeyHandler implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
-    keyBindings.forEach((action, keys) -> {
-      if (keys.contains(e.getKeyCode())) {
+    for (Action action : keyBindings.getActions()) {
+      if (keyBindings.has(action, e.getKeyCode())) {
         markPressed(action);
       }
-    });
+    }
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
-    keyBindings.forEach((action, keys) -> {
-      if (keys.contains(e.getKeyCode())) {
+    for (Action action : keyBindings.getActions()) {
+      if (keyBindings.has(action, e.getKeyCode())) {
         markReleased(action);
       }
-    });
+    }
   }
 
   @Override
   public void keyTyped(KeyEvent e) {} // unused
 
   /** Marks an action as pressed. */
-  private void markPressed(String action) {
+  private void markPressed(Action action) {
     if (!heldDown.getOrDefault(action, false)) {
       justPressed.put(action, true);
     }
@@ -95,7 +90,7 @@ public class KeyHandler implements KeyListener {
   }
 
   /** Marks an action as released. */
-  private void markReleased(String action) {
+  private void markReleased(Action action) {
     heldDown.put(action, false);
   }
 }
