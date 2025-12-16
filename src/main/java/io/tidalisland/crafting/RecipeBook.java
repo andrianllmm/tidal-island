@@ -1,24 +1,23 @@
 package io.tidalisland.crafting;
 
-import io.tidalisland.items.ItemStack;
-import io.tidalisland.items.Plank;
-import io.tidalisland.items.RaftItem;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the recipe book containing a list of {@link Recipe}s.
  */
 public class RecipeBook {
 
-  private static final List<Recipe> RECIPES = new ArrayList<>();
+  private List<Recipe> recipes = new ArrayList<>();
 
-  static {
-    RECIPES.add(new Recipe(Map.of("wood", 1), new ItemStack<Plank>(new Plank(), 2)));
-    RECIPES
-        .add(new Recipe(Map.of("wood", 4, "plank", 8), new ItemStack<RaftItem>(new RaftItem(), 1)));
+  /**
+   * Creates a new recipe book.
+   *
+   * @param recipes the list of recipes
+   */
+  public RecipeBook(List<Recipe> recipes) {
+    this.recipes = recipes;
   }
 
   /**
@@ -26,7 +25,7 @@ public class RecipeBook {
    *
    * @return a list of recipes
    */
-  public static List<Recipe> getAllRecipes() {
-    return Collections.unmodifiableList(RECIPES);
+  public List<Recipe> getAllRecipes() {
+    return Collections.unmodifiableList(recipes);
   }
 }

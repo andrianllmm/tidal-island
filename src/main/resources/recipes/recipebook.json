@@ -1,0 +1,10 @@
+[
+  {
+    "ingredients": { "wood": 1 },
+    "result": { "itemId": "plank", "quantity": 2 }
+  },
+  {
+    "ingredients": { "wood": 4, "plank": 8 },
+    "result": { "itemId": "raft", "quantity": 1 }
+  }
+]
