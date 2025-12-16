@@ -9,11 +9,19 @@ import java.util.List;
  */
 public class CraftingManager {
 
-  /** A list of all recipes. */
-  private final List<Recipe> recipes;
+  private final RecipeBook recipeBook;
 
   public CraftingManager() {
-    this.recipes = RecipeBook.getAllRecipes();
+    this.recipeBook = RecipeBookLoader.load("/recipes/recipebook.json");
+  }
+
+  /**
+   * Gets the recipe book.
+   *
+   * @return the recipe book
+   */
+  public RecipeBook getRecipeBook() {
+    return recipeBook;
   }
 
   /**
@@ -22,7 +30,7 @@ public class CraftingManager {
    * @return a list of recipes
    */
   public List<Recipe> getAllRecipes() {
-    return recipes;
+    return recipeBook.getAllRecipes();
   }
 
   /**
@@ -32,7 +40,7 @@ public class CraftingManager {
    * @return a list of recipes
    */
   public List<Recipe> getAvailableRecipes(Inventory inventory) {
-    return recipes.stream().filter(r -> r.canCraft(inventory)).toList();
+    return recipeBook.getAllRecipes().stream().filter(r -> r.canCraft(inventory)).toList();
   }
 
   /**
