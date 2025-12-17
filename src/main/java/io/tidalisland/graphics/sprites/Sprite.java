@@ -11,7 +11,10 @@ public class Sprite {
   private final List<SpriteFrame> frames;
   private boolean animated = false;
   private boolean playing = true;
-  private boolean looping = true;
+
+  private int repeat = -1; // -1 = infinite
+  private int repeatsDone = 0;
+
   private double speedMultiplier = 1.0;
   private int frameIdx = 0;
   private long lastTime;
@@ -39,11 +42,11 @@ public class Sprite {
    * Creates a new sprite with multiple frames.
    *
    * @param frames the frames
-   * @param looping whether the animation should loop
+   * @param repeat how many times to repeat the animation (-1 = infinite)
    */
-  public Sprite(List<SpriteFrame> frames, boolean looping) {
+  public Sprite(List<SpriteFrame> frames, int repeat) {
     this.frames = frames;
-    this.looping = looping;
+    this.repeat = repeat;
     animated = frames.size() > 1;
     lastTime = System.currentTimeMillis();
   }
@@ -54,20 +57,51 @@ public class Sprite {
    * @param frames the frames
    */
   public Sprite(List<SpriteFrame> frames) {
-    this(frames, true);
+    this(frames, -1);
   }
 
+  /**
+   * Starts the animation.
+   */
   public void play() {
     playing = true;
   }
 
+  /**
+   * Stops the animation.
+   */
   public void stop() {
     playing = false;
   }
 
+  /**
+   * Resets the animation.
+   */
   public void reset() {
     frameIdx = 0;
+    repeatsDone = 0;
     lastTime = System.currentTimeMillis();
+  }
+
+  /**
+   * Plays the animation from the beginning.
+   */
+  public void playFromStart() {
+    reset();
+    play();
+  }
+
+  /**
+   * Checks if the animation is finished.
+   */
+  public boolean isFinished() {
+    if (!animated) {
+      return true;
+    }
+    if (repeat < 0) {
+      return false;
+    }
+    return !playing && frameIdx == frames.size() - 1;
   }
 
   /**
@@ -88,9 +122,10 @@ public class Sprite {
       frameIdx++;
 
       if (frameIdx >= frames.size()) {
-        if (looping) {
-          frameIdx = 0;
-        } else {
+        frameIdx = 0;
+        repeatsDone++;
+
+        if (repeat >= 0 && repeatsDone >= repeat) {
           frameIdx = frames.size() - 1;
           playing = false;
           break;

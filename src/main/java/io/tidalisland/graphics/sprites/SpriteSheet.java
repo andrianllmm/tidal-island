@@ -63,6 +63,7 @@ public class SpriteSheet {
     public int to;
     public String direction;
     public String color;
+    public String repeat;
   }
 
   /** Sprite sheet layer. */
