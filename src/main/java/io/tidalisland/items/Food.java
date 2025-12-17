@@ -7,7 +7,7 @@ public class Food extends Item implements Edible {
 
   private final int hungerValue;
 
-  public Food(String type, int maxStackSize, int hungerValue) {
+  public Food(ItemType type, int maxStackSize, int hungerValue) {
     super(type, maxStackSize);
     this.hungerValue = hungerValue;
   }

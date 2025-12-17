@@ -7,11 +7,13 @@ import io.tidalisland.graphics.sprites.Sprite;
  */
 public class Apple extends Food {
 
+  public static final ItemType TYPE = new ItemType("apple");
+
   /**
    * Creates a new apple.
    */
   public Apple() {
-    super("apple", 8, 10);
+    super(TYPE, 8, 10);
     this.description = "A delicious fruit.";
     this.sprite = new Sprite("/sprites/items/apple.png");
   }

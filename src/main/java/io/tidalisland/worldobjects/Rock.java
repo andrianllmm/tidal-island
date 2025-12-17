@@ -14,13 +14,15 @@ import java.util.List;
  */
 public class Rock extends WorldObject implements Interactable {
 
+  public static final WorldObjectType TYPE = new WorldObjectType("rock");
+
   private int health = 5;
 
   /**
    * Creates a new rock.
    */
   public Rock(Position position) {
-    super("rock", position, true);
+    super(TYPE, position, true);
     spriteSet =
         SpriteSetBuilder.build("/sprites/worldobjects/rock.png", "/sprites/worldobjects/rock.json");
     collider = new ColliderBuilder().size(spriteSet.getFrame().getSize()).build();

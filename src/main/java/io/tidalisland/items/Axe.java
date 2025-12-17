@@ -10,11 +10,13 @@ import io.tidalisland.worldobjects.WorldObject;
  */
 public class Axe extends Tool {
 
+  public static final ItemType TYPE = new ItemType("axe");
+
   /**
    * Creates a new axe.
    */
   public Axe() {
-    super("axe", 50, 2.0);
+    super(TYPE, 50, 2.0);
     this.description = "A sharp axe for chopping wood.";
     this.sprite = new Sprite("/sprites/items/axe.png");
   }

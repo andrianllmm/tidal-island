@@ -14,13 +14,15 @@ import java.util.List;
  */
 public class Bush extends WorldObject implements Interactable {
 
+  public static final WorldObjectType TYPE = new WorldObjectType("bush");
+
   private int health = 2;
 
   /**
    * Creates a new bush.
    */
   public Bush(Position position) {
-    super("bush", position, true);
+    super(TYPE, position, true);
     spriteSet =
         SpriteSetBuilder.build("/sprites/worldobjects/bush.png", "/sprites/worldobjects/bush.json");
     collider = new ColliderBuilder().size(spriteSet.getFrame().getSize()).scale(0.8).build();

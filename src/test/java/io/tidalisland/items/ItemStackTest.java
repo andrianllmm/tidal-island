@@ -69,7 +69,7 @@ class ItemStackTest {
   void testAddToNonStackable() {
     class NonStackableItem extends Item {
       public NonStackableItem() {
-        super("non-stackable", 1);
+        super(new ItemType("non-stackable"), 1);
       }
     }
 

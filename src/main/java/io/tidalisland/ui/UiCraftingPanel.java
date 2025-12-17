@@ -8,6 +8,7 @@ import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
 import io.tidalisland.items.Item;
 import io.tidalisland.items.ItemRegistry;
+import io.tidalisland.items.ItemType;
 import io.tidalisland.ui.components.UiButton;
 import io.tidalisland.ui.components.UiImage;
 import io.tidalisland.ui.components.UiLabel;
@@ -166,8 +167,8 @@ public class UiCraftingPanel extends UiPanel {
         return;
       }
 
-      for (Map.Entry<String, Integer> entry : selectedRecipe.getIngredients().entrySet()) {
-        String itemType = entry.getKey();
+      for (Map.Entry<ItemType, Integer> entry : selectedRecipe.getIngredients().entrySet()) {
+        ItemType itemType = entry.getKey();
 
         Item temp = ItemRegistry.create(itemType);
 

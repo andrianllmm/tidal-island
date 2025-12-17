@@ -3,6 +3,7 @@ package io.tidalisland.worldbuilder.ui;
 import io.tidalisland.worldbuilder.EditorState;
 import io.tidalisland.worldobjects.WorldObject;
 import io.tidalisland.worldobjects.WorldObjectRegistry;
+import io.tidalisland.worldobjects.WorldObjectType;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -24,15 +25,15 @@ public class WorldObjectSelect extends JPanel {
     setBackground(Color.BLACK);
     setAlignmentX(Component.LEFT_ALIGNMENT);
 
-    for (String id : WorldObjectRegistry.getAllIds()) {
-      WorldObject obj = WorldObjectRegistry.create(id);
+    for (WorldObjectType type : WorldObjectRegistry.getAllTypes()) {
+      WorldObject obj = WorldObjectRegistry.create(type);
 
       ImageIcon icon = new ImageIcon(obj.getSpriteSet().getImage());
       CustomToggleButton btn = new CustomToggleButton(icon);
       btn.setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
 
       btn.addActionListener(e -> {
-        state.setSelectedWorldObjectId(id);
+        state.setSelectedWorldObject(type);
         state.setSelectedTile(null);
         tileGroup.clearSelection();
       });

@@ -5,6 +5,7 @@ import io.tidalisland.tiles.WorldMapLoader.WorldMapData;
 import io.tidalisland.utils.Position;
 import io.tidalisland.worldobjects.WorldObjectLoader.ObjectEntry;
 import io.tidalisland.worldobjects.WorldObjectLoader.WorldObjectData;
+import io.tidalisland.worldobjects.WorldObjectType;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,9 +59,9 @@ public class WorldExporter {
   private static void exportWorldObjects(EditorState state, ObjectMapper mapper, File dir)
       throws Exception {
     List<ObjectEntry> objects = new ArrayList<>();
-    for (Map.Entry<Position, String> entry : state.getWorldObjects().entrySet()) {
+    for (Map.Entry<Position, WorldObjectType> entry : state.getWorldObjects().entrySet()) {
       ObjectEntry obj = new ObjectEntry();
-      obj.id = entry.getValue();
+      obj.id = entry.getValue().toString();
       obj.position = Arrays.asList(entry.getKey().getX(), entry.getKey().getY());
       objects.add(obj);
     }

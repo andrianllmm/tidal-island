@@ -19,7 +19,7 @@ public abstract class Tool extends Item {
    * @param durability max durability
    * @param damageMultiplier damage multiplier for this tool
    */
-  public Tool(String type, int durability, double damageMultiplier) {
+  public Tool(ItemType type, int durability, double damageMultiplier) {
     super(type, 1); // tools are not stackable
     this.durability = durability;
     this.currentDurability = durability;

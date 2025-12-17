@@ -5,6 +5,7 @@ import io.tidalisland.events.InventoryChangeEvent;
 import io.tidalisland.events.Observable;
 import io.tidalisland.items.Item;
 import io.tidalisland.items.ItemStack;
+import io.tidalisland.items.ItemType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Inventory implements Observable<InventoryChangeEvent> {
 
   /** Map of item types to stacks of items for fast lookup. */
-  private final Map<String, List<ItemStack<? extends Item>>> items = new HashMap<>();
+  private final Map<ItemType, List<ItemStack<? extends Item>>> items = new HashMap<>();
   private final int maxSlots;
   private final CopyOnWriteArrayList<EventListener<InventoryChangeEvent>> listeners =
       new CopyOnWriteArrayList<>();
@@ -136,11 +137,11 @@ public class Inventory implements Observable<InventoryChangeEvent> {
   /**
    * Checks if the inventory has an item of type.
    *
-   * @param itemType the item type
+   * @param type the item type
    * @return true if the inventory has the item, false otherwise
    */
-  public boolean has(String itemType) {
-    return items.containsKey(itemType);
+  public boolean has(ItemType type) {
+    return items.containsKey(type);
   }
 
   /**
@@ -156,11 +157,11 @@ public class Inventory implements Observable<InventoryChangeEvent> {
   /**
    * Gets the quantity of an item in the inventory.
    *
-   * @param itemType the item type
+   * @param type the item type
    * @return the quantity
    */
-  public int getQuantity(String itemType) {
-    List<ItemStack<? extends Item>> stacks = items.get(itemType);
+  public int getQuantity(ItemType type) {
+    List<ItemStack<? extends Item>> stacks = items.get(type);
     if (stacks == null) {
       return 0;
     }
@@ -187,7 +188,7 @@ public class Inventory implements Observable<InventoryChangeEvent> {
     return items.isEmpty();
   }
 
-  public Set<String> getItems() {
+  public Set<ItemType> getItems() {
     return items.keySet();
   }
 
@@ -198,7 +199,7 @@ public class Inventory implements Observable<InventoryChangeEvent> {
    */
   public List<ItemStack<? extends Item>> getStacks() {
     List<ItemStack<? extends Item>> stacks = new ArrayList<>();
-    for (Map.Entry<String, List<ItemStack<? extends Item>>> entry : items.entrySet()) {
+    for (Map.Entry<ItemType, List<ItemStack<? extends Item>>> entry : items.entrySet()) {
       for (ItemStack<? extends Item> stack : entry.getValue()) {
         stacks.add(stack);
       }
@@ -211,9 +212,9 @@ public class Inventory implements Observable<InventoryChangeEvent> {
    *
    * @return a map of item type -> total quantity
    */
-  public Map<String, Integer> getSummary() {
-    Map<String, Integer> summary = new HashMap<>();
-    for (Map.Entry<String, List<ItemStack<? extends Item>>> entry : items.entrySet()) {
+  public Map<ItemType, Integer> getSummary() {
+    Map<ItemType, Integer> summary = new HashMap<>();
+    for (Map.Entry<ItemType, List<ItemStack<? extends Item>>> entry : items.entrySet()) {
       int total = entry.getValue().stream().mapToInt(ItemStack::getQuantity).sum();
       summary.put(entry.getKey(), total);
     }

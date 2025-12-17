@@ -7,7 +7,7 @@ import io.tidalisland.graphics.sprites.Sprite;
  */
 public abstract class Item {
 
-  protected final String type;
+  protected final ItemType type;
   protected final int maxStackSize; // >1 for stackable items, 1 otherwise
   protected String description;
   protected Sprite sprite;
@@ -19,15 +19,18 @@ public abstract class Item {
    * @param maxStackSize the max stack size
    * @throws IllegalArgumentException if max stack size is less than 1
    */
-  public Item(String type, int maxStackSize) {
-    this.type = type;
+  public Item(ItemType type, int maxStackSize) {
+    if (type == null) {
+      throw new IllegalArgumentException("Type cannot be null");
+    }
     if (maxStackSize < 1) {
       throw new IllegalArgumentException("Max stack size must be greater than 0");
     }
+    this.type = type;
     this.maxStackSize = maxStackSize;
   }
 
-  public String getType() {
+  public ItemType getType() {
     return type;
   }
 

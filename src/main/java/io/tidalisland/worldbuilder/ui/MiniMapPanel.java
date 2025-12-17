@@ -6,6 +6,7 @@ import io.tidalisland.worldbuilder.EditorState;
 import io.tidalisland.worldbuilder.ViewPort;
 import io.tidalisland.worldobjects.WorldObject;
 import io.tidalisland.worldobjects.WorldObjectRegistry;
+import io.tidalisland.worldobjects.WorldObjectType;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -79,9 +80,9 @@ public class MiniMapPanel extends JPanel {
         }
 
         // Draw world objects
-        String objId = state.getWorldObject(new Position(x, y));
-        if (objId != null) {
-          WorldObject obj = WorldObjectRegistry.create(objId, new Position(x, y));
+        WorldObjectType objType = state.getWorldObject(new Position(x, y));
+        if (objType != null) {
+          WorldObject obj = WorldObjectRegistry.create(objType, new Position(x, y));
           if (obj.getSpriteSet() != null) {
             obj.getSpriteSet().getFrame().drawScaled(g, (int) (x * ts), (int) (y * ts), (int) ts,
                 (int) ts);

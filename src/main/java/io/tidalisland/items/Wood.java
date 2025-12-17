@@ -7,11 +7,13 @@ import io.tidalisland.graphics.sprites.Sprite;
  */
 public class Wood extends Item {
 
+  public static final ItemType TYPE = new ItemType("wood");
+
   /**
    * Creates a new wood item.
    */
   public Wood() {
-    super("wood", 8);
+    super(TYPE, 8);
     this.description = "Wood is a common material.";
     this.sprite = new Sprite("/sprites/items/wood.png");
   }

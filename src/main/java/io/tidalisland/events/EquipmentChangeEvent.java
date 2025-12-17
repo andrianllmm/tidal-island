@@ -1,11 +1,13 @@
 package io.tidalisland.events;
 
+import io.tidalisland.items.ItemType;
+
 /**
  * Event triggered when equipment changes.
  */
 public class EquipmentChangeEvent implements Event {
 
-  private final String toolType;
+  private final ItemType toolType;
   private final boolean equipped;
 
   /**
@@ -14,12 +16,12 @@ public class EquipmentChangeEvent implements Event {
    * @param toolType the tool type
    * @param equipped true if equipped, false otherwise
    */
-  public EquipmentChangeEvent(String toolType, boolean equipped) {
+  public EquipmentChangeEvent(ItemType toolType, boolean equipped) {
     this.toolType = toolType;
     this.equipped = equipped;
   }
 
-  public String getToolType() {
+  public ItemType getToolType() {
     return toolType;
   }
 
