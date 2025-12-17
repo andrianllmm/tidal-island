@@ -134,6 +134,26 @@ public class Inventory implements Observable<InventoryChangeEvent> {
   }
 
   /**
+   * Checks if the inventory has an item of type.
+   *
+   * @param itemType the item type
+   * @return true if the inventory has the item, false otherwise
+   */
+  public boolean has(String itemType) {
+    return items.containsKey(itemType);
+  }
+
+  /**
+   * Checks if the inventory has an item.
+   *
+   * @param item the item
+   * @return true if the inventory has the item, false otherwise
+   */
+  public boolean has(Item item) {
+    return has(item.getType());
+  }
+
+  /**
    * Gets the quantity of an item in the inventory.
    *
    * @param itemType the item type
@@ -219,5 +239,4 @@ public class Inventory implements Observable<InventoryChangeEvent> {
   public String toString() {
     return getSummary().toString();
   }
-
 }

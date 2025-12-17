@@ -6,6 +6,7 @@ import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteSetBuilder;
 import io.tidalisland.items.Apple;
 import io.tidalisland.items.Leaf;
+import io.tidalisland.items.Tool;
 import io.tidalisland.items.Wood;
 import io.tidalisland.utils.Position;
 import java.awt.Graphics;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class Tree extends WorldObject implements Interactable {
 
-  private int health = 5;
+  private int health = 10;
 
   /**
    * Creates a new tree.
@@ -31,7 +32,13 @@ public class Tree extends WorldObject implements Interactable {
 
   @Override
   public InteractResult interact(Player player) {
-    health--;
+    Tool tool = player.getEquipment().getEquippedTool();
+    if (tool == null) {
+      health -= 1;
+    } else if (tool.getType().equals("axe")) {
+      health -= 3;
+      tool.damage(1);
+    }
     if (health <= 0) {
       List<Drop> drops =
           List.of(new Drop(new Wood(), 1), new Drop(new Leaf(), 2, 4), new Drop(new Apple(), 0, 1));

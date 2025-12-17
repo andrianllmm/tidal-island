@@ -31,7 +31,9 @@ public class SpriteSetBuilder {
           frames.add(new SpriteFrame(atlas.getFrame(fd.frame.x, fd.frame.y, fd.frame.w, fd.frame.h),
               fd.duration));
         }
-        spriteSet.addSprite(tag.name, new Sprite(frames));
+        int repeat = tag.repeat == null ? -1 : Integer.parseInt(tag.repeat);
+        Sprite sprite = new Sprite(frames, repeat);
+        spriteSet.addSprite(tag.name, sprite);
       }
     }
     return spriteSet;

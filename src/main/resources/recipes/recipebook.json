@@ -6,5 +6,9 @@
   {
     "ingredients": { "wood": 4, "plank": 8 },
     "result": { "itemId": "raft", "quantity": 1 }
+  },
+  {
+    "ingredients": { "wood": 1, "stone": 2 },
+    "result": { "itemId": "axe", "quantity": 1 }
   }
 ]

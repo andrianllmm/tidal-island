@@ -9,6 +9,7 @@ import io.tidalisland.items.Edible;
 import io.tidalisland.items.Item;
 import io.tidalisland.items.ItemStack;
 import io.tidalisland.items.Placeable;
+import io.tidalisland.items.Tool;
 import io.tidalisland.ui.components.UiButton;
 import io.tidalisland.ui.components.UiImage;
 import io.tidalisland.ui.components.UiLabel;
@@ -143,6 +144,16 @@ public class UiInventoryPanel extends UiPanel {
       });
 
       actionsPanel.add(eatButton);
+    } else if (item instanceof Tool tool) {
+      UiButton equipButton = new UiButton("Equip", 64, 24);
+      equipButton.style(s -> s.borderWidth(0));
+      equipButton.setOnClick(() -> {
+        player.equipTool(tool);
+        selectedStack = null;
+        runAfterUpdate(this::refresh);
+      });
+
+      actionsPanel.add(equipButton);
     }
   }
 

@@ -3,6 +3,7 @@ package io.tidalisland.worldobjects;
 import io.tidalisland.collision.Collider;
 import io.tidalisland.entities.Entity;
 import io.tidalisland.entities.Player;
+import io.tidalisland.items.Tool;
 
 /**
  * Manages interactions between entities and world objects.
@@ -21,8 +22,12 @@ public class InteractionManager {
   public void interact(Player player) {
     WorldObject obj = getObjectInFront(player);
     if (obj instanceof Interactable interactable) {
-      InteractResult result = interactable.interact(player);
+      Tool tool = player.getEquipment().getEquippedTool();
+      if (tool != null && tool.isBroken()) {
+        player.unequipTool();
+      }
 
+      InteractResult result = interactable.interact(player);
       if (result == null) {
         return;
       }
