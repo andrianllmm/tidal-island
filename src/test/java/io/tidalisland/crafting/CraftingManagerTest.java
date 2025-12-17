@@ -26,7 +26,7 @@ class CraftingManagerTest {
   @DisplayName("Should craft recipe successfully")
   void testCraftSuccess() {
     Recipe recipe = craftingManager.getAllRecipes().get(0);
-    for (Map.Entry<String, Integer> entry : recipe.getIngredients().entrySet()) {
+    for (Map.Entry<ItemType, Integer> entry : recipe.getIngredients().entrySet()) {
       inventory.add(ItemRegistry.create(entry.getKey()), entry.getValue());
     }
 

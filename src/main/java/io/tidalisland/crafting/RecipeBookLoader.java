@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.tidalisland.items.Item;
 import io.tidalisland.items.ItemRegistry;
 import io.tidalisland.items.ItemStack;
+import io.tidalisland.items.ItemType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +33,12 @@ public class RecipeBookLoader {
       for (RecipeData rd : recipeData) {
         Item item = ItemRegistry.create(rd.result.itemId);
         ItemStack<? extends Item> stack = new ItemStack<>(item, rd.result.quantity);
-        recipes.add(new Recipe(rd.ingredients, stack));
+        Map<ItemType, Integer> ingredients = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : rd.ingredients.entrySet()) {
+          ItemType type = ItemRegistry.getTypeById(entry.getKey());
+          ingredients.put(type, entry.getValue());
+        }
+        recipes.add(new Recipe(ingredients, stack));
       }
 
       return new RecipeBook(recipes);

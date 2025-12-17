@@ -35,7 +35,7 @@ public class TileSelect extends JPanel {
       int idx = i;
       btn.addActionListener(e -> {
         state.setSelectedTile(tileSet.get(idx));
-        state.setSelectedWorldObjectId(null);
+        state.setSelectedWorldObject(null);
         objGroup.clearSelection();
       });
 

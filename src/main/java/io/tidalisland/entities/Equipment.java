@@ -3,6 +3,7 @@ package io.tidalisland.entities;
 import io.tidalisland.events.EquipmentChangeEvent;
 import io.tidalisland.events.EventListener;
 import io.tidalisland.events.Observable;
+import io.tidalisland.items.ItemType;
 import io.tidalisland.items.Tool;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -74,11 +75,11 @@ public class Equipment implements Observable<EquipmentChangeEvent> {
   /**
    * Checks if the equipped tool is effective against a target type.
    *
-   * @param toolType the required tool type
+   * @param type the required tool type
    * @return true if equipped tool matches the type
    */
-  public boolean hasEffectiveTool(String toolType) {
-    return hasToolEquipped() && equippedTool.getType().equals(toolType);
+  public boolean hasEffectiveTool(ItemType type) {
+    return hasToolEquipped() && equippedTool.getType() == type;
   }
 
   /**
@@ -94,7 +95,7 @@ public class Equipment implements Observable<EquipmentChangeEvent> {
   }
 
   /** Emits an equipment change event. */
-  private void emitChange(String toolType, boolean equipped) {
+  private void emitChange(ItemType toolType, boolean equipped) {
     dispatch(new EquipmentChangeEvent(toolType, equipped), listeners);
   }
 

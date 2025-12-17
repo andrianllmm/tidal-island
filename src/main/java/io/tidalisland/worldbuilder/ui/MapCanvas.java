@@ -9,6 +9,7 @@ import io.tidalisland.worldbuilder.actions.TileAction;
 import io.tidalisland.worldbuilder.actions.WorldObjectAction;
 import io.tidalisland.worldobjects.WorldObject;
 import io.tidalisland.worldobjects.WorldObjectRegistry;
+import io.tidalisland.worldobjects.WorldObjectType;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -104,13 +105,14 @@ public class MapCanvas extends JPanel {
             state.notifyChange();
           }
         }
-      } else if (state.getSelectedWorldObjectId() != null) {
+      } else if (state.getSelectedWorldObject() != null) {
         // Paint with world objects
-        String oldId = state.getWorldObject(tilePos);
-        String selId = state.getSelectedWorldObjectId();
+        WorldObjectType oldType = state.getWorldObject(tilePos);
+        WorldObjectType selType = state.getSelectedWorldObject();
 
-        state.setWorldObject(tilePos, selId);
-        state.getActionHistory().addToStroke(new WorldObjectAction(state, tilePos, oldId, selId));
+        state.setWorldObject(tilePos, selType);
+        state.getActionHistory()
+            .addToStroke(new WorldObjectAction(state, tilePos, oldType, selType));
         state.notifyChange();
       }
 
@@ -124,9 +126,9 @@ public class MapCanvas extends JPanel {
           state.getActionHistory().addToStroke(new TileAction(state, col, row, oldTile, -1));
           state.notifyChange();
         }
-      } else if (state.getSelectedWorldObjectId() != null) {
-        // Erase only objects if an object is selected
-        String oldObj = state.getWorldObject(tilePos);
+      } else if (state.getSelectedWorldObject() != null) {
+        // Erase onWorldObjectTypen object is selected
+        WorldObjectType oldObj = state.getWorldObject(tilePos);
         if (oldObj != null) {
           state.setWorldObject(tilePos, null);
           state.getActionHistory().addToStroke(new WorldObjectAction(state, tilePos, oldObj, null));
@@ -168,9 +170,9 @@ public class MapCanvas extends JPanel {
 
         // Draw world object
         Position tilePos = new Position(mapX, mapY);
-        String objId = state.getWorldObject(tilePos);
-        if (objId != null) {
-          WorldObject obj = WorldObjectRegistry.create(objId, tilePos);
+        WorldObjectType objType = state.getWorldObject(tilePos);
+        if (objType != null) {
+          WorldObject obj = WorldObjectRegistry.create(objType, tilePos);
           if (obj.getSpriteSet() != null) {
             obj.getSpriteSet().getFrame().drawScaled(g, pixelX, pixelY, ts, ts);
           }

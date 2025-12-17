@@ -5,6 +5,7 @@ import io.tidalisland.tiles.TileSet;
 import io.tidalisland.utils.Position;
 import io.tidalisland.worldbuilder.actions.ActionHistory;
 import io.tidalisland.worldbuilder.actions.EditorAction;
+import io.tidalisland.worldobjects.WorldObjectType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,7 @@ public class EditorState {
 
   // Map data
   private final int[][] tileMap;
-  private final Map<Position, String> worldObjects;
+  private final Map<Position, WorldObjectType> worldObjects;
   private final TileSet tileSet;
 
   // Dimensions
@@ -26,7 +27,7 @@ public class EditorState {
 
   // Current selections
   private Tile selectedTile;
-  private String selectedWorldObjectId;
+  private WorldObjectType selectedWorldObject;
 
   // View state
   private final ViewPort viewPort;
@@ -96,22 +97,22 @@ public class EditorState {
   }
 
   /** Gets the world object id at a given position. */
-  public String getWorldObject(Position pos) {
+  public WorldObjectType getWorldObject(Position pos) {
     return worldObjects.get(pos);
   }
 
-  /** Sets the world object id at a given position. */
-  public void setWorldObject(Position pos, String objectId) {
-    if (objectId == null) {
+  /** Sets the world object at a given position. */
+  public void setWorldObject(Position pos, WorldObjectType type) {
+    if (type == null) {
       worldObjects.remove(pos);
     } else {
-      worldObjects.put(pos, objectId);
+      worldObjects.put(pos, type);
     }
     notifyChange();
   }
 
   /** Gets all world objects. */
-  public Map<Position, String> getWorldObjects() {
+  public Map<Position, WorldObjectType> getWorldObjects() {
     return new HashMap<>(worldObjects);
   }
 
@@ -152,12 +153,12 @@ public class EditorState {
     this.selectedTile = tile;
   }
 
-  public String getSelectedWorldObjectId() {
-    return selectedWorldObjectId;
+  public WorldObjectType getSelectedWorldObject() {
+    return selectedWorldObject;
   }
 
-  public void setSelectedWorldObjectId(String id) {
-    this.selectedWorldObjectId = id;
+  public void setSelectedWorldObject(WorldObjectType type) {
+    this.selectedWorldObject = type;
   }
 
   public boolean isFillEnabled() {

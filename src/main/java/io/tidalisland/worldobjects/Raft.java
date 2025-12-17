@@ -18,6 +18,8 @@ import java.util.List;
  */
 public class Raft extends WorldObject implements Interactable {
 
+  public static final WorldObjectType TYPE = new WorldObjectType("raft");
+
   private int health = 15;
   private WorldMap worldMap;
 
@@ -25,7 +27,7 @@ public class Raft extends WorldObject implements Interactable {
    * Creates a new raft.
    */
   public Raft(Position position) {
-    super("raft", position, false);
+    super(TYPE, position, false);
     setFloatable(true);
     spriteSet =
         SpriteSetBuilder.build("/sprites/worldobjects/raft.png", "/sprites/worldobjects/raft.json");

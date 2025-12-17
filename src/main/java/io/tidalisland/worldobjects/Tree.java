@@ -5,6 +5,7 @@ import io.tidalisland.entities.Player;
 import io.tidalisland.graphics.Camera;
 import io.tidalisland.graphics.sprites.SpriteSetBuilder;
 import io.tidalisland.items.Apple;
+import io.tidalisland.items.Axe;
 import io.tidalisland.items.Leaf;
 import io.tidalisland.items.Tool;
 import io.tidalisland.items.Wood;
@@ -17,13 +18,15 @@ import java.util.List;
  */
 public class Tree extends WorldObject implements Interactable {
 
+  public static final WorldObjectType TYPE = new WorldObjectType("tree");
+
   private int health = 10;
 
   /**
    * Creates a new tree.
    */
   public Tree(Position position) {
-    super("tree", position, true);
+    super(TYPE, position, true);
     spriteSet =
         SpriteSetBuilder.build("/sprites/worldobjects/tree.png", "/sprites/worldobjects/tree.json");
     collider = new ColliderBuilder().size(spriteSet.getFrame().getSize()).build();
@@ -35,7 +38,7 @@ public class Tree extends WorldObject implements Interactable {
     Tool tool = player.getEquipment().getEquippedTool();
     if (tool == null) {
       health -= 1;
-    } else if (tool.getType().equals("axe")) {
+    } else if (tool.getType() == Axe.TYPE) {
       health -= 3;
       tool.damage(1);
     }

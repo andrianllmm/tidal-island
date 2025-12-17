@@ -3,6 +3,7 @@ package io.tidalisland.crafting;
 import io.tidalisland.inventory.Inventory;
 import io.tidalisland.items.Item;
 import io.tidalisland.items.ItemStack;
+import io.tidalisland.items.ItemType;
 import java.util.Map;
 
 /**
@@ -10,10 +11,10 @@ import java.util.Map;
  */
 public class Recipe {
 
-  private final Map<String, Integer> ingredients;
+  private final Map<ItemType, Integer> ingredients;
   private final ItemStack<? extends Item> result;
 
-  public Recipe(Map<String, Integer> ingredients, ItemStack<? extends Item> result) {
+  public Recipe(Map<ItemType, Integer> ingredients, ItemStack<? extends Item> result) {
     this.ingredients = ingredients;
     this.result = result;
   }
@@ -23,7 +24,7 @@ public class Recipe {
    *
    * @return a map of item type -> quantity
    */
-  public Map<String, Integer> getIngredients() {
+  public Map<ItemType, Integer> getIngredients() {
     return ingredients;
   }
 
@@ -43,7 +44,7 @@ public class Recipe {
    * @return true if the recipe can be crafted, false otherwise
    */
   public boolean canCraft(Inventory inventory) {
-    for (Map.Entry<String, Integer> entry : ingredients.entrySet()) {
+    for (Map.Entry<ItemType, Integer> entry : ingredients.entrySet()) {
       if (inventory.getQuantity(entry.getKey()) < entry.getValue()) {
         return false;
       }

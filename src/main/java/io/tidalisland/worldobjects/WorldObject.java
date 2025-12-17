@@ -11,7 +11,7 @@ import java.awt.Graphics;
  */
 public abstract class WorldObject {
 
-  protected final String type;
+  protected final WorldObjectType type;
   protected Position position;
   protected SpriteSet spriteSet;
   protected Collider collider;
@@ -25,7 +25,7 @@ public abstract class WorldObject {
    * @param position the position
    * @param solid whether the object is solid
    */
-  public WorldObject(String type, Position position, boolean solid) {
+  public WorldObject(WorldObjectType type, Position position, boolean solid) {
     this.type = type;
     this.position = position;
     this.solid = solid;
@@ -36,7 +36,7 @@ public abstract class WorldObject {
 
   public abstract void draw(Graphics g, Camera camera);
 
-  public String getType() {
+  public WorldObjectType getType() {
     return type;
   }
 

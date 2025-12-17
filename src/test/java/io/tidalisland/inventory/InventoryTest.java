@@ -162,8 +162,8 @@ class InventoryTest {
   void testGetQuantityByType() {
     inventory.add(wood, 10);
 
-    assertThat(inventory.getQuantity("wood")).isEqualTo(10);
-    assertThat(inventory.getQuantity("stone")).isEqualTo(0);
+    assertThat(inventory.getQuantity(Wood.TYPE)).isEqualTo(10);
+    assertThat(inventory.getQuantity(Stone.TYPE)).isEqualTo(0);
   }
 
   @Test
@@ -172,6 +172,6 @@ class InventoryTest {
     inventory.add(wood, 5);
     inventory.add(stone, 3);
 
-    assertThat(inventory.getItems()).containsExactlyInAnyOrder("wood", "stone");
+    assertThat(inventory.getItemTypes()).containsExactlyInAnyOrder(Wood.TYPE, Stone.TYPE);
   }
 }

@@ -10,11 +10,13 @@ import io.tidalisland.worldobjects.WorldObjectManager;
  */
 public class RaftItem extends Item implements Placeable {
 
+  public static final ItemType TYPE = new ItemType("raft");
+
   /**
    * Creates a new raft item.
    */
   public RaftItem() {
-    super("raft", 1);
+    super(TYPE, 1);
     this.description = "A raft is a large wooden boat.";
     this.sprite = new Sprite("/sprites/items/raft.png");
   }
