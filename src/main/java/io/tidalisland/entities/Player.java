@@ -10,6 +10,7 @@ import io.tidalisland.graphics.sprites.SpriteSetBuilder;
 import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.inventory.Inventory;
+import io.tidalisland.items.Tool;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
 import io.tidalisland.worldobjects.InteractionManager;
@@ -21,6 +22,7 @@ import java.awt.Graphics;
 public class Player extends LivingEntity {
 
   private Inventory inventory;
+  private Equipment equipment;
 
   private KeyHandler keys;
 
@@ -35,6 +37,7 @@ public class Player extends LivingEntity {
     super(position, Direction.RIGHT, 4, 5.0, 0.5);
 
     this.inventory = new Inventory(24);
+    this.equipment = new Equipment();
 
     this.keys = keys;
 
@@ -129,8 +132,44 @@ public class Player extends LivingEntity {
     currentFrame.draw(g, screenPos);
   }
 
+  /**
+   * Equips a tool from inventory.
+   *
+   * @param tool the tool to equip
+   * @return the previously equipped tool, or null if none
+   */
+  public Tool equipTool(Tool tool) {
+    if (!inventory.has(tool)) {
+      return null;
+    }
+    Tool lastTool = equipment.equipTool(tool);
+    inventory.remove(tool, 1);
+    if (lastTool != null) {
+      inventory.add(lastTool, 1);
+    }
+    return lastTool;
+  }
+
+  /**
+   * Unequips the current tool.
+   */
+  public Tool unequipTool() {
+    if (!equipment.hasToolEquipped()) {
+      return null;
+    }
+    Tool lastTool = equipment.unequipTool();
+    if (lastTool != null) {
+      inventory.add(lastTool, 1);
+    }
+    return lastTool;
+  }
+
   public Inventory getInventory() {
     return inventory;
+  }
+
+  public Equipment getEquipment() {
+    return equipment;
   }
 
   public long getInteractCooldown() {

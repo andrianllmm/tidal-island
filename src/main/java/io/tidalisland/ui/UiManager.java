@@ -70,6 +70,9 @@ public class UiManager {
     UiInventoryPanel inv = new UiInventoryPanel(inventory, worldObjectManager, player);
     left.add(inv);
 
+    UiEquipmentPanel equipment = new UiEquipmentPanel(player);
+    left.add(equipment);
+
     UiCraftingPanel crafting = new UiCraftingPanel(inventory, new CraftingManager());
     right.add(crafting);
 

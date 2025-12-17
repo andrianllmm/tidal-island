@@ -20,6 +20,7 @@ public final class ItemRegistry {
     register("stone", Stone::new);
     register("leaf", Leaf::new);
     register("plank", Plank::new);
+    register("axe", Axe::new);
     register("raft", RaftItem::new);
   }
 
