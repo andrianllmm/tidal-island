@@ -37,6 +37,7 @@ public class Tree extends WorldObject implements Interactable {
       health -= 1;
     } else if (tool.getType().equals("axe")) {
       health -= 3;
+      tool.damage(1);
     }
     if (health <= 0) {
       List<Drop> drops =

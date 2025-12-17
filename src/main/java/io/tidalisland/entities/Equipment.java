@@ -56,7 +56,7 @@ public class Equipment implements Observable<EquipmentChangeEvent> {
    * @return true if a tool is equipped
    */
   public boolean hasToolEquipped() {
-    return equippedTool != null && !equippedTool.isBroken();
+    return equippedTool != null;
   }
 
   /**
@@ -79,6 +79,18 @@ public class Equipment implements Observable<EquipmentChangeEvent> {
    */
   public boolean hasEffectiveTool(String toolType) {
     return hasToolEquipped() && equippedTool.getType().equals(toolType);
+  }
+
+  /**
+   * Gets the durability percentage.
+   *
+   * @return durability as a percentage (0.0 to 1.0)
+   */
+  public double getDurabilityPercent() {
+    if (!hasToolEquipped()) {
+      return 0.0;
+    }
+    return (double) equippedTool.getCurrentDurability() / equippedTool.getDurability();
   }
 
   /** Emits an equipment change event. */

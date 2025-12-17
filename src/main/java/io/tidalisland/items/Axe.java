@@ -14,7 +14,7 @@ public class Axe extends Tool {
    * Creates a new axe.
    */
   public Axe() {
-    super("axe", 100, 2.0);
+    super("axe", 50, 2.0);
     this.description = "A sharp axe for chopping wood.";
     this.sprite = new Sprite("/sprites/items/axe.png");
   }

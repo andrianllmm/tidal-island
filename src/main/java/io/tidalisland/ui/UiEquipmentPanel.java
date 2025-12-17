@@ -8,6 +8,7 @@ import io.tidalisland.ui.components.UiButton;
 import io.tidalisland.ui.components.UiImage;
 import io.tidalisland.ui.components.UiLabel;
 import io.tidalisland.ui.components.UiPanel;
+import io.tidalisland.ui.components.UiProgressBar;
 import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.layout.VerticalStackLayout;
@@ -21,6 +22,8 @@ public class UiEquipmentPanel extends UiPanel {
   private final Player player;
 
   private UiPanel slot;
+  private UiLabel title;
+  private UiProgressBar durabilityBar;
   private UiButton unequipButton;
 
   /**
@@ -35,7 +38,7 @@ public class UiEquipmentPanel extends UiPanel {
     setLayout(new VerticalStackLayout(8));
     getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
-    UiLabel title = new UiLabel("Equipment", 268, 24);
+    title = new UiLabel("Equipment", 268, 24);
     title.style(s -> s.fontSize(16));
     add(title);
 
@@ -44,6 +47,11 @@ public class UiEquipmentPanel extends UiPanel {
     slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
     slot.style(s -> s.borderWidth(2).borderColor(Color.WHITE).cornerRadius(8));
     add(slot);
+
+    durabilityBar = new UiProgressBar(64, 10, () -> player.getEquipment().getDurabilityPercent(),
+        (double progress) -> new Color(255, 255, 255, (int) (255 * progress)));
+    durabilityBar.style(s -> s.borderWidth(2));
+    add(durabilityBar);
 
     unequipButton = new UiButton("Unequip", 80, 24);
     unequipButton.style(s -> s.borderWidth(0));

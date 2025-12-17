@@ -144,7 +144,7 @@ public class Player extends LivingEntity {
     }
     Tool lastTool = equipment.equipTool(tool);
     inventory.remove(tool, 1);
-    if (lastTool != null) {
+    if (lastTool != null && !lastTool.isBroken()) {
       inventory.add(lastTool, 1);
     }
     return lastTool;
@@ -158,7 +158,7 @@ public class Player extends LivingEntity {
       return null;
     }
     Tool lastTool = equipment.unequipTool();
-    if (lastTool != null) {
+    if (lastTool != null && !lastTool.isBroken()) {
       inventory.add(lastTool, 1);
     }
     return lastTool;
