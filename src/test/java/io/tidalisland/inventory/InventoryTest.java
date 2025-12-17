@@ -172,6 +172,6 @@ class InventoryTest {
     inventory.add(wood, 5);
     inventory.add(stone, 3);
 
-    assertThat(inventory.getItems()).containsExactlyInAnyOrder(Wood.TYPE, Stone.TYPE);
+    assertThat(inventory.getItemTypes()).containsExactlyInAnyOrder(Wood.TYPE, Stone.TYPE);
   }
 }
