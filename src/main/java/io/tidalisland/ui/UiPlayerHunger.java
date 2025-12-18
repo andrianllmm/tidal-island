@@ -6,6 +6,8 @@ import io.tidalisland.input.MouseHandler;
 import io.tidalisland.ui.components.UiLabel;
 import io.tidalisland.ui.components.UiPanel;
 import io.tidalisland.ui.components.UiProgressBar;
+import io.tidalisland.ui.layout.HorizontalAlignment;
+import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Color;
 
@@ -29,10 +31,11 @@ public class UiPlayerHunger extends UiPanel {
 
   /** Creates a new player hunger bar. */
   public UiPlayerHunger(Player player) {
-    super(240, 60);
+    super(200, 60);
     this.player = player;
 
     style = UiStyleDirector.makeTransparent();
+    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
     // Create label
     label = new UiLabel("Hunger", width, 20);

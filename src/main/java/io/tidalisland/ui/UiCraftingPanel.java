@@ -40,50 +40,60 @@ public class UiCraftingPanel extends UiPanel {
    * Creates a new crafting panel.
    */
   public UiCraftingPanel(Inventory inventory, CraftingManager craftingManager) {
-    super(300, 540);
+    super(296, 600);
     this.inventory = inventory;
     this.craftingManager = craftingManager;
 
     setVisible(false);
+    setStyle(UiStyleDirector.makeTransparent());
     style(s -> s.padding(8));
-    setLayout(new VerticalStackLayout(8));
-    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
+    setLayout(new VerticalStackLayout(16));
+    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.TOP);
+
+    UiPanel top = new UiPanel(width, 220);
+    UiPanel middle = new UiPanel(width, 120);
+    UiPanel bottom = new UiPanel(width, 110);
+    top.style(s -> s.padding(8));
+    middle.style(s -> s.padding(8));
+    bottom.style(s -> s.padding(8));
+    top.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.TOP);
+    middle.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.TOP);
+    bottom.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.TOP);
+    add(top);
+    add(middle);
+    add(bottom);
 
     // Title
     UiLabel title = new UiLabel("Crafting Bench", 300, 28);
     title.style(s -> s.fontSize(16));
-    add(title);
+    top.add(title);
 
     // Recipe grid header
     UiLabel recipeHeader = new UiLabel("Recipes", 300, 18);
     recipeHeader.style(s -> s.fontSize(14));
-    add(recipeHeader);
+    top.add(recipeHeader);
 
     // Recipe grid
-    recipeGrid = new RecipeGrid();
-    add(recipeGrid);
+    recipeGrid = new RecipeGrid(width - 16, 140);
+    top.add(recipeGrid);
 
     // Ingredients header
     UiLabel ingHeader = new UiLabel("Ingredients", 300, 18);
     ingHeader.style(s -> s.fontSize(14));
-    add(ingHeader);
+    middle.add(ingHeader);
 
-    ingredientGrid = new IngredientGrid();
-    add(ingredientGrid);
+    ingredientGrid = new IngredientGrid(width - 16, 72);
+    middle.add(ingredientGrid);
 
     // Result header
-    UiLabel resultHeader = new UiLabel("Result", 300, 18);
-    resultHeader.style(s -> s.fontSize(14));
-    add(resultHeader);
-
-    resultView = new ResultView();
-    add(resultView);
+    resultView = new ResultView(width - 16, 64);
+    bottom.add(resultView);
 
     // Craft button
-    craftButton = new UiButton("Craft", 100, 24);
-    craftButton.style(s -> s.borderWidth(0));
+    craftButton = new UiButton("Craft", 70, 20);
+    craftButton.style(s -> s.borderWidth(0).fontSize(14));
     craftButton.setOnClick(this::craftSelected);
-    add(craftButton);
+    bottom.add(craftButton);
 
     refresh();
     inventory.addListener(evt -> refresh());
@@ -116,10 +126,10 @@ public class UiCraftingPanel extends UiPanel {
    * Displays recipes in a grid.
    */
   class RecipeGrid extends UiPanel {
-    public RecipeGrid() {
-      super(276, 140);
-      setLayout(new GridLayout(4, 64, 64, 4, 4));
+    public RecipeGrid(int width, int height) {
+      super(width, height);
       setStyle(UiStyleDirector.makeTransparent());
+      setLayout(new GridLayout(4, 64, 64, 4, 4));
     }
 
     public void refresh() {
@@ -158,10 +168,10 @@ public class UiCraftingPanel extends UiPanel {
    * Displays ingredients in a grid.
    */
   class IngredientGrid extends UiPanel {
-    public IngredientGrid() {
-      super(276, 140);
-      setLayout(new GridLayout(4, 64, 64, 4, 4));
+    public IngredientGrid(int width, int height) {
+      super(width, height);
       setStyle(UiStyleDirector.makeTransparent());
+      setLayout(new GridLayout(4, 64, 64, 4, 4));
     }
 
     public void refresh() {
@@ -200,8 +210,8 @@ public class UiCraftingPanel extends UiPanel {
    * Shows result item preview.
    */
   class ResultView extends UiPanel {
-    public ResultView() {
-      super(48, 48);
+    public ResultView(int width, int height) {
+      super(width, height);
       setStyle(UiStyleDirector.makeTransparent());
       getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
     }
@@ -214,13 +224,21 @@ public class UiCraftingPanel extends UiPanel {
         return;
       }
 
+      UiPanel slot = new UiPanel(64, 64);
+      slot.setStyle(UiStyleDirector.makeTransparent());
+      slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
+      slot.style(s -> s.borderWidth(2).borderColor(new Color(60, 60, 60)).cornerRadius(8));
+
       Item item = selectedRecipe.getResult().getItem();
       int qty = selectedRecipe.getResult().getQuantity();
+
       UiImage icon = new UiImage(item.getSprite().getImage(), 36, 36);
-      add(icon);
+      slot.add(icon);
       UiLabel label = new UiLabel("x" + qty, 36, 12);
       label.style(s -> s.fontSize(12));
-      add(label);
+      slot.add(label);
+
+      add(slot);
 
       endBatch();
     }
