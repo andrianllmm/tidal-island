@@ -13,23 +13,23 @@
 - [UI System](/docs/system/ui-system.md)
 - [Configuration](/docs/system/configuration-system.md)
 
-- [World Builder](/docs/system/world-builder-tool.md)
-
 - [Data Loading](/docs/system/data-loading-pipeline.md)
 
-## OOP Principles Applied and Design Patterns Used
+## OOP Principles and Design Patterns
 
 - [OOP](/docs/system/oop.md)
 - [Design Patterns](/docs/system/design-patterns.md)
 - [Extension Points](/docs/system/extension-points.md)
 
+## DX
+
+- Debug Rendering
+- [World Builder](/docs/system/world-builder-tool.md)
+- [Testing](/docs/system/testing-strategy.md)
+
 ## Performance Considerations
 
 - [Performance](/docs/system/performance.md)
-
-## Testing Strategy
-
-- [Testing](/docs/system/testing-strategy.md)
 
 ## Future Enhancements
 
