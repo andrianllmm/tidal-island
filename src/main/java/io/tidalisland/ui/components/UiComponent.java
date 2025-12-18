@@ -31,6 +31,9 @@ public abstract class UiComponent {
   // Style
   protected UiStyle style;
 
+  // Layout
+  private boolean layoutDirty = true;
+
   // Events
   protected Runnable onClick;
 
@@ -44,10 +47,10 @@ public abstract class UiComponent {
   /**
    * Initializes a new component.
    *
-   * @param width the width
+   * @param width  the width
    * @param height the height
-   * @param x the x-coordinate
-   * @param y the y-coordinate
+   * @param x      the x-coordinate
+   * @param y      the y-coordinate
    */
   public UiComponent(int width, int height, int x, int y) {
     this.x = x;
@@ -60,7 +63,7 @@ public abstract class UiComponent {
   /**
    * Initializes a new component at the origin.
    *
-   * @param width the width
+   * @param width  the width
    * @param height the height
    */
   public UiComponent(int width, int height) {
@@ -161,7 +164,8 @@ public abstract class UiComponent {
    * style(s -> s.padding(8).fontSize(16));
    * }</pre>
    *
-   * @param modifier receives the current style builder and returns the modified builder
+   * @param modifier receives the current style builder and returns the modified
+   *                 builder
    * @see UiStyleBuilder
    */
   public void style(UnaryOperator<UiStyleBuilder> modifier) {
@@ -169,6 +173,23 @@ public abstract class UiComponent {
     style = modifier.apply(builder).build(); // apply modifications and rebuild
   }
 
+  /**
+   * Invalidates the layout of this component.
+   */
+  protected void invalidateLayout() {
+    layoutDirty = true;
+    if (parent != null) {
+      parent.invalidateLayout();
+    }
+  }
+
+  protected boolean isLayoutDirty() {
+    return layoutDirty;
+  }
+
+  protected void clearLayoutDirty() {
+    layoutDirty = false;
+  }
 
   /**
    * Called when this component is clicked.

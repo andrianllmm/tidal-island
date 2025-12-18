@@ -29,12 +29,12 @@ public class UiCraftingPanel extends UiPanel {
   private final Inventory inventory;
   private final CraftingManager craftingManager;
 
+  private Recipe selectedRecipe;
+
   private final RecipeGrid recipeGrid;
   private final IngredientGrid ingredientGrid;
   private final ResultView resultView;
   private final UiButton craftButton;
-
-  private Recipe selectedRecipe;
 
   /**
    * Creates a new crafting panel.
@@ -85,11 +85,18 @@ public class UiCraftingPanel extends UiPanel {
     craftButton.setOnClick(this::craftSelected);
     add(craftButton);
 
-    refreshAll();
-    inventory.addListener(evt -> refreshAll());
+    refresh();
+    inventory.addListener(evt -> refresh());
   }
 
-  private void refreshAll() {
+  @Override
+  public void onUpdate(KeyHandler keys, MouseHandler mouse) {
+    if (keys.isJustPressed(Action.TOGGLE_CRAFTING)) {
+      toggleVisible();
+    }
+  }
+
+  private void refresh() {
     recipeGrid.refresh();
     ingredientGrid.refresh();
     resultView.refresh();
@@ -101,14 +108,7 @@ public class UiCraftingPanel extends UiPanel {
       return;
     }
     if (craftingManager.craft(selectedRecipe, inventory)) {
-      refreshAll();
-    }
-  }
-
-  @Override
-  public void onUpdate(KeyHandler keys, MouseHandler mouse) {
-    if (keys.isJustPressed(Action.TOGGLE_CRAFTING)) {
-      toggleVisible();
+      refresh();
     }
   }
 
@@ -123,6 +123,7 @@ public class UiCraftingPanel extends UiPanel {
     }
 
     public void refresh() {
+      beginBatch();
       getChildren().clear();
 
       for (Recipe recipe : craftingManager.getAllRecipes()) {
@@ -139,7 +140,7 @@ public class UiCraftingPanel extends UiPanel {
 
         slot.setOnClick(() -> {
           selectedRecipe = (selectedRecipe == recipe) ? null : recipe;
-          runAfterUpdate(UiCraftingPanel.this::refreshAll);
+          runAfterUpdate(UiCraftingPanel.this::refresh);
         });
 
         Item item = recipe.getResult().getItem();
@@ -148,6 +149,8 @@ public class UiCraftingPanel extends UiPanel {
 
         add(slot);
       }
+
+      endBatch();
     }
   }
 
@@ -162,6 +165,7 @@ public class UiCraftingPanel extends UiPanel {
     }
 
     public void refresh() {
+      beginBatch();
       getChildren().clear();
       if (selectedRecipe == null) {
         return;
@@ -187,6 +191,8 @@ public class UiCraftingPanel extends UiPanel {
 
         add(slot);
       }
+
+      endBatch();
     }
   }
 
@@ -201,8 +207,10 @@ public class UiCraftingPanel extends UiPanel {
     }
 
     public void refresh() {
+      beginBatch();
       getChildren().clear();
       if (selectedRecipe == null) {
+        endBatch();
         return;
       }
 
@@ -213,6 +221,8 @@ public class UiCraftingPanel extends UiPanel {
       UiLabel label = new UiLabel("x" + qty, 36, 12);
       label.style(s -> s.fontSize(12));
       add(label);
+
+      endBatch();
     }
   }
 }
