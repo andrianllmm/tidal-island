@@ -14,6 +14,7 @@ import java.awt.Graphics;
 public class UiPanel extends UiComponent {
 
   private LayoutManager layoutManager;
+  private boolean batching = false;
 
   /**
    * Creates a panel.
@@ -30,11 +31,12 @@ public class UiPanel extends UiComponent {
 
   @Override
   protected void onUpdate(KeyHandler keys, MouseHandler mouse) {
-    layout();
   }
 
   @Override
   protected void onRender(Graphics g) {
+    layout();
+
     int ax = getAbsX();
     int ay = getAbsY();
 
@@ -72,18 +74,40 @@ public class UiPanel extends UiComponent {
    * Layouts children using the layout manager.
    */
   public void layout() {
-    if (layoutManager != null) {
+    if (layoutManager != null && isLayoutDirty()) {
       layoutManager.layout(this);
+      clearLayoutDirty();
     }
   }
 
+  /**
+   * Gets the layout manager.
+   */
   public LayoutManager getLayout() {
     return layoutManager;
   }
 
+  /**
+   * Sets the layout manager.
+   */
   public void setLayout(LayoutManager layoutManager) {
     this.layoutManager = layoutManager;
-    layout();
+    invalidateLayout();
+  }
+
+  /**
+   * Begins batching updates.
+   */
+  public void beginBatch() {
+    batching = true;
+  }
+
+  /**
+   * Ends batching updates.
+   */
+  public void endBatch() {
+    batching = false;
+    layout(); // layout once at the end
   }
 
   @Override
@@ -91,6 +115,22 @@ public class UiPanel extends UiComponent {
     super.setVisible(v);
     if (v) {
       layout();
+    }
+  }
+
+  @Override
+  public void add(UiComponent child) {
+    super.add(child);
+    if (!batching) {
+      invalidateLayout();
+    }
+  }
+
+  @Override
+  public void remove(UiComponent child) {
+    super.remove(child);
+    if (!batching) {
+      invalidateLayout();
     }
   }
 }
