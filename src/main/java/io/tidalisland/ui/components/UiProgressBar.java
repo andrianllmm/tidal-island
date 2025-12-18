@@ -22,8 +22,6 @@ public class UiProgressBar extends UiComponent {
   }
 
   private final DoubleSupplier progressSupplier;
-  private Color backgroundColor = new Color(50, 50, 50);
-  private Color borderColor = Color.WHITE;
   private ProgressColorStrategy colorStrategy;
 
   /** Creates a new progress bar. */
@@ -32,6 +30,7 @@ public class UiProgressBar extends UiComponent {
     super(width, height);
     this.progressSupplier = progressSupplier;
     this.colorStrategy = colorStrategy;
+    style(s -> s.bg(new Color(70, 70, 70)).borderColor(new Color(200, 200, 200)).borderWidth(2));
   }
 
   @Override
@@ -47,7 +46,7 @@ public class UiProgressBar extends UiComponent {
     int y = getAbsY();
 
     // Background
-    g.setColor(backgroundColor);
+    g.setColor(style.getBg());
     g.fillRect(x, y, width, height);
 
     // Progress
@@ -59,8 +58,8 @@ public class UiProgressBar extends UiComponent {
     Graphics2D g2 = (Graphics2D) g;
     Stroke old = g2.getStroke();
 
-    g2.setColor(borderColor);
-    g2.setStroke(new BasicStroke(2f));
+    g2.setColor(style.getBorderColor());
+    g2.setStroke(new BasicStroke(style.getBorderWidth()));
     g2.drawRect(x, y, width, height);
 
     g2.setStroke(old);
