@@ -19,9 +19,9 @@ import io.tidalisland.ui.layout.GridLayout;
 import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.layout.VerticalStackLayout;
+import io.tidalisland.ui.styles.Colors;
 import io.tidalisland.ui.styles.UiStyleDirector;
 import io.tidalisland.worldobjects.WorldObjectManager;
-import java.awt.Color;
 
 /**
  * UI panel for the inventory.
@@ -108,7 +108,7 @@ public class UiInventoryPanel extends UiPanel {
         UiPanel slot = new UiPanel(64, 64);
         slot.setStyle(UiStyleDirector.makeTransparent());
         slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-        slot.style(s -> s.borderColor(Color.WHITE).cornerRadius(8));
+        slot.style(s -> s.borderColor(Colors.WHITE).cornerRadius(8));
 
         if (stack == selectedStack) {
           slot.style(s -> s.borderWidth(2));

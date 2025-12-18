@@ -17,8 +17,8 @@ import io.tidalisland.ui.layout.GridLayout;
 import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.layout.VerticalStackLayout;
+import io.tidalisland.ui.styles.Colors;
 import io.tidalisland.ui.styles.UiStyleDirector;
-import java.awt.Color;
 import java.util.Map;
 
 /**
@@ -140,7 +140,7 @@ public class UiCraftingPanel extends UiPanel {
         UiPanel slot = new UiPanel(64, 64);
         slot.setStyle(UiStyleDirector.makeTransparent());
         slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-        slot.style(s -> s.borderColor(Color.WHITE).cornerRadius(8));
+        slot.style(s -> s.borderColor(Colors.WHITE).cornerRadius(8));
 
         if (recipe == selectedRecipe) {
           slot.style(s -> s.borderWidth(2));
@@ -227,7 +227,7 @@ public class UiCraftingPanel extends UiPanel {
       UiPanel slot = new UiPanel(64, 64);
       slot.setStyle(UiStyleDirector.makeTransparent());
       slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-      slot.style(s -> s.borderWidth(2).borderColor(new Color(60, 60, 60)).cornerRadius(8));
+      slot.style(s -> s.borderWidth(2).borderColor(Colors.BORDER_LIGHT).cornerRadius(8));
 
       Item item = selectedRecipe.getResult().getItem();
       int qty = selectedRecipe.getResult().getQuantity();

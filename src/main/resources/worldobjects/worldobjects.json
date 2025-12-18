@@ -1,552 +1,603 @@
 {
-  "objects": [
-    {
-      "id": "bush",
-      "position": [26, 31]
-    },
-    {
-      "id": "tree",
-      "position": [10, 16]
-    },
-    {
-      "id": "tree",
-      "position": [35, 11]
-    },
-    {
-      "id": "tree",
-      "position": [18, 26]
-    },
-    {
-      "id": "tree",
-      "position": [35, 14]
-    },
-    {
-      "id": "bush",
-      "position": [26, 37]
-    },
-    {
-      "id": "bush",
-      "position": [10, 22]
-    },
-    {
-      "id": "rock",
-      "position": [35, 18]
-    },
-    {
-      "id": "tree",
-      "position": [35, 20]
-    },
-    {
-      "id": "rock",
-      "position": [18, 36]
-    },
-    {
-      "id": "tree",
-      "position": [18, 37]
-    },
-    {
-      "id": "tree",
-      "position": [35, 24]
-    },
-    {
-      "id": "tree",
-      "position": [19, 11]
-    },
-    {
-      "id": "tree",
-      "position": [10, 37]
-    },
-    {
-      "id": "tree",
-      "position": [35, 30]
-    },
-    {
-      "id": "tree",
-      "position": [19, 14]
-    },
-    {
-      "id": "bush",
-      "position": [35, 34]
-    },
-    {
-      "id": "bush",
-      "position": [27, 27]
-    },
-    {
-      "id": "rock",
-      "position": [11, 15]
-    },
-    {
-      "id": "tree",
-      "position": [27, 33]
-    },
-    {
-      "id": "bush",
-      "position": [36, 10]
-    },
-    {
-      "id": "tree",
-      "position": [11, 18]
-    },
-    {
-      "id": "bush",
-      "position": [19, 27]
-    },
-    {
-      "id": "bush",
-      "position": [11, 20]
-    },
-    {
-      "id": "bush",
-      "position": [19, 34]
-    },
-    {
-      "id": "bush",
-      "position": [28, 12]
-    },
-    {
-      "id": "bush",
-      "position": [36, 26]
-    },
-    {
-      "id": "bush",
-      "position": [11, 34]
-    },
-    {
-      "id": "tree",
-      "position": [11, 36]
-    },
-    {
-      "id": "rock",
-      "position": [20, 17]
-    },
-    {
-      "id": "tree",
-      "position": [36, 35]
-    },
-    {
-      "id": "bush",
-      "position": [12, 11]
-    },
-    {
-      "id": "tree",
-      "position": [36, 37]
-    },
-    {
-      "id": "tree",
-      "position": [28, 29]
-    },
-    {
-      "id": "tree",
-      "position": [12, 16]
-    },
-    {
-      "id": "tree",
-      "position": [36, 41]
-    },
-    {
-      "id": "tree",
-      "position": [20, 25]
-    },
-    {
-      "id": "tree",
-      "position": [28, 36]
-    },
-    {
-      "id": "tree",
-      "position": [20, 29]
-    },
-    {
-      "id": "tree",
-      "position": [12, 22]
-    },
-    {
-      "id": "tree",
-      "position": [20, 32]
-    },
-    {
-      "id": "bush",
-      "position": [12, 24]
-    },
-    {
-      "id": "bush",
-      "position": [20, 36]
-    },
-    {
-      "id": "tree",
-      "position": [29, 15]
-    },
-    {
-      "id": "tree",
-      "position": [12, 30]
-    },
-    {
-      "id": "bush",
-      "position": [37, 23]
-    },
-    {
-      "id": "bush",
-      "position": [37, 25]
-    },
-    {
-      "id": "tree",
-      "position": [12, 33]
-    },
-    {
-      "id": "tree",
-      "position": [37, 28]
-    },
-    {
-      "id": "bush",
-      "position": [29, 20]
-    },
-    {
-      "id": "tree",
-      "position": [12, 38]
-    },
-    {
-      "id": "tree",
-      "position": [37, 33]
-    },
-    {
-      "id": "tree",
-      "position": [29, 25]
-    },
-    {
-      "id": "tree",
-      "position": [21, 17]
-    },
-    {
-      "id": "tree",
-      "position": [37, 36]
-    },
-    {
-      "id": "bush",
-      "position": [13, 12]
-    },
-    {
-      "id": "tree",
-      "position": [37, 38]
-    },
-    {
-      "id": "tree",
-      "position": [13, 14]
-    },
-    {
-      "id": "tree",
-      "position": [37, 39]
-    },
-    {
-      "id": "bush",
-      "position": [13, 16]
-    },
-    {
-      "id": "tree",
-      "position": [21, 28]
-    },
-    {
-      "id": "rock",
-      "position": [13, 21]
-    },
-    {
-      "id": "tree",
-      "position": [13, 26]
-    },
-    {
-      "id": "bush",
-      "position": [30, 11]
-    },
-    {
-      "id": "tree",
-      "position": [13, 28]
-    },
-    {
-      "id": "rock",
-      "position": [13, 31]
-    },
-    {
-      "id": "tree",
-      "position": [30, 19]
-    },
-    {
-      "id": "bush",
-      "position": [38, 27]
-    },
-    {
-      "id": "tree",
-      "position": [13, 35]
-    },
-    {
-      "id": "tree",
-      "position": [13, 36]
-    },
-    {
-      "id": "tree",
-      "position": [22, 13]
-    },
-    {
-      "id": "bush",
-      "position": [38, 30]
-    },
-    {
-      "id": "bush",
-      "position": [22, 14]
-    },
-    {
-      "id": "tree",
-      "position": [13, 38]
-    },
-    {
-      "id": "rock",
-      "position": [38, 32]
-    },
-    {
-      "id": "tree",
-      "position": [13, 40]
-    },
-    {
-      "id": "rock",
-      "position": [30, 28]
-    },
-    {
-      "id": "tree",
-      "position": [30, 31]
-    },
-    {
-      "id": "bush",
-      "position": [14, 17]
-    },
-    {
-      "id": "tree",
-      "position": [14, 19]
-    },
-    {
-      "id": "tree",
-      "position": [30, 38]
-    },
-    {
-      "id": "bush",
-      "position": [14, 25]
-    },
-    {
-      "id": "tree",
-      "position": [31, 12]
-    },
-    {
-      "id": "tree",
-      "position": [22, 37]
-    },
-    {
-      "id": "tree",
-      "position": [31, 17]
-    },
-    {
-      "id": "bush",
-      "position": [39, 26]
-    },
-    {
-      "id": "bush",
-      "position": [14, 34]
-    },
-    {
-      "id": "tree",
-      "position": [14, 37]
-    },
-    {
-      "id": "tree",
-      "position": [39, 34]
-    },
-    {
-      "id": "bush",
-      "position": [15, 10]
-    },
-    {
-      "id": "rock",
-      "position": [15, 11]
-    },
-    {
-      "id": "tree",
-      "position": [39, 36]
-    },
-    {
-      "id": "bush",
-      "position": [23, 20]
-    },
-    {
-      "id": "tree",
-      "position": [39, 38]
-    },
-    {
-      "id": "bush",
-      "position": [31, 35]
-    },
-    {
-      "id": "tree",
-      "position": [15, 22]
-    },
-    {
-      "id": "tree",
-      "position": [32, 9]
-    },
-    {
-      "id": "bush",
-      "position": [23, 32]
-    },
-    {
-      "id": "bush",
-      "position": [32, 10]
-    },
-    {
-      "id": "rock",
-      "position": [15, 26]
-    },
-    {
-      "id": "bush",
-      "position": [15, 28]
-    },
-    {
-      "id": "tree",
-      "position": [32, 22]
-    },
-    {
-      "id": "tree",
-      "position": [40, 30]
-    },
-    {
-      "id": "tree",
-      "position": [40, 33]
-    },
-    {
-      "id": "tree",
-      "position": [32, 30]
-    },
-    {
-      "id": "tree",
-      "position": [32, 33]
-    },
-    {
-      "id": "rock",
-      "position": [32, 36]
-    },
-    {
-      "id": "bush",
-      "position": [24, 28]
-    },
-    {
-      "id": "bush",
-      "position": [8, 15]
-    },
-    {
-      "id": "tree",
-      "position": [24, 35]
-    },
-    {
-      "id": "rock",
-      "position": [33, 13]
-    },
-    {
-      "id": "tree",
-      "position": [16, 29]
-    },
-    {
-      "id": "bush",
-      "position": [33, 15]
-    },
-    {
-      "id": "tree",
-      "position": [16, 33]
-    },
-    {
-      "id": "tree",
-      "position": [16, 35]
-    },
-    {
-      "id": "tree",
-      "position": [16, 37]
-    },
-    {
-      "id": "tree",
-      "position": [25, 14]
-    },
-    {
-      "id": "tree",
-      "position": [25, 18]
-    },
-    {
-      "id": "tree",
-      "position": [33, 27]
-    },
-    {
-      "id": "tree",
-      "position": [41, 36]
-    },
-    {
-      "id": "tree",
-      "position": [17, 12]
-    },
-    {
-      "id": "tree",
-      "position": [33, 31]
-    },
-    {
-      "id": "bush",
-      "position": [25, 25]
-    },
-    {
-      "id": "tree",
-      "position": [17, 19]
-    },
-    {
-      "id": "tree",
-      "position": [33, 38]
-    },
-    {
-      "id": "tree",
-      "position": [9, 14]
-    },
-    {
-      "id": "bush",
-      "position": [17, 22]
-    },
-    {
-      "id": "bush",
-      "position": [34, 8]
-    },
-    {
-      "id": "bush",
-      "position": [33, 40]
-    },
-    {
-      "id": "tree",
-      "position": [34, 10]
-    },
-    {
-      "id": "bush",
-      "position": [9, 17]
-    },
-    {
-      "id": "tree",
-      "position": [34, 12]
-    },
-    {
-      "id": "tree",
-      "position": [9, 19]
-    },
-    {
-      "id": "tree",
-      "position": [25, 37]
-    },
-    {
-      "id": "bush",
-      "position": [17, 32]
-    },
-    {
-      "id": "bush",
-      "position": [34, 22]
-    },
-    {
-      "id": "bush",
-      "position": [17, 38]
-    }
-  ]
+  "objects" : [ {
+    "id" : "bush",
+    "position" : [ 18, 17 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 34 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 36 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 18, 20 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 38 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 40 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 9 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 41 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 11 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 13 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 35, 14 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 18, 30 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 35, 21 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 22 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 27 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 29 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 19, 14 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 35, 30 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 19, 17 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 19, 18 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 35 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 35, 36 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 38 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 40 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 36, 9 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 10 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 35, 42 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 36, 12 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 19, 28 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 19 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 23 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 25 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 26 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 20, 11 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 20, 13 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 20, 15 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 32 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 34 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 36 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 39 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 37, 9 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 36, 41 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 37, 11 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 20, 26 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 36, 43 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 37, 12 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 37, 14 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 37, 15 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 37, 21 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 37, 22 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 37, 24 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 21, 10 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 21, 12 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 21, 14 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 37, 33 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 37, 35 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 37, 36 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 37, 38 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 21, 22 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 37, 39 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 37, 40 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 38, 10 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 37, 42 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 38, 12 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 38, 14 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 38, 24 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 22, 10 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 22, 11 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 22, 13 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 22, 14 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 38, 34 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 38, 36 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 22, 20 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 38, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 38, 38 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 22, 23 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 38, 40 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 38, 41 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 11 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 13 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 15 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 23, 9 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 23, 11 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 23, 12 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 39, 31 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 23, 15 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 33 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 35 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 38 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 23, 22 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 39 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 41 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 39, 42 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 12 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 13 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 14 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 24, 8 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 40, 27 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 24, 13 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 30 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 40, 33 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 40, 34 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 35 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 36 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 24, 21 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 38 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 24, 22 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 39 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 40 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 40, 41 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 41, 17 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 25, 9 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 25, 11 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 41, 29 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 41, 34 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 25, 18 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 25, 21 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 41, 38 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 41, 39 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 42, 18 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 42, 21 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 42, 22 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 42, 25 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 42, 27 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 26, 18 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 42, 35 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 42, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 42, 38 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 27, 7 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 27, 11 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 10, 32 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 43, 35 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 10, 34 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 27, 20 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 43, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 28, 8 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 28, 16 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 28, 20 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 29, 10 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 29, 13 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 12, 30 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 12, 31 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 29, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 30, 10 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 13, 29 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 13, 35 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 30, 36 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 30, 38 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 30, 39 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 31, 8 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 14, 27 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 31, 15 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 31, 36 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 31, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 31, 40 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 10 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 15, 26 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 15, 27 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 14 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 32, 19 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 20 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 21 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 32, 34 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 35 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 38 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 39 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 40 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 32, 41 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 33, 12 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 33, 13 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 16, 32 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 16, 33 ]
+  }, {
+    "id" : "rock",
+    "position" : [ 33, 20 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 33, 21 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 33, 22 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 33, 35 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 17, 19 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 33, 36 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 33, 37 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 17, 22 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 33, 39 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 8 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 33, 40 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 17, 24 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 10 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 12 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 17, 32 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 34, 18 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 20 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 21 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 22 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 23 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 34, 24 ]
+  }, {
+    "id" : "tree",
+    "position" : [ 34, 31 ]
+  }, {
+    "id" : "bush",
+    "position" : [ 34, 32 ]
+  } ]
 }

@@ -8,6 +8,7 @@ import io.tidalisland.ui.components.UiPanel;
 import io.tidalisland.ui.components.UiProgressBar;
 import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.VerticalAlignment;
+import io.tidalisland.ui.styles.Colors;
 import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Color;
 
@@ -24,10 +25,7 @@ public class UiTideTimer extends UiPanel {
   public static class TideColorStrategy implements UiProgressBar.ProgressColorStrategy {
     @Override
     public Color colorFor(double progress) {
-      float hue = 0.025f;
-      float saturation = 0.40f + (float) (0.25 * progress);
-      float brightness = 0.90f - (float) (0.15 * progress);
-      return Color.getHSBColor(hue, saturation, brightness);
+      return Colors.RED;
     }
   }
 

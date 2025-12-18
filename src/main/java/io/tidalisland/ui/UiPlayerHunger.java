@@ -8,6 +8,7 @@ import io.tidalisland.ui.components.UiPanel;
 import io.tidalisland.ui.components.UiProgressBar;
 import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.VerticalAlignment;
+import io.tidalisland.ui.styles.Colors;
 import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Color;
 
@@ -22,10 +23,7 @@ public class UiPlayerHunger extends UiPanel {
   private static class HungerColorStrategy implements UiProgressBar.ProgressColorStrategy {
     @Override
     public Color colorFor(double progress) {
-      float hue = 0.1f;
-      float saturation = 0.4f;
-      float brightness = 0.6f;
-      return Color.getHSBColor(hue, saturation, brightness);
+      return Colors.BEIGE;
     }
   }
 

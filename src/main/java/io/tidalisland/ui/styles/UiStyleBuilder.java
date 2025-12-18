@@ -12,8 +12,8 @@ public final class UiStyleBuilder {
   private Color hoverBg = new Color(0, 0, 0, 0);
   private Color pressedBg = new Color(0, 0, 0, 0);
 
-  private Color textColor = Color.WHITE;
-  private Color disabledTextColor = Color.WHITE;
+  private Color textColor = Colors.WHITE;
+  private Color disabledTextColor = Colors.WHITE;
 
   private Color borderColor = new Color(0, 0, 0, 0);
   private int borderWidth = 0;

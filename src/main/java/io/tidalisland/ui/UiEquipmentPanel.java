@@ -1,9 +1,6 @@
 package io.tidalisland.ui;
 
 import io.tidalisland.entities.Player;
-import io.tidalisland.input.Action;
-import io.tidalisland.input.KeyHandler;
-import io.tidalisland.input.MouseHandler;
 import io.tidalisland.ui.components.UiButton;
 import io.tidalisland.ui.components.UiImage;
 import io.tidalisland.ui.components.UiLabel;
@@ -12,8 +9,8 @@ import io.tidalisland.ui.components.UiProgressBar;
 import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.layout.VerticalStackLayout;
+import io.tidalisland.ui.styles.Colors;
 import io.tidalisland.ui.styles.UiStyleDirector;
-import java.awt.Color;
 
 /**
  * UI panel for equipment.
@@ -44,12 +41,12 @@ public class UiEquipmentPanel extends UiPanel {
     slot = new UiPanel(64, 64);
     slot.setStyle(UiStyleDirector.makeTransparent());
     slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-    slot.style(s -> s.borderWidth(2).borderColor(new Color(60, 60, 60)).cornerRadius(8));
+    slot.style(s -> s.borderWidth(2).borderColor(Colors.BORDER_LIGHT).cornerRadius(8));
     add(slot);
 
     durabilityBar = new UiProgressBar(64, 10, () -> player.getEquipment().getDurabilityPercent(),
-        (double progress) -> new Color(150, 150, 150, (int) (250 * progress)));
-    durabilityBar.style(s -> s.borderWidth(2).borderColor(new Color(60, 60, 60)));
+        (double progress) -> Colors.WHITE);
+    durabilityBar.style(s -> s.borderWidth(2).borderColor(Colors.BORDER_LIGHT));
     add(durabilityBar);
 
     unequipButton = new UiButton("Unequip", 80, 24);

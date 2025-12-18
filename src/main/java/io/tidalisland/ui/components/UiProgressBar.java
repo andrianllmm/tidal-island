@@ -2,6 +2,7 @@ package io.tidalisland.ui.components;
 
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
+import io.tidalisland.ui.styles.Colors;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -30,7 +31,7 @@ public class UiProgressBar extends UiComponent {
     super(width, height);
     this.progressSupplier = progressSupplier;
     this.colorStrategy = colorStrategy;
-    style(s -> s.bg(new Color(70, 70, 70)).borderColor(new Color(200, 200, 200)).borderWidth(2));
+    style(s -> s.bg(Colors.PANEL).borderColor(Colors.BORDER).borderWidth(2));
   }
 
   @Override

@@ -56,7 +56,7 @@ public class TitleState implements GameState {
     // Title label
     UiLabel titleLabel = new UiLabel("TIDAL ISLAND", 600, 180);
     titleLabel.setStyle(UiStyleDirector.makeTransparent());
-    titleLabel.style(s -> s.fontSize(64).textColor(Color.WHITE));
+    titleLabel.style(s -> s.fontSize(64));
     ui.add(titleLabel);
 
     UiPanel actionsPanel = new UiPanel(240, 160);
