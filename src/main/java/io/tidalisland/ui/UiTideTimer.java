@@ -6,6 +6,8 @@ import io.tidalisland.tide.TidalManager;
 import io.tidalisland.ui.components.UiLabel;
 import io.tidalisland.ui.components.UiPanel;
 import io.tidalisland.ui.components.UiProgressBar;
+import io.tidalisland.ui.layout.HorizontalAlignment;
+import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.styles.UiStyleDirector;
 import java.awt.Color;
 
@@ -31,10 +33,11 @@ public class UiTideTimer extends UiPanel {
 
   /** Creates a new tide timer. */
   public UiTideTimer(TidalManager tidalManager) {
-    super(240, 60); // panel width x height
+    super(200, 60); // panel width x height
     this.tidalManager = tidalManager;
 
     style = UiStyleDirector.makeTransparent();
+    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
     // Create label
     timerLabel = new UiLabel("", width, 20);
