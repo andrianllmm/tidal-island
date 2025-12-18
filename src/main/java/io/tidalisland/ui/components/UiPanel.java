@@ -107,7 +107,7 @@ public class UiPanel extends UiComponent {
    */
   public void endBatch() {
     batching = false;
-    layout(); // layout once at the end
+    invalidateLayout();
   }
 
   @Override
