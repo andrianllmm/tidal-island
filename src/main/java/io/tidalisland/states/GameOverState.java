@@ -2,12 +2,13 @@ package io.tidalisland.states;
 
 import io.tidalisland.config.Config;
 import io.tidalisland.engine.GameClock;
-import io.tidalisland.ui.components.UiLabel;
+import io.tidalisland.input.KeyHandler;
+import io.tidalisland.input.MouseHandler;
+import io.tidalisland.ui.UiGameOverMenu;
 import io.tidalisland.ui.components.UiPanel;
 import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.styles.UiStyleDirector;
-import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -16,14 +17,40 @@ import java.awt.Graphics;
 public class GameOverState implements GameState {
 
   private final GameStateManager gsm;
+  private final KeyHandler keys;
+  private final MouseHandler mouse;
 
-  public GameOverState(GameStateManager gsm) {
+  private UiPanel ui;
+
+  /**
+   * Initializes the game over state.
+   */
+  public GameOverState(GameStateManager gsm, KeyHandler keys, MouseHandler mouse, boolean win) {
     this.gsm = gsm;
+    this.keys = keys;
+    this.mouse = mouse;
+
+    ui = new UiPanel(Config.screenWidth(), Config.screenHeight(), 0, 0);
+    ui.setStyle(UiStyleDirector.fromTransparent().padding(24).build());
+    ui.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
+
+    String title = win ? "YOU WIN!" : "YOU LOSE!";
+    UiGameOverMenu menu = new UiGameOverMenu(400, 300, title);
+
+    menu.onNewGame(() -> {
+      gsm.set(new PlayingState(gsm, keys, mouse));
+    });
+
+    menu.onExit(() -> {
+      gsm.push(new TitleState(gsm, keys, mouse));
+    });
+
+    ui.add(menu);
   }
 
   @Override
   public void onEnter() {
-    GameClock.getInstance().setPaused(true); // pause game systems
+    GameClock.getInstance().setPaused(true);
   }
 
   @Override
@@ -32,20 +59,12 @@ public class GameOverState implements GameState {
   }
 
   @Override
-  public void update() {}
+  public void update() {
+    ui.update(keys, mouse);
+  }
 
   @Override
   public void render(Graphics g) {
-    UiPanel panel = new UiPanel(Config.screenWidth(), Config.screenHeight());
-    panel.setStyle(UiStyleDirector.makeTransparent());
-    panel.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-    panel.style(s -> s.bg(new Color(0, 0, 0, 180)));
-
-    UiLabel label = new UiLabel("GAME OVER", Config.screenWidth(), Config.screenHeight());
-    label.setStyle(UiStyleDirector.makeTransparent());
-    label.style(s -> s.fontSize(32));
-    panel.add(label);
-
-    panel.render(g);
+    ui.render(g);
   }
 }
