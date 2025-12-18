@@ -24,8 +24,6 @@ public class GameStateManager {
 
   /**
    * Pops the current state off the stack.
-   *
-   * @returns the popped state
    */
   public void pop() {
     if (!states.isEmpty()) {
@@ -36,7 +34,7 @@ public class GameStateManager {
   /**
    * Peeks at the current state.
    *
-   * @returns the current state
+   * @return the current state
    */
   public GameState peek() {
     return states.peek();
