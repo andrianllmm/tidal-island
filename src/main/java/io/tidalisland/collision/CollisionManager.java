@@ -22,7 +22,7 @@ public class CollisionManager {
   /**
    * Creates a new collision manager.
    *
-   * @param worldMap the world map
+   * @param worldMap           the world map
    * @param worldObjectManager the world object manager
    */
   public CollisionManager(WorldMap worldMap, WorldObjectManager worldObjectManager) {
@@ -34,8 +34,8 @@ public class CollisionManager {
    * Checks if an entity can move to a new position without colliding.
    *
    * @param entity the entity
-   * @param nextX the next x-coordinate
-   * @param nextY the next y-coordinate
+   * @param nextX  the next x-coordinate
+   * @param nextY  the next y-coordinate
    * @return true if the entity can move to the new position, false otherwise
    */
   public boolean canMove(Entity entity, int nextX, int nextY) {
@@ -62,7 +62,7 @@ public class CollisionManager {
   /**
    * Checks if an entity can move to a new position without colliding.
    *
-   * @param entity the entity
+   * @param entity       the entity
    * @param nextPosition the next position
    * @return true if the entity can move to the new position, false otherwise
    */
@@ -141,7 +141,7 @@ public class CollisionManager {
   /**
    * Gets the world object in front of a collider.
    *
-   * @param collider the collider
+   * @param collider  the collider
    * @param direction the direction to check
    * @return the world object in front of the collider, or null if none
    */
@@ -155,9 +155,9 @@ public class CollisionManager {
   }
 
   /**
-   * Checks if an entity is on a world object.
+   * Checks if collider is on a world object.
    *
-   * @param collider the collider
+   * @param collider   the collider
    * @param objectType the world object type
    * @return true if the collider is on the world object, false otherwise
    */
@@ -169,6 +169,34 @@ public class CollisionManager {
         }
       }
     }
+    return false;
+  }
+
+  /**
+   * Check if collider is on a tile.
+   *
+   * @param collider the collider
+   * @param row      the row of the tile
+   * @param col      the column of the tile
+   * @return true if collider is on the tile, false otherwise
+   */
+  public boolean isOnTile(Collider collider, int row, int col) {
+    int startCol = collider.getX() / Config.tileSize();
+    int startRow = collider.getY() / Config.tileSize();
+    int endCol = (collider.getX() + collider.getWidth() - 1) / Config.tileSize();
+    int endRow = (collider.getY() + collider.getHeight() - 1) / Config.tileSize();
+
+    for (int i = startRow; i <= endRow; i++) {
+      for (int j = startCol; j <= endCol; j++) {
+        // Only include valid map positions
+        if (j >= 0 && j < Config.mapWidth() && i >= 0 && i < Config.mapHeight()) {
+          if (i == row && j == col) {
+            return true;
+          }
+        }
+      }
+    }
+
     return false;
   }
 
