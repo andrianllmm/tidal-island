@@ -1,6 +1,7 @@
 package io.tidalisland.tide;
 
 import io.tidalisland.collision.Collider;
+import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.config.Config;
 import io.tidalisland.engine.GameClock;
 import io.tidalisland.entities.Player;
@@ -8,6 +9,7 @@ import io.tidalisland.tiles.Tile;
 import io.tidalisland.tiles.TileSet;
 import io.tidalisland.tiles.WorldMap;
 import io.tidalisland.utils.Position;
+import io.tidalisland.worldobjects.Raft;
 import io.tidalisland.worldobjects.WorldObject;
 import io.tidalisland.worldobjects.WorldObjectManager;
 import java.util.ArrayDeque;
@@ -22,10 +24,13 @@ public class TidalManager {
 
   private final WorldMap worldMap;
   private final WorldObjectManager worldObjectManager;
+  private final CollisionManager collisionManager;
   private final TileSet tileSet;
   private final Player player;
+
   private final long minFloodInterval;
   private final long maxFloodInterval;
+
   private int waterTileId = -1;
   private long currentFloodInterval;
   private long elapsedSinceLastFlood = 0;
@@ -35,14 +40,17 @@ public class TidalManager {
   /**
    * Creates a new tidal manager.
    */
-  public TidalManager(WorldMap worldMap, WorldObjectManager worldObjectManager, TileSet tileSet,
-      Player player, double minFloodIntervalSeconds, double maxFloodIntervalSeconds) {
+  public TidalManager(
+      WorldMap worldMap, WorldObjectManager worldObjectManager, CollisionManager collisionManager,
+      TileSet tileSet, Player player,
+      double minFloodIntervalSeconds, double maxFloodIntervalSeconds) {
     if (minFloodIntervalSeconds <= 0 || maxFloodIntervalSeconds < minFloodIntervalSeconds) {
       throw new IllegalArgumentException("Invalid flood interval range");
     }
 
     this.worldMap = worldMap;
     this.worldObjectManager = worldObjectManager;
+    this.collisionManager = collisionManager;
     this.tileSet = tileSet;
     this.player = player;
     this.minFloodInterval = (long) (minFloodIntervalSeconds * 1000);
@@ -89,7 +97,6 @@ public class TidalManager {
     // Flood the tiles
     for (Position pos : tilesToFlood) {
       floodTile(pos);
-
     }
   }
 
@@ -144,7 +151,7 @@ public class TidalManager {
    */
   private boolean isAdjacentToWater(int col, int row) {
     // Check all 4 cardinal directions
-    int[][] directions = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+    int[][] directions = { { 0, -1 }, { 0, 1 }, { -1, 0 }, { 1, 0 } };
 
     for (int[] dir : directions) {
       int neighborCol = col + dir[0];
@@ -170,24 +177,16 @@ public class TidalManager {
    * Pushes the player away if they're standing on a tile that's being flooded.
    */
   private void pushPlayerAway(int floodCol, int floodRow) {
-    Position playerPos = player.getPosition();
-    int playerCol = playerPos.getX() / Config.tileSize();
-    int playerRow = playerPos.getY() / Config.tileSize();
-
-    if (playerCol != floodCol || playerRow != floodRow) {
-      return;
+    if (!collisionManager.isOnTile(player.getCollider(), floodRow, floodCol)) {
+      return; // player is not on the flooded tile, no pushback
     }
-
-    Position worldPos = new Position(playerCol * Config.tileSize(), playerRow * Config.tileSize());
-    WorldObject obj = worldObjectManager.get(worldPos);
-
-    if (obj != null && obj.isFloatable()) {
-      return; // player is safe on floatable object, no pushback
+    if (collisionManager.isOnObject(player.getCollider(), Raft.TYPE)) {
+      return; // player is safe on raft, no pushback
     }
 
     Position safeTile = findNearestSafeTile(floodCol, floodRow);
     if (safeTile != null) {
-      playerPos.setPosition(safeTile);
+      player.getPosition().setPosition(safeTile);
       player.getCollider().updatePosition(safeTile);
     } else {
       fullyFlooded = true;
@@ -195,43 +194,54 @@ public class TidalManager {
   }
 
   /**
-   * Finds the nearest safe tile.
+   * Finds the nearest safe tile using a breadth-first search.
    */
   private Position findNearestSafeTile(int startCol, int startRow) {
-    int width = Config.mapWidth();
-    int height = Config.mapHeight();
+    int mapWidth = Config.mapWidth();
+    int mapHeight = Config.mapHeight();
 
-    boolean[][] visited = new boolean[height][width];
+    // Create a boolean array to track visited tiles
+    boolean[][] visited = new boolean[mapHeight][mapWidth];
+    // Create a queue to store the tiles to visit
     ArrayDeque<int[]> queue = new ArrayDeque<>();
 
-    queue.add(new int[] {startCol, startRow});
+    // Visit the starting tile
+    queue.add(new int[] { startCol, startRow });
     visited[startRow][startCol] = true;
 
-    int[][] dirs = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+    // Create a list of cardinal directions to traverse adjacent tiles
+    int[][] dirs = { { 0, -1 }, { 0, 1 }, { -1, 0 }, { 1, 0 } };
 
     while (!queue.isEmpty()) {
+      // Pop the next tile from the queue
       int[] cur = queue.poll();
       int col = cur[0];
       int row = cur[1];
-
       Tile tile = worldMap.getTile(col, row);
+
+      // Check if the tile is safe
       if (tile != null && isSafeTile(col, row)) {
+        // Return the tile position
         return new Position(col * Config.tileSize(), row * Config.tileSize());
       }
 
+      // Traverse adjacent tiles
       for (int[] d : dirs) {
         int nc = col + d[0];
         int nr = row + d[1];
 
-        if (nc < 0 || nc >= width || nr < 0 || nr >= height) {
+        // Check if the adjacent tile is within the map bounds
+        if (nc < 0 || nc >= mapWidth || nr < 0 || nr >= mapHeight) {
           continue;
         }
+        // Check if the adjacent tile has already been visited
         if (visited[nr][nc]) {
           continue;
         }
 
+        // Visit the adjacent tile
         visited[nr][nc] = true;
-        queue.add(new int[] {nc, nr});
+        queue.add(new int[] { nc, nr });
       }
     }
 
@@ -243,17 +253,21 @@ public class TidalManager {
    */
   private boolean isSafeTile(int col, int row) {
     Tile tile = worldMap.getTile(col, row);
+
+    // Tile not found, not safe
     if (tile == null) {
       return false;
     }
 
-    Position worldPos = new Position(col * Config.tileSize(), row * Config.tileSize());
-
-    // Check for any floatable object overlapping this tile
+    // Check for any object overlapping this tile
     for (WorldObject obj : worldObjectManager.getAll()) {
-      if (obj.isFloatable() && obj.getCollider().intersects(
-          new Collider(worldPos.getX(), worldPos.getY(), Config.tileSize(), Config.tileSize()))) {
-        return true;
+      if (collisionManager.isOnTile(obj.getCollider(), row, col)) {
+        // There is a floatable object overlapping this tile, safe
+        if (obj.isFloatable()) {
+          return true;
+        }
+        // There is an object overlapping this tile, not safe
+        return false;
       }
     }
 
@@ -267,8 +281,7 @@ public class TidalManager {
       return false;
     }
 
-    // No blocking objects on this tile
-    return !worldObjectManager.has(worldPos);
+    return true;
   }
 
   /**
