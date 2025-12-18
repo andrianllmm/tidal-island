@@ -1,0 +1,22 @@
+## Gameplay
+
+- **World/Environment**
+  - An island bordered by the seashore with objects such as trees, rocks, and bushes.
+- **Player/Agent**
+  - A character that can move and interact freely in the world.
+- **Win State**
+  - Craft a raft and use it to escape the island.
+- **Actions Towards Win State**
+  - Explore the island to locate resources.
+  - Interact with world objects to collect resources.
+  - Collect resources using appropriate tools.
+  - Craft intermediate items: planks.
+  - Craft raft using items.
+  - Escape by using the raft.
+- **Loss State**
+  - The tide rises to the point it submerges the island.
+  - Water surrounding the island gets closer to the center and simulates this.
+- **Obstacles Towards Loss State**
+  - Limited time to collect and craft all required items.
+  - Scarcity of resources on the island.
+  - Resources can get submerged by the tide.
