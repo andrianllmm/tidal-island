@@ -79,7 +79,7 @@ public class Equipment implements Observable<EquipmentChangeEvent> {
    * @return true if equipped tool matches the type
    */
   public boolean hasEffectiveTool(ItemType type) {
-    return hasToolEquipped() && equippedTool.getType() == type;
+    return hasToolEquipped() && equippedTool.getType().equals(type);
   }
 
   /**
