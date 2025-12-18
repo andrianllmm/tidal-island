@@ -17,41 +17,36 @@ public class ItemStack<T extends Item> {
     if (quantity > item.getMaxStackSize()) {
       throw new IllegalArgumentException("Too many items for stack");
     }
+    if (quantity < 0) {
+      throw new IllegalArgumentException("Quantity cannot be negative");
+    }
     this.item = item;
     this.quantity = quantity;
   }
 
-  /**
-   * Returns the item in this stack.
-   */
-  public T getItem() {
-    return item;
-  }
 
   /**
-   * Returns the current quantity in this stack.
+   * Adds a valid amount of items to the stack.
+   *
+   * @param amount the amount to add
+   * @return the amount added
    */
-  public int getQuantity() {
-    return quantity;
+  public int add(int amount) {
+    int toAdd = Math.min(item.getMaxStackSize() - quantity, amount);
+    quantity += toAdd;
+    return toAdd;
   }
 
-  /** Adds a valid amount of items to the stack. */
-  public void add(int amount) {
-    if (!item.isStackable()) {
-      throw new IllegalStateException("Item not stackable");
-    }
-    if (quantity + amount > item.getMaxStackSize()) {
-      throw new IllegalStateException("Stack overflow");
-    }
-    quantity += amount;
-  }
-
-  /** Removes a valid amount of items from the stack. */
-  public void remove(int amount) {
-    if (amount > quantity) {
-      throw new IllegalStateException("Not enough items in stack");
-    }
-    quantity -= amount;
+  /**
+   * Removes a valid amount of items from the stack.
+   *
+   * @param amount the amount to remove
+   * @return the amount removed
+   */
+  public int remove(int amount) {
+    int toRemove = Math.min(quantity, amount);
+    quantity -= toRemove;
+    return toRemove;
   }
 
   /**
@@ -66,5 +61,19 @@ public class ItemStack<T extends Item> {
    */
   public int getRemainingCapacity() {
     return item.getMaxStackSize() - quantity;
+  }
+
+  /**
+   * Returns the item in this stack.
+   */
+  public T getItem() {
+    return item;
+  }
+
+  /**
+   * Returns the current quantity in this stack.
+   */
+  public int getQuantity() {
+    return quantity;
   }
 }

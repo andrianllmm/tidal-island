@@ -56,9 +56,7 @@ public class Inventory implements Observable<InventoryChangeEvent> {
     // Fill existing stacks of the same type
     for (ItemStack<? extends Item> stack : stacks) {
       if (stack.getItem().getType().equals(item.getType()) && !stack.isFull()) {
-        int toAdd = Math.min(stack.getRemainingCapacity(), remaining);
-        stack.add(toAdd);
-        remaining -= toAdd;
+        remaining -= stack.add(remaining);
         if (remaining == 0) {
           emitChange(item, amount, true);
           return true;
@@ -75,9 +73,9 @@ public class Inventory implements Observable<InventoryChangeEvent> {
 
     // Create new stacks
     while (remaining > 0) {
-      int toAdd = Math.min(item.getMaxStackSize(), remaining);
-      stacks.add(new ItemStack<>(item, toAdd));
-      remaining -= toAdd;
+      ItemStack<? extends Item> stack = new ItemStack<>(item, 0);
+      remaining -= stack.add(remaining);
+      stacks.add(stack);
     }
 
     emitChange(item, amount, true);
@@ -109,9 +107,7 @@ public class Inventory implements Observable<InventoryChangeEvent> {
         break;
       }
       if (stack.getItem().getType().equals(item.getType())) {
-        int toRemove = Math.min(stack.getQuantity(), remaining);
-        stack.remove(toRemove);
-        remaining -= toRemove;
+        remaining -= stack.remove(remaining);
       }
     }
 
