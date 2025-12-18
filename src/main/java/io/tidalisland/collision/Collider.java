@@ -93,18 +93,42 @@ public class Collider {
    *         otherwise
    */
   public boolean isInFrontOf(Collider other, Direction direction, int range) {
-    return switch (direction) {
-      case UP -> overlapsHorizontally(other) && this.top() - other.bottom() <= range
-          && this.top() > other.bottom();
-      case DOWN -> overlapsHorizontally(other) && other.top() - this.bottom() <= range
-          && this.bottom() < other.top();
-      case LEFT -> overlapsVertically(other) && this.left() - other.right() <= range
-          && this.left() > other.right();
-      case RIGHT -> overlapsVertically(other) && other.left() - this.right() <= range
-          && this.right() < other.left();
-      case NONE -> false;
-      default -> false;
-    };
+    switch (direction) {
+      case UP: {
+        if (!overlapsHorizontally(other)) {
+          return false;
+        }
+        int distance = this.top() - other.bottom(); // distance from collider to object above
+        return distance >= 0 && distance <= range;
+      }
+      case DOWN: {
+        if (!overlapsHorizontally(other)) {
+          return false;
+        }
+        int distance = other.top() - this.bottom(); // distance from collider to object below
+        return distance >= 0 && distance <= range;
+      }
+      case LEFT: {
+        if (!overlapsVertically(other)) {
+          return false;
+        }
+        int distance = this.left() - other.right(); // distance from collider to object on the left
+        return distance >= 0 && distance <= range;
+      }
+      case RIGHT: {
+        if (!overlapsVertically(other)) {
+          return false;
+        }
+        int distance = other.left() - this.right(); // distance from collider to object on the right
+        return distance >= 0 && distance <= range;
+      }
+      case NONE: {
+        return false;
+      }
+      default: {
+        return false;
+      }
+    }
   }
 
   public boolean overlapsHorizontally(Collider other) {
