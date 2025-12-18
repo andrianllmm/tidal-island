@@ -36,6 +36,9 @@ public class Equipment implements Observable<EquipmentChangeEvent> {
    * @return the previously equipped tool, or null if none
    */
   public Tool unequipTool() {
+    if (!hasToolEquipped()) {
+      return null;
+    }
     emitChange(this.equippedTool.getType(), false);
     Tool lastTool = this.equippedTool;
     this.equippedTool = null;
