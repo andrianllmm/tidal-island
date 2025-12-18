@@ -1,7 +1,6 @@
 package io.tidalisland.worldobjects;
 
-import io.tidalisland.collision.Collider;
-import io.tidalisland.entities.Entity;
+import io.tidalisland.collision.CollisionManager;
 import io.tidalisland.entities.Player;
 import io.tidalisland.items.Tool;
 
@@ -11,16 +10,19 @@ import io.tidalisland.items.Tool;
 public class InteractionManager {
 
   private final WorldObjectManager worldObjectManager;
+  private final CollisionManager collisionManager;
 
-  public InteractionManager(WorldObjectManager wom) {
+  public InteractionManager(WorldObjectManager wom, CollisionManager cm) {
     this.worldObjectManager = wom;
+    this.collisionManager = cm;
   }
 
   /**
    * Checks if an entity can interact with a world object.
    */
   public void interact(Player player) {
-    WorldObject obj = getObjectInFront(player);
+    WorldObject obj = collisionManager.getObjectInFront(player.getCollider(), player.getDirection(),
+        player.getInteractionRange());
     if (obj instanceof Interactable interactable) {
       Tool tool = player.getEquipment().getEquippedTool();
       if (tool != null && tool.isBroken()) {
@@ -40,19 +42,5 @@ public class InteractionManager {
         player.getInventory().add(drop.getItem(), drop.getQuantity());
       }
     }
-  }
-
-  private WorldObject getObjectInFront(Entity entity) {
-    Collider playerCollider = entity.getCollider().copy();
-    playerCollider.move(entity.getDirection(), entity.getInteractionRange());
-
-    // check all objects
-    for (WorldObject obj : worldObjectManager.getAll()) {
-      if (obj instanceof Interactable && playerCollider.intersects(obj.getCollider())) {
-        return obj;
-      }
-    }
-
-    return null;
   }
 }

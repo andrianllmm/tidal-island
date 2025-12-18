@@ -48,7 +48,7 @@ public class PlayingState implements GameState {
     worldMap = new WorldMap();
     worldObjectManager = new WorldObjectManager(worldMap);
     collisionManager = new CollisionManager(worldMap, worldObjectManager);
-    interactionManager = new InteractionManager(worldObjectManager);
+    interactionManager = new InteractionManager(worldObjectManager, collisionManager);
     spawnManager = new SpawnManager(worldMap, worldObjectManager);
 
     player = new Player(keys, spawnManager.findValidSpawnPosition());
