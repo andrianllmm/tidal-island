@@ -5,6 +5,7 @@ import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
+import io.tidalisland.inventory.InventoryController;
 import io.tidalisland.items.Edible;
 import io.tidalisland.items.Item;
 import io.tidalisland.items.ItemStack;
@@ -27,9 +28,7 @@ import java.awt.Color;
  */
 public class UiInventoryPanel extends UiPanel {
 
-  private final Inventory inventory;
-  private final WorldObjectManager worldObjectManager;
-  private final Player player;
+  private final InventoryController controller;
   private ItemStack<? extends Item> selectedStack;
   private final UiLabel title;
   private final UiPanel itemsPanel;
@@ -40,9 +39,7 @@ public class UiInventoryPanel extends UiPanel {
    */
   public UiInventoryPanel(Inventory inventory, WorldObjectManager wom, Player player) {
     super(276, 380);
-    this.inventory = inventory;
-    this.worldObjectManager = wom;
-    this.player = player;
+    this.controller = new InventoryController(inventory, player, wom);
 
     setVisible(false);
     style(s -> s.padding(8));
@@ -78,7 +75,7 @@ public class UiInventoryPanel extends UiPanel {
     itemsPanel.getChildren().clear();
     actionsPanel.getChildren().clear();
 
-    for (ItemStack<? extends Item> stack : inventory.getStacks()) {
+    for (ItemStack<? extends Item> stack : controller.getInventory().getStacks()) {
       UiPanel slot = new UiPanel(64, 64);
       slot.setStyle(UiStyleDirector.makeTransparent());
       slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
@@ -119,40 +116,41 @@ public class UiInventoryPanel extends UiPanel {
 
     Item item = selectedStack.getItem();
 
-    if (item instanceof Placeable placeable) {
+    if (item instanceof Placeable) {
       UiButton placeButton = new UiButton("Place", 64, 24);
       placeButton.style(s -> s.borderWidth(0));
       placeButton.setOnClick(() -> {
-        if (placeable.place(worldObjectManager, player)) {
-          inventory.remove(item, 1);
+        if (controller.placeItem(item)) {
           selectedStack = null;
           runAfterUpdate(this::refresh);
         }
       });
 
       actionsPanel.add(placeButton);
-    } else if (item instanceof Edible edible) {
+    }
+
+    if (item instanceof Edible) {
       UiButton eatButton = new UiButton("Eat", 64, 24);
       eatButton.style(s -> s.borderWidth(0));
       eatButton.setOnClick(() -> {
-        if (edible.getHungerValue() > 0) {
-          player.eat(edible);
-          inventory.remove(item, 1);
+        if (controller.eatItem(item)) {
           selectedStack = null;
           runAfterUpdate(this::refresh);
         }
       });
 
       actionsPanel.add(eatButton);
-    } else if (item instanceof Tool tool) {
+    }
+
+    if (item instanceof Tool) {
       UiButton equipButton = new UiButton("Equip", 64, 24);
       equipButton.style(s -> s.borderWidth(0));
       equipButton.setOnClick(() -> {
-        player.getEquipment().equip(tool);
-        selectedStack = null;
-        runAfterUpdate(this::refresh);
+        if (controller.equipItem(item)) {
+          selectedStack = null;
+          runAfterUpdate(this::refresh);
+        }
       });
-
       actionsPanel.add(equipButton);
     }
   }
