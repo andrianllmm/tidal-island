@@ -43,6 +43,19 @@ public class GameStateManager {
   }
 
   /**
+   * Clears the stack and sets the given state.
+   *
+   * @param state the state
+   */
+  public void set(GameState state) {
+    while (!states.isEmpty()) {
+      states.pop().onExit();
+    }
+    states.push(state);
+    state.onEnter();
+  }
+
+  /**
    * Updates the state.
    */
   public void update() {
