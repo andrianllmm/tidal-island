@@ -4,9 +4,11 @@ import io.tidalisland.config.Config;
 import io.tidalisland.entities.Entity;
 import io.tidalisland.tiles.Tile;
 import io.tidalisland.tiles.WorldMap;
+import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
 import io.tidalisland.worldobjects.WorldObject;
 import io.tidalisland.worldobjects.WorldObjectManager;
+import io.tidalisland.worldobjects.WorldObjectType;
 
 /**
  * Manages collisions between entities and the world.
@@ -42,7 +44,7 @@ public class CollisionManager {
     future.updatePosition(nextX, nextY);
 
     // Check collision with world tiles
-    if (collidesWithTiles(future)) {
+    if (getCollidingTile(future) != null) {
       collisionCount++;
       return false;
     }
@@ -69,27 +71,16 @@ public class CollisionManager {
   }
 
   /**
-   * Resets the collision count to zero.
-   */
-  public void resetCollisionCount() {
-    collisionCount = 0;
-  }
-
-  /**
-   * Gets the number of collisions that have occurred.
-   */
-  public int getCollisionCount() {
-    return collisionCount;
-  }
-
-  /**
    * Checks if a collider intersects any solid tiles in the world.
+   *
+   * @param collider the collider
+   * @return true if the collider intersects a solid tile, false otherwise
    */
-  private boolean collidesWithTiles(Collider collider) {
+  public Tile getCollidingTile(Collider collider) {
     // Check if the player is standing on any floatable object
     for (WorldObject obj : worldObjectManager.getAll()) {
       if (obj.isFloatable() && obj.getCollider().contains(collider)) {
-        return false;
+        return null;
       }
     }
 
@@ -118,19 +109,22 @@ public class CollisionManager {
               Config.tileSize(), Config.tileSize());
 
           if (collider.intersects(tileCollider)) {
-            return true;
+            return tile;
           }
         }
       }
     }
 
-    return false;
+    return null;
   }
 
   /**
    * Checks if a collider intersects any world objects in the world.
+   *
+   * @param collider the collider
+   * @return the colliding world object, or null if none
    */
-  private WorldObject getCollidingObject(Collider collider) {
+  public WorldObject getCollidingObject(Collider collider) {
     for (WorldObject obj : worldObjectManager.getAll()) {
       // Skip non-solid objects
       if (!obj.isSolid()) {
@@ -142,5 +136,53 @@ public class CollisionManager {
       }
     }
     return null;
+  }
+
+  /**
+   * Gets the world object in front of a collider.
+   *
+   * @param collider the collider
+   * @param direction the direction to check
+   * @return the world object in front of the collider, or null if none
+   */
+  public WorldObject getObjectInFront(Collider collider, Direction direction, int range) {
+    for (WorldObject obj : worldObjectManager.getAll()) {
+      if (collider.isInFrontOf(obj.getCollider(), direction, range)) {
+        return obj;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Checks if an entity is on a world object.
+   *
+   * @param collider the collider
+   * @param objectType the world object type
+   * @return true if the collider is on the world object, false otherwise
+   */
+  public boolean isOnObject(Collider collider, WorldObjectType objectType) {
+    for (WorldObject obj : worldObjectManager.getAll()) {
+      if (obj.getType() == objectType) {
+        if (obj.getCollider().contains(collider)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Resets the collision count to zero.
+   */
+  public void resetCollisionCount() {
+    collisionCount = 0;
+  }
+
+  /**
+   * Gets the number of collisions that have occurred.
+   */
+  public int getCollisionCount() {
+    return collisionCount;
   }
 }

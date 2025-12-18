@@ -64,12 +64,55 @@ public class Collider {
    * Checks if a collider is inside this collider.
    *
    * @param other the other collider
+   * @param tolerance how far the colliders can be apart
+   * @return true if the other collider is inside this collider, false otherwise
+   */
+  public boolean contains(Collider other, int tolerance) {
+    return other.getX() >= this.getX() - tolerance && other.getY() >= this.getY() - tolerance
+        && other.getX() + other.getWidth() <= this.getX() + this.getWidth() + tolerance
+        && other.getY() + other.getHeight() <= this.getY() + this.getHeight() + tolerance;
+  }
+
+  /**
+   * Checks if a collider is inside this collider.
+   *
+   * @param other the other collider
    * @return true if the other collider is inside this collider, false otherwise
    */
   public boolean contains(Collider other) {
-    return other.getX() >= this.getX() && other.getY() >= this.getY()
-        && other.getX() + other.getWidth() <= this.getX() + this.getWidth()
-        && other.getY() + other.getHeight() <= this.getY() + this.getHeight();
+    return contains(other, 0);
+  }
+
+  /**
+   * Checks if this collider is in front of another collider within a given range.
+   *
+   * @param other the other collider
+   * @param direction the direction to check
+   * @param range the maximum distance allowed to consider "in front"
+   * @return true if this collider is in front of the other collider within the range, false
+   *         otherwise
+   */
+  public boolean isInFrontOf(Collider other, Direction direction, int range) {
+    return switch (direction) {
+      case UP -> overlapsHorizontally(other) && this.top() - other.bottom() <= range
+          && this.top() > other.bottom();
+      case DOWN -> overlapsHorizontally(other) && other.top() - this.bottom() <= range
+          && this.bottom() < other.top();
+      case LEFT -> overlapsVertically(other) && this.left() - other.right() <= range
+          && this.left() > other.right();
+      case RIGHT -> overlapsVertically(other) && other.left() - this.right() <= range
+          && this.right() < other.left();
+      case NONE -> false;
+      default -> false;
+    };
+  }
+
+  public boolean overlapsHorizontally(Collider other) {
+    return this.right() > other.left() && this.left() < other.right();
+  }
+
+  public boolean overlapsVertically(Collider other) {
+    return this.bottom() > other.top() && this.top() < other.bottom();
   }
 
   /**
@@ -154,6 +197,48 @@ public class Collider {
     g.drawRect(screenX, screenY, rect.width, rect.height);
 
     g.setColor(original);
+  }
+
+  /**
+   * Gets the left side of this collider.
+   */
+  public int left() {
+    return rect.x;
+  }
+
+  /**
+   * Gets the right side of this collider.
+   */
+  public int right() {
+    return rect.x + rect.width;
+  }
+
+  /**
+   * Gets the top side of this collider.
+   */
+  public int top() {
+    return rect.y;
+  }
+
+  /**
+   * Gets the bottom side of this collider.
+   */
+  public int bottom() {
+    return rect.y + rect.height;
+  }
+
+  /**
+   * Gets the center x-coordinate of this collider.
+   */
+  public int centerX() {
+    return rect.x + rect.width / 2;
+  }
+
+  /**
+   * Gets the center y-coordinate of this collider.
+   */
+  public int centerY() {
+    return rect.y + rect.height / 2;
   }
 
   @Override
