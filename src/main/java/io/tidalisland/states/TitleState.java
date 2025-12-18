@@ -69,8 +69,7 @@ public class TitleState implements GameState {
     startButton.getLabel().style(s -> s.fontSize(24));
 
     startButton.setOnClick(() -> {
-      gsm.pop(); // remove title screen
-      gsm.push(new PlayingState(gsm, keys, mouse)); // start game
+      gsm.set(new PlayingState(gsm, keys, mouse)); // start game
     });
 
     actionsPanel.add(startButton);
