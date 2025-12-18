@@ -38,7 +38,7 @@ public class Tree extends WorldObject implements Interactable {
     Tool tool = player.getEquipment().getEquippedTool();
     if (tool == null) {
       health -= 1;
-    } else if (tool.getType() == Axe.TYPE) {
+    } else if (tool.getType().equals(Axe.TYPE)) {
       health -= 3;
       tool.damage(1);
     }

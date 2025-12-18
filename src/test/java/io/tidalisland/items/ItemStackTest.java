@@ -43,12 +43,13 @@ class ItemStackTest {
 
 
   @Test
-  @DisplayName("Should throw exception on stack overflow")
+  @DisplayName("Should fill on stack overflow")
   void testStackOverflow() {
     int maxStack = wood.getMaxStackSize();
-    ItemStack<Wood> fullStack = new ItemStack<>(wood, maxStack);
+    ItemStack<Wood> fullStack = new ItemStack<>(wood, 0);
+    fullStack.add(maxStack + 1);
 
-    assertThatThrownBy(() -> fullStack.add(1)).isInstanceOf(IllegalStateException.class);
+    assertThat(fullStack.getQuantity()).isEqualTo(maxStack);
   }
 
   @Test
@@ -59,24 +60,10 @@ class ItemStackTest {
   }
 
   @Test
-  @DisplayName("Should throw exception when removing too many items")
+  @DisplayName("Should remove all when removing too many items")
   void testRemoveTooMany() {
-    assertThatThrownBy(() -> stack.remove(10)).isInstanceOf(IllegalStateException.class);
-  }
-
-  @Test
-  @DisplayName("Should throw exception when adding to non-stackable item")
-  void testAddToNonStackable() {
-    class NonStackableItem extends Item {
-      public NonStackableItem() {
-        super(new ItemType("non-stackable"), 1);
-      }
-    }
-
-    NonStackableItem nonStackable = new NonStackableItem();
-    ItemStack<NonStackableItem> nonStackableStack = new ItemStack<>(nonStackable, 1);
-
-    assertThatThrownBy(() -> nonStackableStack.add(1)).isInstanceOf(IllegalStateException.class);
+    stack.remove(100);
+    assertThat(stack.getQuantity()).isEqualTo(0);
   }
 
   @Test

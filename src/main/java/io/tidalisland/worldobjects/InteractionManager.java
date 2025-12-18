@@ -24,7 +24,7 @@ public class InteractionManager {
     if (obj instanceof Interactable interactable) {
       Tool tool = player.getEquipment().getEquippedTool();
       if (tool != null && tool.isBroken()) {
-        player.unequipTool();
+        player.getEquipment().unequip();
       }
 
       InteractResult result = interactable.interact(player);

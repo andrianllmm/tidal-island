@@ -55,10 +55,8 @@ public class Inventory implements Observable<InventoryChangeEvent> {
 
     // Fill existing stacks of the same type
     for (ItemStack<? extends Item> stack : stacks) {
-      if (stack.getItem().getType() == item.getType() && !stack.isFull()) {
-        int toAdd = Math.min(stack.getRemainingCapacity(), remaining);
-        stack.add(toAdd);
-        remaining -= toAdd;
+      if (stack.getItem().getType().equals(item.getType()) && !stack.isFull()) {
+        remaining -= stack.add(remaining);
         if (remaining == 0) {
           emitChange(item, amount, true);
           return true;
@@ -75,9 +73,9 @@ public class Inventory implements Observable<InventoryChangeEvent> {
 
     // Create new stacks
     while (remaining > 0) {
-      int toAdd = Math.min(item.getMaxStackSize(), remaining);
-      stacks.add(new ItemStack<>(item, toAdd));
-      remaining -= toAdd;
+      ItemStack<? extends Item> stack = new ItemStack<>(item, 0);
+      remaining -= stack.add(remaining);
+      stacks.add(stack);
     }
 
     emitChange(item, amount, true);
@@ -108,10 +106,8 @@ public class Inventory implements Observable<InventoryChangeEvent> {
       if (remaining <= 0) {
         break;
       }
-      if (stack.getItem().getType() == item.getType()) {
-        int toRemove = Math.min(stack.getQuantity(), remaining);
-        stack.remove(toRemove);
-        remaining -= toRemove;
+      if (stack.getItem().getType().equals(item.getType())) {
+        remaining -= stack.remove(remaining);
       }
     }
 
@@ -133,7 +129,7 @@ public class Inventory implements Observable<InventoryChangeEvent> {
    * @return true if the inventory has the item, false otherwise
    */
   public boolean has(ItemType type) {
-    return stacks.stream().anyMatch(s -> s.getItem().getType() == type);
+    return stacks.stream().anyMatch(s -> s.getItem().getType().equals(type));
   }
 
   /**
@@ -153,7 +149,7 @@ public class Inventory implements Observable<InventoryChangeEvent> {
    * @return the quantity
    */
   public int getQuantity(ItemType type) {
-    return stacks.stream().filter(s -> s.getItem().getType() == type)
+    return stacks.stream().filter(s -> s.getItem().getType().equals(type))
         .mapToInt(ItemStack::getQuantity).sum();
   }
 

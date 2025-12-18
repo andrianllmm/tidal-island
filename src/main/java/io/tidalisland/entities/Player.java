@@ -10,7 +10,6 @@ import io.tidalisland.graphics.sprites.SpriteSetBuilder;
 import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.inventory.Inventory;
-import io.tidalisland.items.Tool;
 import io.tidalisland.utils.Direction;
 import io.tidalisland.utils.Position;
 import io.tidalisland.worldobjects.InteractionManager;
@@ -37,7 +36,7 @@ public class Player extends LivingEntity {
     super(position, Direction.RIGHT, 4, 5.0, 0.5);
 
     this.inventory = new Inventory(24);
-    this.equipment = new Equipment();
+    this.equipment = new Equipment(this.inventory);
 
     this.keys = keys;
 
@@ -130,38 +129,6 @@ public class Player extends LivingEntity {
     currentFrame.setFlipX(direction == Direction.LEFT);
 
     currentFrame.draw(g, screenPos);
-  }
-
-  /**
-   * Equips a tool from inventory.
-   *
-   * @param tool the tool to equip
-   * @return the previously equipped tool, or null if none
-   */
-  public Tool equipTool(Tool tool) {
-    if (!inventory.has(tool)) {
-      return null;
-    }
-    Tool lastTool = equipment.equipTool(tool);
-    inventory.remove(tool, 1);
-    if (lastTool != null && !lastTool.isBroken()) {
-      inventory.add(lastTool, 1);
-    }
-    return lastTool;
-  }
-
-  /**
-   * Unequips the current tool.
-   */
-  public Tool unequipTool() {
-    if (!equipment.hasToolEquipped()) {
-      return null;
-    }
-    Tool lastTool = equipment.unequipTool();
-    if (lastTool != null && !lastTool.isBroken()) {
-      inventory.add(lastTool, 1);
-    }
-    return lastTool;
   }
 
   public Inventory getInventory() {
