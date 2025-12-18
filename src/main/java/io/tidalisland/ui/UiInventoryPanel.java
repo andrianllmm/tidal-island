@@ -105,7 +105,7 @@ public class UiInventoryPanel extends UiPanel {
 
         // Click handler
         slot.setOnClick(() -> {
-          selectedStack = stack;
+          selectedStack = (selectedStack == stack) ? null : stack;
           runAfterUpdate(UiInventoryPanel.this::refresh);
         });
 
