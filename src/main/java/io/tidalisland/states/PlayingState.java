@@ -53,24 +53,22 @@ public class PlayingState implements GameState {
 
     player = new Player(keys, spawnManager.findValidSpawnPosition());
 
-    tidalManager = new TidalManager(
-        worldMap, worldObjectManager, worldMap.getTileSet(), player, 5, 10);
+    tidalManager =
+        new TidalManager(worldMap, worldObjectManager, worldMap.getTileSet(), player, 5, 10);
 
     camera = new Camera();
-    ui = new UiManager(keys, mouse, player.getInventory(), worldObjectManager, tidalManager,
+    ui = new UiManager(gsm, keys, mouse, player.getInventory(), worldObjectManager, tidalManager,
         player);
 
-    debugRenderer = new DebugRenderer(
-        mouse, ui, worldObjectManager, collisionManager, camera, player);
+    debugRenderer =
+        new DebugRenderer(mouse, ui, worldObjectManager, collisionManager, camera, player);
   }
 
   @Override
-  public void onEnter() {
-  }
+  public void onEnter() {}
 
   @Override
-  public void onExit() {
-  }
+  public void onExit() {}
 
   @Override
   public void update() {

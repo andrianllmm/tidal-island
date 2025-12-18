@@ -6,7 +6,10 @@ import io.tidalisland.entities.Player;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.inventory.Inventory;
+import io.tidalisland.states.GameStateManager;
+import io.tidalisland.states.PauseState;
 import io.tidalisland.tide.TidalManager;
+import io.tidalisland.ui.components.UiButton;
 import io.tidalisland.ui.components.UiPanel;
 import io.tidalisland.ui.layout.HorizontalAlignment;
 import io.tidalisland.ui.layout.HorizontalStackLayout;
@@ -23,17 +26,26 @@ import java.awt.Graphics;
 public class UiManager {
 
   private final UiPanel root;
+  private final UiInventoryPanel invPanel;
+  private final UiCraftingPanel craftingPanel;
+
+  private final GameStateManager gsm;
   private final KeyHandler keys;
   private final MouseHandler mouse;
 
   /**
    * Initializes UI manager.
    */
-  public UiManager(KeyHandler keys, MouseHandler mouse, Inventory inventory,
+  public UiManager(GameStateManager gsm, KeyHandler keys, MouseHandler mouse, Inventory inventory,
       WorldObjectManager worldObjectManager, TidalManager tidalManager, Player player) {
-
+    this.gsm = gsm;
     this.keys = keys;
     this.mouse = mouse;
+
+    // Layout
+    final int topHeight = 60;
+    final int bottomHeight = 60;
+    final int centerHeight = Config.screenHeight() - bottomHeight - topHeight - 60;
 
     // Create root panel
     this.root = new UiPanel(Config.screenWidth(), Config.screenHeight(), 0, 0);
@@ -41,15 +53,38 @@ public class UiManager {
     this.root.setStyle(style);
     this.root.setLayout(new VerticalStackLayout(0));
 
-    // Layout
-    final int bottomHeight = 60;
-    final int centerHeight = Config.screenHeight() - bottomHeight - 60;
+    // Components
+
+    invPanel = new UiInventoryPanel(inventory, worldObjectManager, player);
+    craftingPanel = new UiCraftingPanel(inventory, new CraftingManager());
+
+    UiPlayerHealth healthBar = new UiPlayerHealth(player);
+    UiPlayerHunger hungerBar = new UiPlayerHunger(player);
+    UiTideTimer tideTimer = new UiTideTimer(tidalManager);
+
+    final int btnWidth = 40;
+    final int btnHeight = 36;
+    UiButton pauseButton = new UiButton("| |", btnWidth, btnHeight);
+    pauseButton.style(s -> s.fontSize(20));
+    pauseButton.setOnClick(() -> gsm.push(new PauseState(gsm, keys, mouse)));
+    UiButton toggleInventoryButton = new UiButton("i", btnWidth, btnHeight);
+    toggleInventoryButton.style(s -> s.fontSize(20));
+    toggleInventoryButton.setOnClick(() -> invPanel.setVisible(!invPanel.isVisible()));
+    UiButton toggleCraftingButton = new UiButton("c", btnWidth, btnHeight);
+    toggleCraftingButton.style(s -> s.fontSize(20));
+    toggleCraftingButton.setOnClick(() -> craftingPanel.setVisible(!craftingPanel.isVisible()));
+
+    // Layout panels
+
+    UiPanel top = new UiPanel(Config.screenWidth(), topHeight);
+    top.setStyle(UiStyleDirector.fromTransparent().padding(16).build());
+    top.setLayout(new HorizontalStackLayout(16));
+    top.getLayout().setAlignment(HorizontalAlignment.RIGHT, VerticalAlignment.TOP);
 
     UiPanel center = new UiPanel(Config.screenWidth(), centerHeight);
     center.setLayout(new HorizontalStackLayout(0));
     center.setStyle(UiStyleDirector.fromTransparent().padding(0).build());
     center.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-    root.add(center);
 
     UiPanel left = new UiPanel(Config.screenWidth() / 2 - 20, centerHeight);
     left.setLayout(new VerticalStackLayout(16));
@@ -57,36 +92,31 @@ public class UiManager {
     left.getLayout().setAlignment(HorizontalAlignment.LEFT);
 
     UiPanel right = new UiPanel(Config.screenWidth() / 2 - 20, centerHeight);
-    right.setStyle(UiStyleDirector.fromTransparent().padding(16).build());
     right.setLayout(new VerticalStackLayout(16));
+    right.setStyle(UiStyleDirector.fromTransparent().padding(16).build());
     right.getLayout().setAlignment(HorizontalAlignment.RIGHT);
 
-    center.add(left);
-    center.add(right);
 
     UiPanel bottom = new UiPanel(Config.screenWidth(), bottomHeight);
     bottom.setStyle(UiStyleDirector.fromTransparent().padding(16).build());
     bottom.setLayout(new HorizontalStackLayout(16));
     bottom.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM);
+
+    root.add(top);
+    root.add(center);
     root.add(bottom);
+    center.add(left);
+    center.add(right);
 
-    // Components
-    UiInventoryPanel inv = new UiInventoryPanel(inventory, worldObjectManager, player);
-    left.add(inv);
+    top.add(toggleInventoryButton);
+    top.add(toggleCraftingButton);
+    top.add(pauseButton);
 
-    UiEquipmentPanel equipment = new UiEquipmentPanel(player);
-    left.add(equipment);
+    left.add(invPanel);
+    right.add(craftingPanel);
 
-    UiCraftingPanel crafting = new UiCraftingPanel(inventory, new CraftingManager());
-    right.add(crafting);
-
-    UiPlayerHealth healthBar = new UiPlayerHealth(player);
     bottom.add(healthBar);
-
-    UiPlayerHunger hungerBar = new UiPlayerHunger(player);
     bottom.add(hungerBar);
-
-    UiTideTimer tideTimer = new UiTideTimer(tidalManager);
     bottom.add(tideTimer);
   }
 
