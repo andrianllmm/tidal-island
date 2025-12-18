@@ -25,8 +25,8 @@ public class Game implements Runnable {
    */
   public Game(GameCanvas gamePanel) {
     this.gamePanel = gamePanel;
-    this.gameBuffer =
-        new BufferedImage(Config.screenWidth(), Config.screenHeight(), BufferedImage.TYPE_INT_ARGB);
+    this.gameBuffer = new BufferedImage(
+        Config.screenWidth(), Config.screenHeight(), BufferedImage.TYPE_INT_ARGB);
   }
 
   /**
@@ -131,6 +131,5 @@ public class Game implements Runnable {
 
       bs.show();
     } while (bs.contentsLost());
-
   }
 }

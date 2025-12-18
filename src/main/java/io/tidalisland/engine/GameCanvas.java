@@ -5,7 +5,7 @@ import io.tidalisland.input.Action;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.states.GameStateManager;
-import io.tidalisland.states.PlayingState;
+import io.tidalisland.states.TitleState;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -45,7 +45,7 @@ public class GameCanvas extends Canvas {
     requestFocusInWindow();
 
     gsm = new GameStateManager();
-    gsm.push(new PlayingState(gsm, keys, mouse));
+    gsm.push(new TitleState(gsm, keys, mouse));
   }
 
   /**
