@@ -3,7 +3,7 @@ package io.tidalisland.items;
 /**
  * Base class for food items.
  */
-public class Food extends Item implements Edible {
+public abstract class Food extends Item implements Edible {
 
   private final int hungerValue;
 
