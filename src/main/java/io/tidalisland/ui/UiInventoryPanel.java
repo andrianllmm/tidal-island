@@ -35,31 +35,43 @@ public class UiInventoryPanel extends UiPanel {
   private final UiLabel title;
   private final ItemsPanel itemsPanel;
   private final ActionsPanel actionsPanel;
+  private final UiEquipmentPanel equipmentPanel;
 
   /**
    * Creates a new inventory panel.
    */
   public UiInventoryPanel(Inventory inventory, WorldObjectManager wom, Player player) {
-    super(276, 380);
+    super(296, 700);
     this.controller = new InventoryController(inventory, player, wom);
 
     setVisible(false);
+    setStyle(UiStyleDirector.makeTransparent());
+    style(s -> s.padding(8));
+    setLayout(new VerticalStackLayout(16));
+    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.TOP);
+
+    UiPanel main = new UiPanel(width, 460);
     style(s -> s.padding(8));
     setLayout(new VerticalStackLayout(8));
-    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
+    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.TOP);
+    add(main);
 
     // Title label
-    title = new UiLabel("Inventory", 268, 24);
+    title = new UiLabel("Inventory", main.getWidth() - 16, 24);
     title.style(s -> s.fontSize(16));
-    add(title);
+    main.add(title);
 
     // Items grid
-    itemsPanel = new ItemsPanel();
-    add(itemsPanel);
+    itemsPanel = new ItemsPanel(main.getWidth() - 16, 384);
+    main.add(itemsPanel);
 
     // Actions panel
-    actionsPanel = new ActionsPanel();
-    add(actionsPanel);
+    actionsPanel = new ActionsPanel(main.getWidth() - 16, 24);
+    main.add(actionsPanel);
+
+    // Equipment panel
+    equipmentPanel = new UiEquipmentPanel(player, width, 180);
+    add(equipmentPanel);
 
     refresh();
     inventory.addListener(evt -> refresh());
@@ -81,9 +93,10 @@ public class UiInventoryPanel extends UiPanel {
    * Displays items in a grid.
    */
   class ItemsPanel extends UiPanel {
-    public ItemsPanel() {
-      super(276, 256);
+    public ItemsPanel(int width, int height) {
+      super(width, height);
       setLayout(new GridLayout(4, 64, 64, 4, 4));
+      getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.TOP);
       setStyle(UiStyleDirector.makeTransparent());
     }
 
@@ -128,8 +141,8 @@ public class UiInventoryPanel extends UiPanel {
    * Displays actions for selected item.
    */
   class ActionsPanel extends UiPanel {
-    public ActionsPanel() {
-      super(276, 24);
+    public ActionsPanel(int width, int height) {
+      super(width, height);
       setLayout(new VerticalStackLayout(4));
       getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM);
       setStyle(UiStyleDirector.makeTransparent());
@@ -147,7 +160,7 @@ public class UiInventoryPanel extends UiPanel {
       Item item = selectedStack.getItem();
 
       if (item instanceof Placeable) {
-        UiButton placeButton = new UiButton("Place", 64, 24);
+        UiButton placeButton = new UiButton("Place", 64, height);
         placeButton.style(s -> s.borderWidth(0));
         placeButton.setOnClick(() -> {
           if (controller.placeItem(item)) {
@@ -160,7 +173,7 @@ public class UiInventoryPanel extends UiPanel {
       }
 
       if (item instanceof Edible) {
-        UiButton eatButton = new UiButton("Eat", 64, 24);
+        UiButton eatButton = new UiButton("Eat", 64, height);
         eatButton.style(s -> s.borderWidth(0));
         eatButton.setOnClick(() -> {
           if (controller.eatItem(item)) {
@@ -173,7 +186,7 @@ public class UiInventoryPanel extends UiPanel {
       }
 
       if (item instanceof Tool) {
-        UiButton equipButton = new UiButton("Equip", 64, 24);
+        UiButton equipButton = new UiButton("Equip", 64, height);
         equipButton.style(s -> s.borderWidth(0));
         equipButton.setOnClick(() -> {
           if (controller.equipItem(item)) {

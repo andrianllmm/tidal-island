@@ -29,31 +29,31 @@ public class UiEquipmentPanel extends UiPanel {
   /**
    * Creates a new equipment panel.
    */
-  public UiEquipmentPanel(Player player) {
-    super(276, 200);
+  public UiEquipmentPanel(Player player, int width, int height) {
+    super(width, height);
     this.player = player;
 
-    setVisible(false);
     style(s -> s.padding(8));
     setLayout(new VerticalStackLayout(8));
-    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
+    getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.TOP);
 
-    title = new UiLabel("Equipment", 268, 24);
+    title = new UiLabel("Equipment", width - 16, 24);
     title.style(s -> s.fontSize(16));
     add(title);
 
     slot = new UiPanel(64, 64);
     slot.setStyle(UiStyleDirector.makeTransparent());
     slot.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-    slot.style(s -> s.borderWidth(2).borderColor(Color.WHITE).cornerRadius(8));
+    slot.style(s -> s.borderWidth(2).borderColor(new Color(60, 60, 60)).cornerRadius(8));
     add(slot);
 
     durabilityBar = new UiProgressBar(64, 10, () -> player.getEquipment().getDurabilityPercent(),
-        (double progress) -> new Color(255, 255, 255, (int) (255 * progress)));
-    durabilityBar.style(s -> s.borderWidth(2));
+        (double progress) -> new Color(150, 150, 150, (int) (250 * progress)));
+    durabilityBar.style(s -> s.borderWidth(2).borderColor(new Color(60, 60, 60)));
     add(durabilityBar);
 
     unequipButton = new UiButton("Unequip", 80, 24);
+    unequipButton.getLabel().style(s -> s.fontSize(14));
     unequipButton.style(s -> s.borderWidth(0));
     unequipButton.setOnClick(() -> {
       player.getEquipment().unequip();
@@ -75,13 +75,6 @@ public class UiEquipmentPanel extends UiPanel {
       UiImage icon =
           new UiImage(player.getEquipment().getEquippedTool().getSprite().getImage(), 36, 36);
       slot.add(icon);
-    }
-  }
-
-  @Override
-  public void onUpdate(KeyHandler keys, MouseHandler mouse) {
-    if (keys.isJustPressed(Action.TOGGLE_INVENTORY)) {
-      toggleVisible();
     }
   }
 }

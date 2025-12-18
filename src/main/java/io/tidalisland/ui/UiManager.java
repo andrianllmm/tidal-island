@@ -52,17 +52,21 @@ public class UiManager {
     root.add(center);
 
     UiPanel left = new UiPanel(Config.screenWidth() / 2 - 20, centerHeight);
-    left.setStyle(UiStyleDirector.fromTransparent().padding(8).build());
+    left.setLayout(new VerticalStackLayout(16));
+    left.setStyle(UiStyleDirector.fromTransparent().padding(16).build());
     left.getLayout().setAlignment(HorizontalAlignment.LEFT);
+
     UiPanel right = new UiPanel(Config.screenWidth() / 2 - 20, centerHeight);
-    right.setStyle(UiStyleDirector.fromTransparent().padding(8).build());
+    right.setStyle(UiStyleDirector.fromTransparent().padding(16).build());
+    right.setLayout(new VerticalStackLayout(16));
     right.getLayout().setAlignment(HorizontalAlignment.RIGHT);
+
     center.add(left);
     center.add(right);
 
     UiPanel bottom = new UiPanel(Config.screenWidth(), bottomHeight);
-    bottom.setStyle(UiStyleDirector.fromTransparent().padding(8).build());
-    bottom.setLayout(new HorizontalStackLayout(8));
+    bottom.setStyle(UiStyleDirector.fromTransparent().padding(16).build());
+    bottom.setLayout(new HorizontalStackLayout(16));
     bottom.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM);
     root.add(bottom);
 
