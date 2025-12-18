@@ -148,7 +148,7 @@ public class UiInventoryPanel extends UiPanel {
       UiButton equipButton = new UiButton("Equip", 64, 24);
       equipButton.style(s -> s.borderWidth(0));
       equipButton.setOnClick(() -> {
-        player.equipTool(tool);
+        player.getEquipment().equip(tool);
         selectedStack = null;
         runAfterUpdate(this::refresh);
       });

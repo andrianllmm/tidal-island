@@ -3,6 +3,7 @@ package io.tidalisland.entities;
 import io.tidalisland.events.EquipmentChangeEvent;
 import io.tidalisland.events.EventListener;
 import io.tidalisland.events.Observable;
+import io.tidalisland.inventory.Inventory;
 import io.tidalisland.items.ItemType;
 import io.tidalisland.items.Tool;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -13,9 +14,19 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Equipment implements Observable<EquipmentChangeEvent> {
 
   private Tool equippedTool;
+  private final Inventory inventory;
 
   private final CopyOnWriteArrayList<EventListener<EquipmentChangeEvent>> listeners =
       new CopyOnWriteArrayList<>();
+
+  /**
+   * Creates a new equipment manager.
+   *
+   * @param inventory the inventory
+   */
+  public Equipment(Inventory inventory) {
+    this.inventory = inventory;
+  }
 
   /**
    * Equips a tool.
@@ -23,10 +34,20 @@ public class Equipment implements Observable<EquipmentChangeEvent> {
    * @param tool the tool to equip
    * @return the previously equipped tool, or null if none
    */
-  public Tool equipTool(Tool tool) {
+  public Tool equip(Tool tool) {
+    if (!inventory.has(tool)) {
+      return null;
+    }
+
     Tool lastTool = this.equippedTool;
     this.equippedTool = tool;
+    inventory.remove(tool, 1);
+    if (lastTool != null && !lastTool.isBroken()) {
+      inventory.add(lastTool, 1);
+    }
+
     emitChange(this.equippedTool.getType(), true);
+
     return lastTool;
   }
 
@@ -35,13 +56,19 @@ public class Equipment implements Observable<EquipmentChangeEvent> {
    *
    * @return the previously equipped tool, or null if none
    */
-  public Tool unequipTool() {
+  public Tool unequip() {
     if (!hasToolEquipped()) {
       return null;
     }
+
     emitChange(this.equippedTool.getType(), false);
+
     Tool lastTool = this.equippedTool;
     this.equippedTool = null;
+    if (lastTool != null && !lastTool.isBroken()) {
+      inventory.add(lastTool, 1);
+    }
+
     return lastTool;
   }
 

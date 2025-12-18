@@ -56,7 +56,7 @@ public class UiEquipmentPanel extends UiPanel {
     unequipButton = new UiButton("Unequip", 80, 24);
     unequipButton.style(s -> s.borderWidth(0));
     unequipButton.setOnClick(() -> {
-      player.unequipTool();
+      player.getEquipment().unequip();
       runAfterUpdate(this::refresh);
     });
     add(unequipButton);
