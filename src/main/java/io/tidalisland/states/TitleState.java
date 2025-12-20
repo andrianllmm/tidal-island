@@ -6,6 +6,7 @@ import io.tidalisland.graphics.Camera;
 import io.tidalisland.input.KeyHandler;
 import io.tidalisland.input.MouseHandler;
 import io.tidalisland.tiles.WorldMap;
+import io.tidalisland.ui.UiInstructions;
 import io.tidalisland.ui.components.UiButton;
 import io.tidalisland.ui.components.UiLabel;
 import io.tidalisland.ui.components.UiPanel;
@@ -14,7 +15,6 @@ import io.tidalisland.ui.layout.VerticalAlignment;
 import io.tidalisland.ui.layout.VerticalStackLayout;
 import io.tidalisland.ui.styles.UiStyleDirector;
 import io.tidalisland.worldobjects.WorldObjectManager;
-import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -33,7 +33,10 @@ public class TitleState implements GameState {
   private int panY = 1;
 
   private UiPanel ui;
+  private UiPanel instructionsPanel;
+  private UiInstructions instructions;
   private UiButton startButton;
+  private UiButton instructionsButton;
   private UiButton quitButton;
 
   /**
@@ -53,11 +56,29 @@ public class TitleState implements GameState {
     ui.setStyle(UiStyleDirector.fromTransparent().padding(24).build());
     ui.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
+    // Instructions panel
+    instructionsPanel = new UiPanel(Config.screenWidth(), Config.screenHeight(), 0, 0);
+    instructionsPanel.setVisible(false);
+    instructionsPanel.setStyle(UiStyleDirector.fromTransparent().padding(24).build());
+    instructionsPanel.getLayout().setAlignment(
+        HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
+    instructions = new UiInstructions(500, 800);
+    instructionsPanel.add(instructions);
+
+    UiButton closeInstructions = new UiButton("Back", instructions.getWidth() / 2, 24);
+    closeInstructions.setOnClick(() -> {
+      ui.setVisible(true);
+      instructionsPanel.setVisible(false);
+    });
+    instructionsPanel.add(closeInstructions);
+
     // Title label
     UiLabel titleLabel = new UiLabel("TIDAL ISLAND", 600, 180);
     titleLabel.setStyle(UiStyleDirector.makeTransparent());
     titleLabel.style(s -> s.fontSize(64));
     ui.add(titleLabel);
+
+    // Actions panel
 
     UiPanel actionsPanel = new UiPanel(240, 160);
     actionsPanel.setStyle(UiStyleDirector.fromTransparent().padding(4).build());
@@ -65,7 +86,12 @@ public class TitleState implements GameState {
     actionsPanel.getLayout().setAlignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
     ui.add(actionsPanel);
 
-    startButton = new UiButton("START", 180, 40);
+    final int buttonWidth = 240;
+    final int buttonHeight = 40;
+
+    // Start button
+
+    startButton = new UiButton("START", buttonWidth, buttonHeight);
     startButton.getLabel().style(s -> s.fontSize(24));
 
     startButton.setOnClick(() -> {
@@ -74,7 +100,21 @@ public class TitleState implements GameState {
 
     actionsPanel.add(startButton);
 
-    quitButton = new UiButton("QUIT", 180, 40);
+    // Instructions button
+
+    instructionsButton = new UiButton("HOW TO PLAY", buttonWidth, buttonHeight);
+    instructionsButton.getLabel().style(s -> s.fontSize(24));
+
+    instructionsButton.setOnClick(() -> {
+      ui.toggleVisible();
+      instructionsPanel.toggleVisible();
+    });
+
+    actionsPanel.add(instructionsButton);
+
+    // Quit button
+
+    quitButton = new UiButton("QUIT", buttonWidth, buttonHeight);
     quitButton.getLabel().style(s -> s.fontSize(24));
 
     quitButton.setOnClick(() -> {
@@ -98,7 +138,12 @@ public class TitleState implements GameState {
 
   @Override
   public void update() {
-    ui.update(keys, mouse);
+    if (ui.isVisible()) {
+      ui.update(keys, mouse);
+    }
+    if (instructionsPanel.isVisible()) {
+      instructionsPanel.update(keys, mouse);
+    }
 
     // Automatic panning
     camera.update(panX, panY);
@@ -123,5 +168,6 @@ public class TitleState implements GameState {
     worldMap.draw(g, camera);
     worldObjectManager.draw(g, camera);
     ui.render(g);
+    instructionsPanel.render(g);
   }
 }

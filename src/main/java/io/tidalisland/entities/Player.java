@@ -33,7 +33,7 @@ public class Player extends LivingEntity {
    * Creates a new player entity.
    */
   public Player(KeyHandler keys, Position position) {
-    super(position, Direction.RIGHT, 4, 5.0, 0.5);
+    super(position, Direction.RIGHT, 4, 4.0, 2.0);
 
     this.inventory = new Inventory(24);
     this.equipment = new Equipment(this.inventory);

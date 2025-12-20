@@ -2,7 +2,8 @@
 
 ## Coverage
 
-- Core data structures (Position, Size, Collider)
+- Core data structures (Position, Size)
+- Collision operations (colliders)
 - Inventory operations (add, remove, stacking)
-- Item system (stacks, recipes)
+- Crafting operations (crafting recipes)
 - World interactions (drops, results)

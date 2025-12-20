@@ -20,7 +20,7 @@ public class Tree extends WorldObject implements Interactable {
 
   public static final WorldObjectType TYPE = new WorldObjectType("tree");
 
-  private int health = 10;
+  private int health = 9;
 
   /**
    * Creates a new tree.
@@ -44,7 +44,7 @@ public class Tree extends WorldObject implements Interactable {
     }
     if (health <= 0) {
       List<Drop> drops =
-          List.of(new Drop(new Wood(), 1), new Drop(new Leaf(), 2, 4), new Drop(new Apple(), 0, 1));
+          List.of(new Drop(new Wood(), 1), new Drop(new Leaf(), 2, 4), new Drop(new Apple(), 0, 2));
       return new InteractResult(drops, true);
     }
     return new InteractResult(List.of(), false);
