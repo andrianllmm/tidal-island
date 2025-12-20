@@ -12,14 +12,14 @@
 
 <div align="center">
     <img src="./docs/images/title-screen.png" alt="Title Screen" width="400" />
+    <img src="./docs/images/playing-on-raft.gif" alt="Gameplay on Raft" width="400" />
+    <img src="./docs/images/playing.gif" alt="Gameplay with Panels" width="400" />
     <img src="./docs/images/playing.png" alt="Gameplay" width="400" />
-    <img src="./docs/images/playing-with-panels.png" alt="Gameplay with Panels" width="400" />
-    <img src="./docs/images/playing-on-raft.png" alt="Gameplay on Raft" width="400" />
 </div>
 
 ## About
 
-Tidal Island is a survival game where you're stranded on a deserted island and must gather resources and craft items to escape. You must progress toward building a raft to escape before the tides get too high and submerge the island!
+_Tidal Island_ is a survival game where you're stranded on a deserted island and must gather resources and craft items to escape. You must progress toward building a raft to escape before the tides get too high and submerge the island!
 
 ## Features
 
