@@ -4,10 +4,13 @@ import io.tidalisland.config.Config;
 import java.awt.Frame;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * The game window.
@@ -24,8 +27,14 @@ public class GameWindow extends Frame {
   public GameWindow(Game game, GameCanvas canvas) {
     super("Tidal Island");
     this.canvas = canvas;
-    this.graphicsDevice =
-        GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    this.graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
+    try {
+      Image icon = ImageIO.read(getClass().getResource("/icon.png"));
+      setIconImage(icon);
+    } catch (IOException | IllegalArgumentException e) {
+      System.err.println("Failed to load icon: " + e.getMessage());
+    }
 
     add(canvas);
     pack();
@@ -35,8 +44,6 @@ public class GameWindow extends Frame {
 
     setResizable(true);
     setLocationRelativeTo(null);
-
-    enterFullscreen();
 
     // Handle closing the window
     addWindowListener(new WindowAdapter() {
@@ -106,7 +113,6 @@ public class GameWindow extends Frame {
       exitFullscreen();
     }
   }
-
 
   /**
    * Exits fullscreen mode.
