@@ -34,15 +34,15 @@ _Tidal Island_ is a survival game where you're stranded on a deserted island and
 
 ## Installation
 
-1. Go to the [latest release](https://github.com/andrianllmm/tidal-island/releases/latest) on GitHub.
+1. Go to the [latest release](https://github.com/andrianllmm/tidal-island/releases/latest) on GitHub
 2. Download the installer for your operating system:
 
-   - **Windows**: `.exe` file
+   - **Windows**: `.msi` file
    - **Mac**: `.dmg` file
    - **Linux**: `.deb` (Debian/Ubuntu) or `.rpm` (Fedora/openSUSE)
 
-3. Install the game:
-4. Once installed, open the game from your applications menu.
+3. Install the game
+4. Once installed, open the game from your applications menu
 5. Enjoy escaping the island!
 
 ## How to Play
