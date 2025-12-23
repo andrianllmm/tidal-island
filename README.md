@@ -174,4 +174,4 @@ Contributions are welcome! To get started:
 ## Issues
 
 Found a bug or issue? Report it on the
-[issues page](https://github.com/andrianllmm/renux/issues).
+[issues page](https://github.com/andrianllmm/tidal-island/issues).
