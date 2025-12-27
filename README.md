@@ -15,10 +15,7 @@
 </div>
 
 <div align="center">
-    <img src="./docs/images/title-screen.png" alt="Title Screen" width="400" />
-    <img src="./docs/images/playing-on-raft.gif" alt="Gameplay on Raft" width="400" />
-    <img src="./docs/images/playing.gif" alt="Gameplay with Panels" width="400" />
-    <img src="./docs/images/playing.png" alt="Gameplay" width="400" />
+    <img src="./docs/images/preview.gif" alt="Preview" width="400" />
 </div>
 
 ## About
